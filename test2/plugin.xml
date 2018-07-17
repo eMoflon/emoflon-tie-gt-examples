@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package class="test2.Test2Package" genModel="model/Test2.genmodel" uri="platform:/resource/test2/model/Test2.ecore"/>
+  </extension>
+</plugin>

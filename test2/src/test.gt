@@ -1,0 +1,27 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/test2/model/Test2.ecore"
+
+
+pattern matchBox(){
+	partition : Partition{
+		-box->b
+	}
+	b : Box{
+		-partition->partition
+	}
+}
+
+rule addPartition{
+	++b2: Box{
+		++ -partition->p2
+	}
+	p2:Partition
+}
+
+rule removePartition{
+	p3:Partition
+	b:Box{
+		-- -partition->p3
+	}
+}
+
