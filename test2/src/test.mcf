@@ -1,33 +1,17 @@
-/*
-* import section
-*
-* for imports from plugins use:
-* import "platform:/plugin/something/ecoreFile.ecore"
-*
-*
-* for imports in your current eclipse runtime use:
-* import "platform:/resource/something/ecoreFile.ecore"
-*/
 import "platform:/plugin/test2/model/Test2.ecore"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
 using "test.gt"
-/*
-* using session
-*
-* for every defined Patternfile you want to use:
-* using "platform:/.../patternFile.mpt"
-*/
 
 package src.test
 
 class Box {
 	operation matchABox():void{
+	    this:Box
 		p:Partition
-		invoke matchBox(matchBox.partition = p)
-		invoke addPartition()
-		invoke removePartition()
+		invoke matchPartition(matchPartition.b = this, matchPartition.partition = p)
+		invoke addPartition(addPartition.b = this)
+		invoke removePartition(removePartition.b= this)
 	}
-	
+
 }
-// EClass declaration

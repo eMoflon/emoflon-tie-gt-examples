@@ -2,7 +2,7 @@ import "http://www.eclipse.org/emf/2002/Ecore"
 import "platform:/resource/test2/model/Test2.ecore"
 
 
-pattern matchBox(){
+pattern matchPartition() {
 	partition : Partition{
 		-box->b
 	}
@@ -12,10 +12,10 @@ pattern matchBox(){
 }
 
 rule addPartition{
-	++b2: Box{
+	b: Box{
 		++ -partition->p2
 	}
-	p2:Partition
+	++p2:Partition
 }
 
 rule removePartition{
