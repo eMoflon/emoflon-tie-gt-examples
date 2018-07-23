@@ -6,12 +6,22 @@ using "test.gt"
 package src.test
 
 class Box {
-	operation matchABox():void{
+	operation matchAPartition():void{
 	    this:Box
 		p:Partition
 		invoke matchPartition(matchPartition.b = this, matchPartition.partition = p)
-		invoke addPartition(addPartition.b = this)
+	}
+	operation removeAPartition():void{
+		this:Box
+		p:Partition
 		invoke removePartition(removePartition.b= this, removePartition.p3 = p)
+		
+	}
+	
+	operation addAPartition():void{
+		this:Box
+		p:Partition
+		invoke addPartition(addPartition.b = this,addPartition.p2=p)
 	}
 
 }
