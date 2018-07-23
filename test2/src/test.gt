@@ -3,9 +3,7 @@ import "platform:/resource/test2/model/Test2.ecore"
 
 
 pattern matchPartition() {
-	partition : Partition{
-//		-box->b
-	}
+	partition : Partition
 	b : Box{
 		-partition->partition
 	}

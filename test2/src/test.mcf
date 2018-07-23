@@ -11,7 +11,7 @@ class Box {
 		p:Partition
 		invoke matchPartition(matchPartition.b = this, matchPartition.partition = p)
 		invoke addPartition(addPartition.b = this)
-		invoke removePartition(removePartition.b= this)
+		invoke removePartition(removePartition.b= this, removePartition.p3 = p)
 	}
 
 }
