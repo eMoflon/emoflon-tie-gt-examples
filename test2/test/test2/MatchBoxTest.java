@@ -2,6 +2,7 @@ package test2;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,21 +16,41 @@ class MatchBoxTest {
 		Box b= factory.createBox();
 		Partition p = factory.createPartition();
 		p.setBox(b);
+		b.setBoxSize(0);
 		//Preconditions
-		assertNull(p.getBox());
-		assertNull(b.getPartition());
-		b.matchABox();
+		assertNotNull(p.getBox());
+		assertNotNull(b.getPartition());
+		assertTrue(b.getBoxSize()==0);
+		b.matchAPartition();
 		//Postconditions
 		assertNotNull(b.getPartition());
 		assertNotNull(p.getBox());
+		assertTrue(b.getBoxSize()==0);
 	}
 	
 	@Test
-	void matchPartitionNegative() throws RuntimeException {
+	void matchPartitionNegativeAttribute() throws RuntimeException {
+		
+		Box b= factory.createBox();
+		b.setBoxSize(1);
+		Partition p = factory.createPartition();
+		p.setBox(b);
+		try {
+			b.matchAPartition();
+		}
+		catch(RuntimeException e) {
+			assert(true);
+			return;
+		}
+		assert(false);
+	}
+	
+	@Test
+	void matchPartitionNegativeNoPartition() throws RuntimeException {
 		
 		Box b= factory.createBox();
 		try {
-			b.matchABox();
+			b.matchAPartition();
 		}
 		catch(RuntimeException e) {
 			assert(true);
@@ -63,7 +84,7 @@ class MatchBoxTest {
 			b.removeAPartition();
 		}
 		catch(RuntimeException e) {
-			assert(true);
+			assertTrue(true);
 			return;
 		}
 		assert(false);
