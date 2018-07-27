@@ -14,6 +14,7 @@ class MatchBoxTest {
 	void matchPartitionPositive() {
 		Test2Factory factory=Test2Factory.eINSTANCE;
 		Box b= factory.createBox();
+		b.setName("testbox");
 		Partition p = factory.createPartition();
 		p.setBox(b);
 		b.setBoxSize(0);
@@ -33,16 +34,34 @@ class MatchBoxTest {
 		
 		Box b= factory.createBox();
 		b.setBoxSize(1);
+		b.setName("testbox");
 		Partition p = factory.createPartition();
 		p.setBox(b);
 		try {
 			b.matchAPartition();
 		}
 		catch(RuntimeException e) {
-			assert(true);
+			assertTrue(true);
 			return;
 		}
-		assert(false);
+		assertTrue(false);
+	}
+	@Test
+	void matchPartitionNegativeStringAttribute() throws RuntimeException {
+		
+		Box b= factory.createBox();
+		b.setBoxSize(0);
+		b.setName("this is not the box that you are looking for");
+		Partition p = factory.createPartition();
+		p.setBox(b);
+		try {
+			b.matchAPartition();
+		}
+		catch(RuntimeException e) {
+			assertTrue(true);
+			return;
+		}
+		assertTrue(false);
 	}
 	
 	@Test
@@ -53,10 +72,10 @@ class MatchBoxTest {
 			b.matchAPartition();
 		}
 		catch(RuntimeException e) {
-			assert(true);
+			assertTrue(true);
 			return;
 		}
-		assert(false);
+		assertTrue(false);
 	}
 	
 	@Test
@@ -87,7 +106,7 @@ class MatchBoxTest {
 			assertTrue(true);
 			return;
 		}
-		assert(false);
+		assertTrue(false);
 	}
 	
 	@Test
@@ -112,10 +131,10 @@ class MatchBoxTest {
 			b.addAPartition();
 		}
 		catch(RuntimeException e) {
-			assert(true);
+			assertTrue(true);
 			return;
 		}
-		assert(false);
+		assertTrue(false);
 	}
 
 }
