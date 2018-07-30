@@ -17,9 +17,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAssignable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="boxWidthcm" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="thisBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BoxType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Partition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="box" eType="#//Box" eOpposite="#//Box/partition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Card"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="BoxType">
+    <eLiterals name="BIG_BOX" value="2"/>
+    <eLiterals name="MEDIUM_BOX" value="1" literal="MEDIUM_BOX"/>
+    <eLiterals name="SMALL_BOX"/>
+  </eClassifiers>
 </ecore:EPackage>

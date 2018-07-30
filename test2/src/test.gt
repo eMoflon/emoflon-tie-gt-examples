@@ -5,6 +5,7 @@ import "platform:/resource/test2/model/Test2.ecore"
 pattern matchPartition(boxId:EInt) {
 	partition : Partition
 	b : Box{
+		.type==enum::BIG_BOX
 		.name=="testbox"
 		.thisBoxId==param::boxId
 		.boxSize==0

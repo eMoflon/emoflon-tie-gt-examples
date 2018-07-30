@@ -6,21 +6,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 
 class MatchBoxTest {
 
+	void setupPositive(Box b, Partition p) {
+		b.setName("testbox");
+		b.setBoxWidthcm(1.1);
+		b.setIsAssignable(true);
+		b.setThisBoxId(1);
+		b.setType(BoxType.BIG_BOX);
+		p.setBox(b);
+		b.setBoxSize(0);
+	}
+	
 	private static final Test2Factory factory=Test2Factory.eINSTANCE;
 	@Test
 	void matchPartitionPositive() {
 		Test2Factory factory=Test2Factory.eINSTANCE;
 		Box b= factory.createBox();
-		b.setName("testbox");
-		b.setBoxWidthcm(1.1);
-		b.setIsAssignable(true);
-		b.setThisBoxId(1);
 		Partition p = factory.createPartition();
-		p.setBox(b);
-		b.setBoxSize(0);
+		setupPositive(b, p);
 		//Preconditions
 		assertNotNull(p.getBox());
 		assertNotNull(b.getPartition());
@@ -36,10 +43,9 @@ class MatchBoxTest {
 	void matchPartitionNegativeAttribute() throws RuntimeException {
 		
 		Box b= factory.createBox();
-		b.setBoxSize(1);
-		b.setName("testbox");
 		Partition p = factory.createPartition();
-		p.setBox(b);
+		setupPositive(b, p);
+		b.setBoxSize(1);
 		try {
 			b.matchAPartition(1);
 		}
@@ -53,11 +59,9 @@ class MatchBoxTest {
 	void matchPartitionNegativeStringAttribute() throws RuntimeException {
 		
 		Box b= factory.createBox();
-		b.setBoxSize(0);
-		b.setThisBoxId(1);
-		b.setName("this is not the box that you are looking for");
 		Partition p = factory.createPartition();
-		p.setBox(b);
+		setupPositive(b, p);
+		b.setName("this is not the box that you are looking for");
 		try {
 			b.matchAPartition(1);
 		}
@@ -72,7 +76,11 @@ class MatchBoxTest {
 	void matchPartitionNegativeNoPartition() throws RuntimeException {
 		
 		Box b= factory.createBox();
-		b.setThisBoxId(1);
+		Partition p = factory.createPartition();
+		setupPositive(b, p);
+		b.setPartition(null);
+		p.setBox(null);
+		p=null;
 		try {
 			b.matchAPartition(1);
 		}
@@ -87,7 +95,7 @@ class MatchBoxTest {
 	void removePartitionPositive() {
 		Box b= factory.createBox();
 		Partition p = factory.createPartition();
-		p.setBox(b);
+		setupPositive(b, p);
 		//Preconditions
 		assertNotNull(b.getPartition());
 		assertNotNull(p.getBox());
@@ -101,6 +109,9 @@ class MatchBoxTest {
 	void removePartitionNegative() {
 		Box b= factory.createBox();
 		Partition p = factory.createPartition();
+		setupPositive(b, p);
+		p.setBox(null);
+		b.setPartition(null);
 		//Preconditions
 		assertNull(b.getPartition());
 		assertNull(p.getBox());
@@ -118,6 +129,9 @@ class MatchBoxTest {
 	void addPartitionPositive() {
 		Box b= factory.createBox();
 		Partition p = factory.createPartition();
+		setupPositive(b, p);
+		p.setBox(null);
+		b.setPartition(null);
 		//Preconditions
 		assertNull(p.getBox());
 		assertNull(b.getPartition());
@@ -146,13 +160,26 @@ class MatchBoxTest {
 	void matchPartitionNegativeParameter() throws RuntimeException {
 		
 		Box b= factory.createBox();
-		b.setName("testbox");
-		b.setBoxWidthcm(1.1f);
-		b.setIsAssignable(true);
-		b.setThisBoxId(1);
 		Partition p = factory.createPartition();
-		p.setBox(b);
+		setupPositive(b, p);
 		b.setBoxSize(0);
+		try {
+			b.matchAPartition(0);
+		}
+		catch(RuntimeException e) {
+			assertTrue(true);
+			return;
+		}
+		assertTrue(false);
+	}
+	
+	@Test
+	void matchPartitionNegativeEnum() throws RuntimeException {
+		
+		Box b= factory.createBox();
+		Partition p = factory.createPartition();
+		setupPositive(b, p);
+		b.setType(BoxType.SMALL_BOX);
 		try {
 			b.matchAPartition(0);
 		}
