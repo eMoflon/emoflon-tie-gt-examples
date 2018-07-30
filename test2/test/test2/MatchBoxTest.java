@@ -15,6 +15,8 @@ class MatchBoxTest {
 		Test2Factory factory=Test2Factory.eINSTANCE;
 		Box b= factory.createBox();
 		b.setName("testbox");
+		b.setBoxWidthcm(1.1f);
+		b.setIsAssignable(true);
 		Partition p = factory.createPartition();
 		p.setBox(b);
 		b.setBoxSize(0);

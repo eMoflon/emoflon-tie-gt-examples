@@ -2,11 +2,14 @@ import "http://www.eclipse.org/emf/2002/Ecore"
 import "platform:/resource/test2/model/Test2.ecore"
 
 
-pattern matchPartition() {
+pattern matchPartition(boxId:EInt) {
 	partition : Partition
 	b : Box{
 		.name=="testbox"
+		.thisBoxId==param::boxId
 		.boxSize==0
+		.isAssignable==true
+		.boxWidthcm==1.1
 		-partition->partition
 	}
 }

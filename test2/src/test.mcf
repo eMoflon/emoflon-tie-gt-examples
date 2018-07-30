@@ -6,10 +6,11 @@ using "test.gt"
 package src.test
 
 class Box {
-	operation matchAPartition():void{
+	
+	operation matchAPartition(searchedBoxId:EInt):void{
 	    this:Box
 		p:Partition
-		invoke matchPartition(matchPartition.b = this, matchPartition.partition = p)
+		invoke matchPartition(matchPartition.b = this, matchPartition.partition = p,matchPartition.boxId=searchedBoxId)
 	}
 	operation removeAPartition():void{
 		this:Box
