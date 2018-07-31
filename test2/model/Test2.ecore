@@ -8,7 +8,9 @@
     <eOperations name="matchAPartition">
       <eParameters name="searchedBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eOperations>
-    <eOperations name="removeAPartition"/>
+    <eOperations name="removeAPartition">
+      <eParameters name="searchedBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
     <eOperations name="addAPartition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partition" eType="#//Partition"
         containment="true" eOpposite="#//Partition/box"/>
@@ -21,6 +23,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Partition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="box" eType="#//Box" eOpposite="#//Box/partition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Card"/>
   <eClassifiers xsi:type="ecore:EEnum" name="BoxType">

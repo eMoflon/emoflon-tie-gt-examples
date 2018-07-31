@@ -12,10 +12,10 @@ class Box {
 		p:Partition
 		invoke matchPartition(matchPartition.b = this, matchPartition.partition = p,matchPartition.boxId=searchedBoxId)
 	}
-	operation removeAPartition():void{
+	operation removeAPartition(searchedBoxId:EInt):void{
 		this:Box
 		p:Partition
-		invoke removePartition(removePartition.b= this, removePartition.p3 = p)
+		invoke removePartition(removePartition.b= this, removePartition.p3 = p,removePartition.boxId=searchedBoxId)
 		
 	}
 	
