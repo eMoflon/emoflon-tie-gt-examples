@@ -6,12 +6,12 @@ pattern matchPartition(boxId:EInt) {
 	partition : Partition
 	b : Box{
 		.boxSize>=partition.size
-		//.type==enum::BIG_BOX
-		//.name=="testbox"
 		.thisBoxId==param::boxId
 		.boxSize!=0
-		//.isAssignable==true
 		.boxWidthcm==1.1
+		//.isAssignable==true
+		//.type==enum::BIG_BOX
+		.name=="testbox"
 		-partition->partition
 	}
 }
@@ -21,7 +21,7 @@ rule addPartition{
 		++ -partition->p2
 	}
 	++p2:Partition
-}
+} when noPartitionBound
 
 rule removePartition(boxId:EInt){
 	--p3:Partition
@@ -29,5 +29,14 @@ rule removePartition(boxId:EInt){
 		.thisBoxId==param::boxId
 		-- -partition->p3
 	}
+}
+
+condition noPartitionBound = forbid matchNoPartition
+
+pattern matchNoPartition{
+	b:Box{
+		-partition->p
+	}
+	p:Partition
 }
 
