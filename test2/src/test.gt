@@ -21,7 +21,7 @@ rule addPartition{
 		++ -partition->p2
 	}
 	++p2:Partition
-} when noPartitionBound
+} when noPartitionBound 
 
 rule removePartition(boxId:EInt){
 	--p3:Partition
@@ -32,6 +32,10 @@ rule removePartition(boxId:EInt){
 }
 
 condition noPartitionBound = forbid matchNoPartition
+//TODO: use this if you want to test the and connection problem marker
+//condition noPartitionBound = forbid matchNoPartition && forbid matchNoPartition
+
+condition partitionBound = enforce matchNoPartition
 
 pattern matchNoPartition{
 	b:Box{
