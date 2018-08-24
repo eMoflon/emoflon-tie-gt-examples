@@ -1,3 +1,6 @@
 /bin
 /gen
 /model/*.genmodel
+/model/*.red
+/model/*.green
+/model/*.black
