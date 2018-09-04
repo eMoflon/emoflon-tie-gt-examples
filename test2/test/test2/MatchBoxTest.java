@@ -1,9 +1,9 @@
 package test2;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 class MatchBoxTest {
@@ -28,11 +28,11 @@ class MatchBoxTest {
 		setupPositive(b, p);
 		// Preconditions
 		assertNotNull(p.getBox());
-		assertNotNull(b.getPartition());
+		assertTrue(b.getPartitions().size() > 0);
 		assertTrue(b.getBoxSize() != 0);
 		b.matchAPartition(1);
 		// Postconditions
-		assertNotNull(b.getPartition());
+		assertTrue(b.getPartitions().size() > 0);
 		assertNotNull(p.getBox());
 		assertTrue(b.getBoxSize() != 0);
 	}
@@ -75,7 +75,7 @@ class MatchBoxTest {
 		Box b = factory.createBox();
 		Partition p = factory.createPartition();
 		setupPositive(b, p);
-		b.setPartition(null);
+		b.getPartitions().add(p);
 		p.setBox(null);
 		p = null;
 		try {
@@ -93,12 +93,12 @@ class MatchBoxTest {
 		Partition p = factory.createPartition();
 		setupPositive(b, p);
 		// Preconditions
-		assertNotNull(b.getPartition());
+		assertTrue(b.getPartitions().size() > 0);
 		assertNotNull(p.getBox());
 		b.removeAPartition(1);
 		// Postconditions
 		assertNull(p.getBox());
-		assertNull(b.getPartition());
+		assertEquals(b.getPartitions().size(), 0);
 	}
 
 	@Test
@@ -107,9 +107,9 @@ class MatchBoxTest {
 		Partition p = factory.createPartition();
 		setupPositive(b, p);
 		p.setBox(null);
-		b.setPartition(null);
+		b.getPartitions().clear();
 		// Preconditions
-		assertNull(b.getPartition());
+		assertEquals(b.getPartitions().size(), 0);
 		assertNull(p.getBox());
 		try {
 			b.removeAPartition(0);
@@ -127,7 +127,7 @@ class MatchBoxTest {
 		setupPositive(b, p);
 		// Preconditions
 		assertNotNull(p.getBox());
-		assertNotNull(b.getPartition());
+		assertTrue(b.getPartitions().size() > 0);
 		try {
 			b.addAPartition();
 		} catch (RuntimeException e) {
@@ -141,10 +141,10 @@ class MatchBoxTest {
 	void addPartitionPositive() {
 		Box b = factory.createBox();
 		// Preconditions
-		assertNull(b.getPartition());
+		assertEquals(b.getPartitions().size(), 0);
 		b.addAPartition();
 		// Postconditions
-		assertNotNull(b.getPartition());
+		assertTrue(b.getPartitions().size() > 0);
 	}
 
 	@Test
@@ -179,4 +179,28 @@ class MatchBoxTest {
 		assertTrue(false);
 	}
 
+	@Test
+	void testInsertPartition() throws Exception {
+		Box b = factory.createBox();
+		b.addAPartition();
+		Partition predecessorPartition = b.getPartitions().get(0);
+		b.insertPartition(predecessorPartition);
+		assertEquals(b.getPartitions().size(), 2);
+	}
+
+	@Test
+	void testInsertPartitionOtherBox() throws Exception {
+		Box b = factory.createBox();
+		Box b2 = factory.createBox();
+
+		b.addAPartition();
+		Partition predecessorPartition = b.getPartitions().get(0);
+
+		assertThrows(RuntimeException.class, () ->
+			b2.insertPartition(predecessorPartition)
+		);
+
+		assertEquals(b.getPartitions().size(), 1);
+		assertEquals(b2.getPartitions().size(), 0);
+	}
 }

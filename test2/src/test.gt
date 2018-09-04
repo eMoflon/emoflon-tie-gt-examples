@@ -12,22 +12,33 @@ pattern matchPartition(boxId:EInt) {
 		//.isAssignable==true
 		//.type==enum::BIG_BOX
 		.name=="testbox"
-		-partition->partition
+		-partitions->partition
 	}
 }
 
 rule addPartition{
 	b: Box{
-		++ -partition->p2
+		++ -partitions->p2
 	}
 	++p2:Partition
-} when noPartitionBound 
+} when noPartitionBound
+
+rule insertPartition {
+    b:Box {
+        ++ -partitions-> newPartition
+        -partitions->predecessorPartition
+    }
+    predecessorPartition:Partition {
+        ++ -next-> newPartition
+    }
+    ++newPartition:Partition
+}
 
 rule removePartition(boxId:EInt){
 	--p3:Partition
 	b:Box{
 		.thisBoxId==param::boxId
-		-- -partition->p3
+		-- -partitions->p3
 	}
 }
 
@@ -39,7 +50,7 @@ condition partitionBound = enforce matchNoPartition
 
 pattern matchNoPartition{
 	b:Box{
-		-partition->p
+		-partitions->p
 	}
 	p:Partition
 }
