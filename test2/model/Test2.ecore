@@ -25,14 +25,25 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BoxType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Partition">
+    <eOperations name="checkCard">
+      <eParameters name="guess" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="card" eType="#//Card"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="box" eType="#//Box" eOpposite="#//Box/partitions"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//Partition"
         eOpposite="#//Partition/previous"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="previous" eType="#//Partition"
         eOpposite="#//Partition/next"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containedCards" upperBound="-1"
+        eType="#//Card" eOpposite="#//Card/partition"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Card"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Card">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="face" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="back" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partition" eType="#//Partition"
+        eOpposite="#//Partition/containedCards"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BoxType">
     <eLiterals name="BIG_BOX" value="2"/>
     <eLiterals name="MEDIUM_BOX" value="1" literal="MEDIUM_BOX"/>

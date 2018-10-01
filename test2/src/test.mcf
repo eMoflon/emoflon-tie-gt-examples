@@ -6,11 +6,10 @@ using "test.gt"
 package src.test
 
 class Box {
-
 	operation matchAPartition(searchedBoxId:EInt):void{
 	    this:Box
-		p:Partition
-		invoke matchPartition(b = this, partition= p,boxId=searchedBoxId)
+	    p:Partition
+		invoke matchPartition(b = this ,boxId=searchedBoxId)
 	}
 	operation removeAPartition(searchedBoxId:EInt):void{
 		this:Box
@@ -43,4 +42,15 @@ class Box {
 		 */
 	}
 
+}
+
+class Partition {
+		operation checkCard(guess:EString, card:Card):void{
+			if(checkGuess(card=card,guess=guess)){
+				invoke promoteCard(card=card)
+			}else{
+				invoke penalizeCard(card=card)
+			}
+		
+	}
 }

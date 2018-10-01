@@ -55,3 +55,30 @@ pattern matchNoPartition{
 	p:Partition
 }
 
+pattern checkGuess(guess:EString){
+	card:Card{
+		.face==param::guess
+	}
+}
+
+rule promoteCard(){
+	nextPartition:Partition
+	currentPartition:Partition{
+		-next->nextPartition
+	}
+	card:Card{
+		-- -partition->currentPartition
+		++ -partition->nextPartition 
+	}
+}
+
+rule penalizeCard(){
+	previousPartition:Partition
+	currentPartition:Partition{
+		-previous->previousPartition
+	}
+	card:Card{
+		-- -partition->currentPartition
+		++ -partition->previousPartition 
+	}
+}
