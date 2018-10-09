@@ -82,3 +82,20 @@ rule penalizeCard(){
 		++ -partition->previousPartition 
 	}
 }
+
+rule removeCardFromPartition(){
+	partition:Partition
+	card:Card{
+		---partition->partition
+	}
+}
+
+pattern matchCardInPartition(){
+	partition:Partition
+	box:Box{
+		-partitions->partition
+	}
+	card:Card{
+		-partition->partition
+	}
+}

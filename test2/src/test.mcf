@@ -6,6 +6,13 @@ using "test.gt"
 package src.test
 
 class Box {
+	operation removeAllCards(partition:Partition):void{
+		this:Box
+		while(matchCardInPartition(partition=partition,box=this)){
+			invoke removeCardFromPartition()
+		}
+	}
+	
 	operation matchAPartition(searchedBoxId:EInt):void{
 	    this:Box
 	    p:Partition
