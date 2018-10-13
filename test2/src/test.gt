@@ -84,6 +84,9 @@ rule penalizeCard(){
 }
 
 rule removeCardFromPartition(){
+	box:Box{
+		-partitions->partition
+	}
 	partition:Partition
 	card:Card{
 		---partition->partition

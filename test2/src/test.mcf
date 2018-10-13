@@ -8,10 +8,20 @@ package src.test
 class Box {
 	operation removeAllCards(partition:Partition):void{
 		this:Box
-		while(matchCardInPartition(partition=partition,box=this)){
-			invoke removeCardFromPartition()
+		card:Card
+		while(matchCardInPartition(partition=partition,box=this,card=card)){
+			invoke removeCardFromPartition(partition=partition,box=this,card=card)
 		}
 	}
+	
+	operation removeAllCardsTail(partition:Partition):void{
+		this:Box
+		card:Card
+		do{
+			invoke removeCardFromPartition(partition=partition,box=this,card=card)
+		}while(matchCardInPartition(partition=partition,box=this,card=card))
+	}
+	
 	
 	operation matchAPartition(searchedBoxId:EInt):void{
 	    this:Box
