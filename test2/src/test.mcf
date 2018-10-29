@@ -6,6 +6,7 @@ using "test.gt"
 package src.test
 
 class Box {
+
 	operation removeAllCards(partition:Partition):void{
 		this:Box
 		card:Card
@@ -19,7 +20,7 @@ class Box {
 		card:Card
 		do{
 			invoke removeCardFromPartition(partition=partition,box=this,card=card)
-		}while(matchCardInPartition(partition=partition,box=this,card=card))
+		}while(matchCardInPartition(partition=partition,box=this))
 	}
 	
 	
@@ -68,6 +69,15 @@ class Partition {
 			}else{
 				invoke penalizeCard(card=card)
 			}
+		
+	}
+	
+	
+	operation getCard(s:EString):Card{
+		this:Partition
+		card:Card
+		invoke findCardFace(card=card,guess=s,partition=this)
+		return card
 		
 	}
 }

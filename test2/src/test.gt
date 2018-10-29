@@ -102,3 +102,19 @@ pattern matchCardInPartition(){
 		-partition->partition
 	}
 }
+
+rule clearCard(){
+	partition:Partition
+	card:Card{
+		.back==""
+		.face==""
+	}
+}
+
+pattern findCardFace(guess:EString){
+	partition:Partition
+	card:Card{
+		.face==param::guess
+		-partition->partition
+	}
+}
