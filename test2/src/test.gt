@@ -106,8 +106,9 @@ pattern matchCardInPartition(){
 rule clearCard(){
 	partition:Partition
 	card:Card{
-		.back==""
-		.face==""
+		.back:=""
+		.face:=""
+		-partition->partition
 	}
 }
 

@@ -49,7 +49,7 @@ class Box {
 		this:Box
 		p2:Partition
 		invoke insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)
-		return p2
+		//return p2
 		/**
 		 * Extension with if-else
 		 * if(insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)) {
@@ -72,12 +72,18 @@ class Partition {
 		
 	}
 	
-	
 	operation getCard(s:EString):Card{
 		this:Partition
 		card:Card
 		invoke findCardFace(card=card,guess=s,partition=this)
 		return card
 		
+	}
+	
+	operation clearAllCards():void{
+		this:Partition
+		for(clearCard(partition=this)){
+			
+		}
 	}
 }
