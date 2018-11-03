@@ -72,7 +72,7 @@ class Partition {
 		
 	}
 	
-	operation getCard(s:EString):Card{
+	operation findCard(s:EString):Card{
 		this:Partition
 		card:Card
 		invoke findCardFace(card=card,guess=s,partition=this)
