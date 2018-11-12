@@ -65,7 +65,12 @@ class Box {
 class Partition {
 		operation checkCard(guess:EString, card:Card):void{
 			if(checkGuess(card=card,guess=guess)){
-				invoke promoteCard(card=card)
+				//if(isFastCard(card=card)){
+					//invoke promoteFastCard(card=card)
+				//}
+				//else{
+				//	invoke promoteCard(card=card)
+				//}
 			}else{
 				invoke penalizeCard(card=card)
 			}
@@ -84,6 +89,15 @@ class Partition {
 		this:Partition
 		for(clearCard(partition=this)){
 			
+		}
+	}
+	
+	operation isFastCard(card:Card):EBoolean{
+		if(isFastCard(card=card)){
+			return 
+		}
+		else{
+			return 
 		}
 	}
 }

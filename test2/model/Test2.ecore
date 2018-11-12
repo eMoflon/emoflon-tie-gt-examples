@@ -42,6 +42,9 @@
     <eOperations name="findCard" eType="#//Card">
       <eParameters name="s" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
+    <eOperations name="isFastCard" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="card" eType="#//Card"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="box" eType="#//Box" eOpposite="#//Box/partitions"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//Partition"
@@ -62,4 +65,5 @@
     <eLiterals name="MEDIUM_BOX" value="1" literal="MEDIUM_BOX"/>
     <eLiterals name="SMALL_BOX"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FastCard" eSuperTypes="#//Card"/>
 </ecore:EPackage>

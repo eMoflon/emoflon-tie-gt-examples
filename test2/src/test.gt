@@ -61,6 +61,11 @@ pattern checkGuess(guess:EString){
 	}
 }
 
+pattern isFastCard(){
+	fastCard:FastCard :=card
+	card:Card
+}
+
 rule promoteCard(){
 	nextPartition:Partition
 	currentPartition:Partition{
@@ -118,4 +123,21 @@ pattern findCardFace(guess:EString){
 		.face==param::guess
 		-partition->partition
 	}
+}
+
+rule promoteFastCard(){
+	currentPartition:Partition
+	card:FastCard{
+		++-partition->lastPartition
+	}
+	lastPartition:Partition
+} when hasNoNext
+
+condition hasNoNext = forbid hasNextPartition
+
+pattern hasNextPartition(){
+	lastPartition:Partition{
+		-next->nextPartition
+	}
+ 	nextPartition:Partition
 }
