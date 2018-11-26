@@ -81,7 +81,7 @@ class Partition {
 		this:Partition
 		card:Card
 		invoke findCardFace(card=card,guess=s,partition=this)
-		return 
+		return card
 		
 	}
 	
@@ -98,7 +98,11 @@ class Partition {
 			return true
 		}
 		else{
-			return 
+			return false
 		}
+	}
+	
+	operation helloWorld():EString{
+		return "HelloWorld"
 	}
 }
