@@ -12,7 +12,7 @@
       <eParameters name="searchedBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eOperations>
     <eOperations name="addAPartition"/>
-    <eOperations name="insertPartition">
+    <eOperations name="insertPartition" eType="#//Partition">
       <eParameters name="predecessorPartition" eType="#//Partition"/>
     </eOperations>
     <eOperations name="removeAllCards">

@@ -7,27 +7,10 @@ package src.test
 
 class Box {
 
-	operation removeAllCards(partition:Partition):void{
-		this:Box
-		card:Card
-		while(matchCardInPartition(partition=partition,box=this,card=card)){
-			invoke removeCardFromPartition(partition=partition,box=this,card=card)
-		}
-	}
-	
-	operation removeAllCardsTail(partition:Partition):void{
-		this:Box
-		card:Card
-		do{
-			invoke removeCardFromPartition(partition=partition,box=this,card=card)
-		}while(matchCardInPartition(partition=partition,box=this))
-	}
-	
-	
 	operation matchAPartition(searchedBoxId:EInt):void{
 	    this:Box
-	    p:Partition
-		invoke matchPartition(b = this ,boxId=searchedBoxId)
+		p:Partition
+		invoke matchPartition(b = this, partition= p, boxId = searchedBoxId)
 	}
 	operation removeAPartition(searchedBoxId:EInt):void{
 		this:Box
@@ -45,11 +28,11 @@ class Box {
     /**
      * Set return type in metamodel to test return behavior
      */
-	operation insertPartition(predecessorPartition:Partition):void{
+	operation insertPartition(predecessorPartition:Partition) : Partition {
 		this:Box
 		p2:Partition
 		invoke insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)
-		//return p2
+		return p2
 		/**
 		 * Extension with if-else
 		 * if(insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)) {
@@ -60,49 +43,4 @@ class Box {
 		 */
 	}
 
-}
-
-class Partition {
-		operation checkCard(guess:EString, card:Card):void{
-			if(checkGuess(card=card,guess=guess)){
-				//if(isFastCard(card=card)){
-					//invoke promoteFastCard(card=card)
-				//}
-				//else{
-				//	invoke promoteCard(card=card)
-				//}
-			}else{
-				invoke penalizeCard(card=card)
-			}
-		
-	}
-	
-	operation findCard(s:EString):Card{
-		this:Partition
-		card:Card
-		invoke findCardFace(card=card,guess=s,partition=this)
-		return card
-		
-	}
-	
-	operation clearAllCards():void{
-		this:Partition
-		for(clearCard(partition=this)){
-			
-		}
-	}
-	
-	operation isFastCard(card:Card):EBoolean{
-		otherCard: Card
-		if(isFastCard(card=card)){
-			return true
-		}
-		else{
-			return false
-		}
-	}
-	
-	operation helloWorld():EString{
-		return "HelloWorld"
-	}
 }

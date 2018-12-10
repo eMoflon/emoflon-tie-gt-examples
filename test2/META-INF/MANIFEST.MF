@@ -6,22 +6,9 @@ Export-Package: test2,
 Bundle-Name: test2
 Bundle-Version: 0.0.1.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi,
- org.junit,
- org.junit.jupiter.api,
- org.junit.jupiter.engine,
- org.junit.jupiter.migrationsupport,
- org.junit.jupiter.params,
- org.junit.platform.commons,
- org.junit.platform.engine,
- org.junit.platform.launcher,
- org.junit.platform.runner,
- org.junit.platform.suite.api,
- org.junit.vintage.engine,
- org.hamcrest.core,
- org.opentest4j,
- org.apiguardian
+ org.eclipse.emf.ecore.xmi
 Bundle-ManifestVersion: 2
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: 
+Automatic-Module-Name: test2
