@@ -30,4 +30,23 @@ class Graph {
     // if-condition: We do not care whether the removal succeeded
     if(removeEdge(edgeId = edgeId, graph = this)) {}
   }
+
+  operation clear() : void {
+    node : Node
+    this : Graph
+    for (pNodeExistsRef(node = node, graph = this)) {
+
+      edge : Edge
+      for (pOutgoingEdge(node = node, edge = edge)) {
+        invoke removeEdgeRef(edge = edge)
+      }
+
+      edge2 : Edge
+      while (pIncomingEdge(node = node, edge = edge2)) {
+        invoke removeEdgeRef(edge = edge2)
+      }
+
+      invoke removeNodeRef(node = node)
+    }
+  }
 }

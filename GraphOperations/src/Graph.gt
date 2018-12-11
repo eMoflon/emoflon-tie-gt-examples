@@ -11,6 +11,13 @@ pattern pNodeExists(nodeId : EString) {
   }
 }
 
+pattern pNodeExistsRef() {
+  node : Node
+  graph : Graph {
+    -nodes-> node
+  }
+}
+
 rule pCreateNode (nodeId : EString) {
   ++ newNode : Node {
     .id := param::nodeId
@@ -45,5 +52,27 @@ rule removeEdge(edgeId : EString) {
   -- edge : Edge {
     .id == param::edgeId
     -- -graph-> graph
+  }
+}
+
+rule removeEdgeRef() {
+  -- edge : Edge
+}
+
+rule removeNodeRef() {
+  -- node : Node
+}
+
+pattern pOutgoingEdge() {
+  edge : Edge
+  node : Node {
+    -outgoingEdges-> edge
+  }
+}
+
+pattern pIncomingEdge() {
+  edge : Edge
+  node : Node {
+    -incomingEdges-> edge
   }
 }
