@@ -44,8 +44,20 @@ public class GraphTest {
 		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
 		this.graph.removeEdge("e12");
 		assertEdgeCount(0);
-		
+
 		this.graph.removeEdge("e12");
+	}
+
+	@Test
+	void test_clear() throws Exception {
+		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		this.graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
+		this.graph.addEdgeWithIncidentNodes("n2", "n4", "e24");
+		this.graph.addEdgeWithIncidentNodes("n3", "n4", "e34");
+
+		this.graph.clear();
+		assertNodeCount(0);
+		assertEdgeCount(0);
 	}
 
 	private void assertNodeCount(final int expectedNodeCount) {

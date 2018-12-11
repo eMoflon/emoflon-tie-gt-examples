@@ -1,7 +1,7 @@
 import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
-using "graphOpPatterns.gt"
-package src.graphOpControlFlow
+using "Graph.gt"
+package src.Graph
 
 class Graph {
   operation addEdgeWithIncidentNodes(srcId : EString, trgId : EString, edgeId : EString) : Edge {
