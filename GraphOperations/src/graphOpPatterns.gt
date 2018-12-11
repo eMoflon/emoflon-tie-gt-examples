@@ -1,0 +1,38 @@
+import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+pattern pNodeExists(nodeId : EString) {
+  node : Node {
+    .id == param::nodeId
+  }
+  graph : Graph {
+    -nodes-> node
+  }
+}
+
+rule pCreateNode (nodeId : EString) {
+  ++ newNode : Node {
+    .id := param::nodeId
+  }
+
+  graph : Graph {
+    ++ -nodes-> newNode
+  }
+
+}
+
+rule createEdge() {
+  graph : Graph
+
+  srcNode : Node {
+    -graph-> graph
+  }
+
+  trgNode : Node
+
+  ++edge : Edge{
+    ++ -source-> srcNode
+    ++ -target-> trgNode
+  }
+}

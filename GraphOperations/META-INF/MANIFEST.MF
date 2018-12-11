@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: GraphOperations;singleton:=true
+Export-Package: GraphOperations,
+ GraphOperations.impl,
+ GraphOperations.util,
+ GraphOperations.util,
+ GraphOperations.impl
+Bundle-Name: GraphOperations
+Bundle-Version: 0.0.1.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.e4.core.di
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: javax.inject;version="1.0.0"
+Automatic-Module-Name: GraphOperations

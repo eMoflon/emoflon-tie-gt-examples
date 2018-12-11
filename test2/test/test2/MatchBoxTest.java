@@ -3,7 +3,6 @@ package test2;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 class MatchBoxTest {
@@ -196,9 +195,7 @@ class MatchBoxTest {
 		b.addAPartition();
 		Partition predecessorPartition = b.getPartitions().get(0);
 
-		assertThrows(RuntimeException.class, () ->
-			b2.insertPartition(predecessorPartition)
-		);
+		assertThrows(RuntimeException.class, () -> b2.insertPartition(predecessorPartition));
 
 		assertEquals(b.getPartitions().size(), 1);
 		assertEquals(b2.getPartitions().size(), 0);

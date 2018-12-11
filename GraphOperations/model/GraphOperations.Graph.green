@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ASCII"?>
+<specification:Pattern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:emf="http://gervarro.org/democles/constraint/emf.ecore" xmlns:relational="http://gervarro.org/democles/specification/constraint/relational.ecore" xmlns:specification="http://gervarro.org/democles/specification.ecore" name="pattern_Graph_0_2_pCreateNode_green">
+  <symbolicParameters xsi:type="emf:EMFVariable" name="newNode">
+    <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Node"/>
+  </symbolicParameters>
+  <symbolicParameters xsi:type="emf:EMFVariable" name="graph">
+    <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Graph"/>
+  </symbolicParameters>
+  <bodies>
+    <localVariables xsi:type="emf:EMFVariable" name="newNode_id">
+      <eClassifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </localVariables>
+    <constraints xsi:type="emf:Attribute">
+      <parameters reference="//@symbolicParameters.0"/>
+      <parameters reference="//@bodies.0/@localVariables.0"/>
+      <eModelElement xsi:type="ecore:EAttribute" href="GraphOperations.ecore#//Element/id"/>
+    </constraints>
+    <constraints xsi:type="relational:Equal">
+      <parameters reference="//@bodies.0/@localVariables.0"/>
+      <parameters/>
+    </constraints>
+    <constraints xsi:type="emf:Reference">
+      <parameters reference="//@symbolicParameters.1"/>
+      <parameters reference="//@symbolicParameters.0"/>
+      <eModelElement xsi:type="ecore:EReference" href="GraphOperations.ecore#//Graph/nodes"/>
+    </constraints>
+  </bodies>
+</specification:Pattern>

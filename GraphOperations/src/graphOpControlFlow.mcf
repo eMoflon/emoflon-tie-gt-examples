@@ -1,0 +1,23 @@
+import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
+import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+using "graphOpPatterns.gt"
+package src.graphOpControlFlow
+
+class Graph {
+  operation addEdgeWithIncidentNodes(srcId : EString, trgId : EString, edgeId : EString) : Edge {
+    this: Graph
+    edge : Edge
+    srcNode : Node
+    trgNode : Node
+    if (pNodeExists(nodeId = srcId, graph = this)) {} else {
+      invoke pCreateNode(nodeId = srcId, graph = this, newNode = srcNode)
+    }
+
+    if (pNodeExists(nodeId = trgId, graph = this)) {} else {
+      invoke pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
+    }
+
+    invoke createEdge(srcNode = srcNode, trgNode = trgNode, edge = edge)
+    return edge
+  }
+}
