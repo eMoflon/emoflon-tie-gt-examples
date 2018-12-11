@@ -6,7 +6,6 @@ package src.graphOpControlFlow
 class Graph {
   operation addEdgeWithIncidentNodes(srcId : EString, trgId : EString, edgeId : EString) : Edge {
     this: Graph
-    edge : Edge
     srcNode : Node
     trgNode : Node
     if (pNodeExists(nodeId = srcId, graph = this)) {} else {
@@ -17,7 +16,18 @@ class Graph {
       invoke pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
     }
 
-    invoke createEdge(srcNode = srcNode, trgNode = trgNode, edge = edge)
+    edge : Edge
+    n1 : Node
+    n2 : Node
+    invoke pNodeExists(nodeId = srcId, node = n1, graph = this)
+    invoke pNodeExists(nodeId = trgId, node = n2, graph = this)
+    invoke createEdge(srcNode = n1, trgNode = n2, edge = edge, edgeId = edgeId)
     return edge
+  }
+
+  operation removeEdge(edgeId : EString) : void {
+    this : Graph
+    // if-condition: We do not care whether the removal succeeded
+    if(removeEdge(edgeId = edgeId, graph = this)) {}
   }
 }

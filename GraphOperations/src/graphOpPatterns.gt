@@ -22,7 +22,7 @@ rule pCreateNode (nodeId : EString) {
 
 }
 
-rule createEdge() {
+rule createEdge(edgeId : EString) {
   graph : Graph
 
   srcNode : Node {
@@ -31,8 +31,19 @@ rule createEdge() {
 
   trgNode : Node
 
-  ++edge : Edge{
+  ++edge : Edge {
+    .id := param::edgeId
     ++ -source-> srcNode
     ++ -target-> trgNode
+    ++ -graph-> graph
+  }
+}
+
+rule removeEdge(edgeId : EString) {
+  graph : Graph
+
+  -- edge : Edge {
+    .id == param::edgeId
+    -- -graph-> graph
   }
 }

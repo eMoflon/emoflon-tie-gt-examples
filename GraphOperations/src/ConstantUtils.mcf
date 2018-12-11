@@ -1,0 +1,26 @@
+import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
+import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+using "ConstantUtils.gt"
+package src.graphOpControlFlow
+
+class ConstantUtils {
+  operation getLong(): ELong {
+    return -42
+  }
+
+  operation getInt() : EInt {
+    return -42
+  }
+
+  operation getFloat() : EFloat {
+    return -42.0
+  }
+
+  operation getDouble() : EDouble {
+    return -42.0
+  }
+
+  operation getString() : EString {
+    return "-42"
+  }
+}
