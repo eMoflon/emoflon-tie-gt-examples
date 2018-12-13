@@ -1,5 +1,6 @@
 import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+
 using "Graph.gt"
 package src.Graph
 
@@ -48,5 +49,17 @@ class Graph {
 
       invoke removeNodeRef(node = node)
     }
+  }
+
+  operation calculateNodeCount() : EInt {
+    this : Graph
+    counter : EIntContainer
+    invoke initializeEIntContainer(container = counter)
+
+    for(pNodeExistsRef(graph = this)) {
+      // counter.increment()
+    }
+    // counter.value
+    return 1
   }
 }

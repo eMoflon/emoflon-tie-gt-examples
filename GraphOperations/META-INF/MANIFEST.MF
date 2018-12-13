@@ -2,9 +2,7 @@ Manifest-Version: 1.0
 Bundle-SymbolicName: GraphOperations;singleton:=true
 Export-Package: GraphOperations,
  GraphOperations.impl,
- GraphOperations.util,
- GraphOperations.util,
- GraphOperations.impl
+ GraphOperations.util
 Bundle-Name: GraphOperations
 Bundle-Version: 0.0.1.qualifier
 Require-Bundle: org.eclipse.emf.ecore,

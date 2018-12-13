@@ -10,7 +10,7 @@ pattern matchPartition(boxId:EInt) {
 		.boxSize!=0
 		.boxWidthcm==1.1
 		//.isAssignable==true
-		//.type==enum::BIG_BOX
+		.type==enum::BIG_BOX
 		.name=="testbox"
 		-partitions->partition
 	}
@@ -73,7 +73,7 @@ rule promoteCard(){
 	}
 	card:Card{
 		-- -partition->currentPartition
-		++ -partition->nextPartition 
+		++ -partition->nextPartition
 	}
 }
 
@@ -84,7 +84,7 @@ rule penalizeCard(){
 	}
 	card:Card{
 		-- -partition->currentPartition
-		++ -partition->previousPartition 
+		++ -partition->previousPartition
 	}
 }
 

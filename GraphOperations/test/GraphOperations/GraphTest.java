@@ -50,6 +50,13 @@ public class GraphTest {
 	}
 
 	@Test
+	void test_clear_emptyGraph() throws Exception {
+		this.graph.clear();
+		assertNodeCount(0);
+		assertEdgeCount(0);
+	}
+
+	@Test
 	void test_clear() throws Exception {
 		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
 		this.graph.addEdgeWithIncidentNodes("n1", "n3", "e13");

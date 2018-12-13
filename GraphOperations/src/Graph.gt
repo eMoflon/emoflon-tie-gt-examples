@@ -1,5 +1,4 @@
 import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
-
 import "http://www.eclipse.org/emf/2002/Ecore"
 
 pattern pNodeExists(nodeId : EString) {
@@ -74,5 +73,10 @@ pattern pIncomingEdge() {
   edge : Edge
   node : Node {
     -incomingEdges-> edge
+  }
+}
+
+rule initializeEIntContainer() {
+  ++ container : EIntContainer {
   }
 }

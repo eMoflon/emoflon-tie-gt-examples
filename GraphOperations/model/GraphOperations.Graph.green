@@ -106,4 +106,10 @@
       </constraints>
     </bodies>
   </specification:Pattern>
+  <specification:Pattern name="pattern_Graph_2_1_initializeEIntContainer_green">
+    <symbolicParameters xsi:type="emf:EMFVariable" name="container">
+      <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//EIntContainer"/>
+    </symbolicParameters>
+    <bodies/>
+  </specification:Pattern>
 </xmi:XMI>
