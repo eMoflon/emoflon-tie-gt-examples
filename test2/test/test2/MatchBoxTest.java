@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-class MatchBoxTest {
+public class MatchBoxTest {
 
-	void setupPositive(Box b, Partition p) {
+	private static final Test2Factory factory = Test2Factory.eINSTANCE;
+
+	private void setupPositive(Box b, Partition p) {
 		b.setName("testbox");
 		b.setBoxWidthcm(1.1);
 		b.setIsAssignable(true);
@@ -16,8 +18,6 @@ class MatchBoxTest {
 		p.setBox(b);
 		b.setBoxSize(1);
 	}
-
-	private static final Test2Factory factory = Test2Factory.eINSTANCE;
 
 	@Test
 	void matchPartitionPositive() {
