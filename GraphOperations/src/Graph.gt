@@ -80,3 +80,8 @@ rule initializeEIntContainer() {
   ++ container : EIntContainer {
   }
 }
+
+pattern isNodePattern() {
+  element : Element 
+  node : Node := element
+}

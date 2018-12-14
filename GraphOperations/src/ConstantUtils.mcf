@@ -23,4 +23,9 @@ class ConstantUtils {
   operation getString() : EString {
     return "-42"
   }
+  
+//TODO@dgiessing fix me
+//  operation getEdgeState() : EdgeState {
+//    return enum::ACTIVE
+//  }
 }

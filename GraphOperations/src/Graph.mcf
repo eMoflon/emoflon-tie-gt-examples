@@ -54,12 +54,23 @@ class Graph {
   operation calculateNodeCount() : EInt {
     this : Graph
     counter : EIntContainer
+    x : EInt
     invoke initializeEIntContainer(container = counter)
 
     for(pNodeExistsRef(graph = this)) {
+      //TODO@dgiessing fix me
       // counter.increment()
     }
-    // counter.value
+    //TODO@dgiessing fix me
+    // return counter.value
     return 1
+  }
+  
+  operation isNode(element : Element) : EBoolean {
+    if(isNodePattern(element = element)) {
+      return true
+    } else {
+      return false
+    }
   }
 }

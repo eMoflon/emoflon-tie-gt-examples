@@ -1,6 +1,8 @@
 package GraphOperations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Optional;
@@ -14,7 +16,7 @@ public class GraphTest {
 
 	@BeforeEach
 	void setUp() {
-		GraphOperationsFactory factory = GraphOperationsFactory.eINSTANCE;
+		final GraphOperationsFactory factory = GraphOperationsFactory.eINSTANCE;
 		this.graph = factory.createGraph();
 	}
 
@@ -68,6 +70,17 @@ public class GraphTest {
 		assertEdgeCount(0);
 	}
 
+	@Test
+	void test_isNode() throws Exception {
+
+		final Element node = GraphOperationsFactory.eINSTANCE.createNode();
+		final Element edge = GraphOperationsFactory.eINSTANCE.createEdge();
+		final Element element = GraphOperationsFactory.eINSTANCE.createElement();
+		assertTrue(this.graph.isNode(node));
+		assertFalse(this.graph.isNode(edge));
+		assertFalse(this.graph.isNode(element));
+	}
+
 	private void assertNodeCount(final int expectedNodeCount) {
 		assertEquals(expectedNodeCount, graph.getNodes().size());
 	}
@@ -85,11 +98,12 @@ public class GraphTest {
 	}
 
 	private Node getNodeWithId(final String nodeId) {
-		Optional<Node> optionalNode = graph.getNodes().stream().filter(node -> nodeId.equals(node.getId())).findAny();
+		final Optional<Node> optionalNode = graph.getNodes().stream().filter(node -> nodeId.equals(node.getId()))
+				.findAny();
 		if (!optionalNode.isPresent()) {
 			fail("No node with ID " + nodeId);
 		}
-		Node node = optionalNode.get();
+		final Node node = optionalNode.get();
 		return node;
 	}
 }
