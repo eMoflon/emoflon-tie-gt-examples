@@ -73,4 +73,15 @@ class Graph {
       return false
     }
   }
+  
+  //TODO@dgiessing return null produces 'return "null";' in the java code
+//  operation getIsolatedNode() : Node {
+//    this : Graph
+//    node : Node
+//    if(isolatedNode(isolatedNode = node, graph = this)) {
+//      //TODO@dgiessing return node
+//      return null
+//    } 
+//    return null
+//  }
 }

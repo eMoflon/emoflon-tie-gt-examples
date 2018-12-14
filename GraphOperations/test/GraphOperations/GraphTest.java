@@ -2,12 +2,14 @@ package GraphOperations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class GraphTest {
@@ -79,6 +81,13 @@ public class GraphTest {
 		assertTrue(this.graph.isNode(node));
 		assertFalse(this.graph.isNode(edge));
 		assertFalse(this.graph.isNode(element));
+	}
+
+	// TODO@dgiessing re-enable after fix
+	@Disabled
+	@Test
+	void test_getIsolatedNode_empty() throws Exception {
+		assertNull(this.graph.getIsolatedNode());
 	}
 
 	private void assertNodeCount(final int expectedNodeCount) {

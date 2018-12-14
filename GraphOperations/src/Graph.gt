@@ -85,3 +85,26 @@ pattern isNodePattern() {
   element : Element 
   node : Node := element
 }
+
+pattern outgoingEdge() {
+  outgoingEdge :Edge
+  node : Node {
+    -outgoingEdges-> outgoingEdge
+  }
+}
+
+pattern incomingEdge() {
+  incomingEdge :Edge
+  node : Node {
+    -incomingEdges-> incomingEdge
+  }
+}
+
+pattern isolatedNode() {
+  graph : Graph
+  node : Node {
+    -graph-> graph
+  }
+} when noIncidentEdges
+
+condition noIncidentEdges = forbid outgoingEdge && forbid incomingEdge
