@@ -1,6 +1,6 @@
 package GraphOperations;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ public class ConstantUtilsTest {
 
 	@BeforeEach
 	void setUp() {
-		GraphOperationsFactory factory = GraphOperationsFactory.eINSTANCE;
+		final GraphOperationsFactory factory = GraphOperationsFactory.eINSTANCE;
 		this.utils = factory.createConstantUtils();
 	}
 
@@ -38,5 +38,10 @@ public class ConstantUtilsTest {
 	@Test
 	void test_getString() throws Exception {
 		assertEquals("-42", utils.getString());
+	}
+
+	@Test
+	void test_getEdgeState() throws Exception {
+		assertEquals(EdgeState.INACTIVE, utils.getEdgeState());
 	}
 }
