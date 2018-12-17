@@ -1,0 +1,15 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#abstract #rule EndRule 
+#with SokobanImportExport
+
+#source { 
+	++ ne:End
+}
+
+#target {
+	++ nf:Field {
+		endPos := true
+	}
+}

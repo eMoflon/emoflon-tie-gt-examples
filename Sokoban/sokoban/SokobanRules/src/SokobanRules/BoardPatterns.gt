@@ -1,0 +1,79 @@
+import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
+
+pattern oneSokoban {
+	sokoban: Sokoban
+}
+
+pattern oneBlock {
+	block: Block
+}
+
+pattern oneEndField {
+	field: Field {
+		.endPos == true
+	}
+}
+
+pattern anOccupiedField {
+	fig: Figure
+
+	field: Field {
+		-figure -> fig
+	}
+}
+
+pattern boulderOnEndField
+refines oneEndField, anOccupiedField {
+	fig: Boulder
+} when notABlock
+
+condition notABlock = forbid block
+
+pattern block {
+	fig:Block
+}
+
+pattern bockNotOnEndFieldInCorner 
+refines anOccupiedField {
+	field:Field {
+		.endPos == false
+	}
+	fig:Block	
+} when topLeftCorner || topRightCorner || bottomLeftCorner || bottomRightCorner
+
+condition topLeftCorner = forbid hasLeft && forbid hasTop
+condition topRightCorner = forbid hasRight && forbid hasTop
+condition bottomLeftCorner = forbid hasLeft && forbid hasBottom
+condition bottomRightCorner = forbid hasRight && forbid hasBottom
+
+pattern hasLeft {
+	field:Field {
+		-left->leftFig
+	}
+	
+	leftFig:Field
+}
+
+pattern hasTop {
+	field:Field {
+		-top->topFig
+	}
+	
+	topFig:Field
+}
+
+pattern hasRight {
+	field:Field {
+		-right->rightFig
+	}
+	
+	rightFig:Field
+}
+
+pattern hasBottom {
+	field:Field {
+		-bottom->bottomFig
+	}
+	
+	bottomFig:Field
+}

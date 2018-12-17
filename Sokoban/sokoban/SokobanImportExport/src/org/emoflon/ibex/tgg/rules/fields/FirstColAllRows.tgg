@@ -1,0 +1,58 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#abstract #rule FirstColAllRows #with SokobanImportExport
+
+#source { 
+	r:Row {
+		-firstEntry->e
+		++ -next->nr
+	}
+	
+	e:Entry
+	
+	++ nr:Row {
+		++ -firstEntry->ne
+	}	
+	
+	++ ne:Entry
+}
+
+#target {
+	b:SokobanLanguage.Board {
+		-fields->f
+		++ -fields->nf
+	}
+	
+	f:Field {
+		col == 0
+		++ -bottom->nf
+	}
+	
+	++ nf:Field {
+		col := 0
+	}
+}
+
+#correspondence {
+	e2f:EntryToField {
+		#src->e
+		#trg->f
+	}
+	
+	++ ne2nf:EntryToField {
+		#src->ne
+		#trg->nf
+	}
+}
+
+#attributeConditions {
+	add(f.row, 1, nf.row)
+}
+
+#rule FirstColAllRowsEnd #extends FirstColAllRows, EndRule 
+#with SokobanImportExport
+
+
+#rule FirstColAllRowsNormal #extends FirstColAllRows, NormalRule 
+#with SokobanImportExport

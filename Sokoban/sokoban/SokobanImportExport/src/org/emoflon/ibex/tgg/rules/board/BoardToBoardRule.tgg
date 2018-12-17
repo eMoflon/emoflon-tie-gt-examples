@@ -1,0 +1,44 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#abstract #rule BoardToBoardRule #with SokobanImportExport
+
+#source { 
+	++ sokBoard:sokobanExchangeFormat.Board {
+		++ -firstRow->row
+	}
+	
+	++ row:Row {
+		++ -firstEntry->ne
+	}
+	
+	++ ne:Entry
+}
+
+#target {
+	++ board:SokobanLanguage.Board {
+		++ -fields->nf
+	}
+	
+	++ nf:Field {
+		row := 0
+		col := 0
+	}
+}
+
+#correspondence {
+	++ e2f:EntryToField	{
+		#src->ne
+		#trg->nf
+	}
+	++ b2b:BoardToBoard {
+		#src->sokBoard
+		#trg->board
+	}
+}
+
+#rule BoardNormalEntryRule #extends BoardToBoardRule, NormalRule 
+#with SokobanImportExport
+
+#rule BoardEndEntryRule #extends BoardToBoardRule, EndRule 
+#with SokobanImportExport

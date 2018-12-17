@@ -1,0 +1,16 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#rule SokobanRule 
+#extends SymbolToFigure, NormalSymbolRule 
+#with SokobanImportExport
+
+#source { 
+	++ s:NormalSymbol {
+		value := enum::NormalValue::SOKOBAN
+	}
+}
+
+#target {
+	++ fig:Sokoban	
+}

@@ -1,0 +1,14 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#rule BlockRule #extends SymbolToFigure, NormalSymbolRule #with SokobanImportExport
+
+#source { 
+	++ s:NormalSymbol {
+		value := enum::NormalValue::BOX
+	}
+}
+
+#target {
+	++ fig:Block
+}

@@ -1,0 +1,59 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#abstract #rule AllOtherFields #with SokobanImportExport
+
+#source { 
+	ble:Entry {
+		++ -next->ne
+	}
+	
+	++ ne:Entry
+}
+
+#target {
+	b:SokobanLanguage.Board {
+		-fields->ul
+		++ -fields->nf
+	}
+	
+	ul:Field {
+		-right->ur
+		-bottom->bl
+	}
+	
+	ur:Field {
+		++ -bottom->nf
+	}
+	
+	bl:Field {
+		row > 0
+		++ -right->nf
+	}
+	
+	++ nf:Field
+}
+
+#correspondence {
+	ble2bl:EntryToField {
+		#src->ble
+		#trg->bl
+	}	
+	
+	++ bre2br:EntryToField {
+		#src->ne
+		#trg->nf
+	}
+}
+
+#attributeConditions {
+	eq_int(bl.row, nf.row)
+	eq_int(ur.col, nf.col)
+}
+
+#rule AllOtherFieldsEnd #extends AllOtherFields, EndRule 
+#with SokobanImportExport
+
+
+#rule AllOtherFieldsNormal #extends AllOtherFields, NormalRule 
+#with SokobanImportExport

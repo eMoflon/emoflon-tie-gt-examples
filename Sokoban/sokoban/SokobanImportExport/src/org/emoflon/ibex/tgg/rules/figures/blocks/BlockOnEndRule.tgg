@@ -1,0 +1,14 @@
+#using SokobanImportExport.*
+#using AttrCondDefLibrary.*
+
+#rule BlockOnEndRule #extends SymbolToFigure, EndSymbolRule #with SokobanImportExport
+
+#source { 
+	++ s:EndSymbol {
+		value := enum::EndValue::BOX_ON_END_FIELD
+	}
+}
+
+#target {
+	++ fig:Block
+}
