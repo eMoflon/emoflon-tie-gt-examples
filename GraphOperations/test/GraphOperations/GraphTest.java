@@ -90,6 +90,27 @@ public class GraphTest {
 		assertNull(this.graph.getIsolatedNode());
 	}
 
+	@Test
+	void test_getTriangleWithLongestEdge() throws Exception {
+		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		this.graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
+		this.graph.addEdgeWithIncidentNodes("n3", "n2", "e32");
+		final Edge e12 = getEdgeById("e12");
+		e12.setWeight(10);
+		final Edge e13 = getEdgeById("e13");
+		e13.setWeight(2);
+		final Edge e32 = getEdgeById("e32");
+		e32.setWeight(1);
+		final Triangle triangle = this.graph.getTriangleWithLongestEdge();
+		assertTrue(triangle.getLongEdge().equals(e12));
+		assertTrue(triangle.getShortEdges().contains(e13));
+		assertTrue(triangle.getShortEdges().contains(e32));
+	}
+
+	private Edge getEdgeById(final String edgeId) {
+		return this.graph.getEdges().stream().filter(edge -> edge.getId().equals(edgeId)).findAny().get();
+	}
+
 	private void assertNodeCount(final int expectedNodeCount) {
 		assertEquals(expectedNodeCount, graph.getNodes().size());
 	}
