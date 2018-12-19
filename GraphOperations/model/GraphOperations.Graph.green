@@ -112,4 +112,35 @@
     </symbolicParameters>
     <bodies/>
   </specification:Pattern>
+  <specification:Pattern name="pattern_Graph_5_1_triangleWithLongestEdge_green">
+    <symbolicParameters xsi:type="emf:EMFVariable" name="triangle">
+      <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Triangle"/>
+    </symbolicParameters>
+    <symbolicParameters xsi:type="emf:EMFVariable" name="longestEdge">
+      <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Edge"/>
+    </symbolicParameters>
+    <symbolicParameters xsi:type="emf:EMFVariable" name="shorterEdge1">
+      <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Edge"/>
+    </symbolicParameters>
+    <symbolicParameters xsi:type="emf:EMFVariable" name="shorterEdge2">
+      <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Edge"/>
+    </symbolicParameters>
+    <bodies>
+      <constraints xsi:type="emf:Reference">
+        <parameters reference="/4/@symbolicParameters.0"/>
+        <parameters reference="/4/@symbolicParameters.1"/>
+        <eModelElement xsi:type="ecore:EReference" href="GraphOperations.ecore#//Triangle/longEdge"/>
+      </constraints>
+      <constraints xsi:type="emf:Reference">
+        <parameters reference="/4/@symbolicParameters.0"/>
+        <parameters reference="/4/@symbolicParameters.2"/>
+        <eModelElement xsi:type="ecore:EReference" href="GraphOperations.ecore#//Triangle/shortEdges"/>
+      </constraints>
+      <constraints xsi:type="emf:Reference">
+        <parameters reference="/4/@symbolicParameters.0"/>
+        <parameters reference="/4/@symbolicParameters.3"/>
+        <eModelElement xsi:type="ecore:EReference" href="GraphOperations.ecore#//Triangle/shortEdges"/>
+      </constraints>
+    </bodies>
+  </specification:Pattern>
 </xmi:XMI>

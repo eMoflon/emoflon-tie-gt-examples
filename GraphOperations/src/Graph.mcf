@@ -74,6 +74,13 @@ class Graph {
     }
   }
   
+  operation getTriangleWithLongestEdge() : Triangle {
+    this : Graph
+    triangle : Triangle
+    invoke triangleWithLongestEdge(triangle = triangle, graph = this)
+    return triangle
+  }
+  
   //TODO@dgiessing return null produces 'return "null";' in the java code
 //  operation getIsolatedNode() : Node {
 //    this : Graph
