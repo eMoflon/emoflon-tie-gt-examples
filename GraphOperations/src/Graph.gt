@@ -117,6 +117,23 @@ when noIncidentEdges
 
 condition noIncidentEdges = forbid outgoingEdge && forbid incomingEdge
 
+pattern someElement {
+  graph : Graph
+  element : Element 
+}
+
+pattern someNode refines someElement {
+  element : Node {
+    -graph-> graph
+  }
+}
+
+pattern someEdge refines someElement {
+  element : Node {
+    -graph-> graph
+  }
+}
+
 rule triangleWithLongestEdge() {
   graph: Graph
   

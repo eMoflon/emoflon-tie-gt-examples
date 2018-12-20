@@ -142,7 +142,7 @@
     </symbolicParameters>
     <bodies/>
   </specification:Pattern>
-  <specification:Pattern name="pattern_Graph_5_1_triangleWithLongestEdge_green">
+  <specification:Pattern name="pattern_Graph_6_1_triangleWithLongestEdge_green">
     <symbolicParameters xsi:type="emf:EMFVariable" name="triangle">
       <eClassifier xsi:type="ecore:EClass" href="GraphOperations.ecore#//Triangle"/>
     </symbolicParameters>
