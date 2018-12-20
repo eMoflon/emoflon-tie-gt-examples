@@ -43,7 +43,7 @@ rule removePartition(boxId:EInt){
 }
 
 condition noPartitionBound = forbid matchNoPartition
-//TODO: use this if you want to test the and connection problem marker
+//Use the following fragment to test problem marker
 //condition noPartitionBound = forbid matchNoPartition && forbid matchNoPartition
 
 condition partitionBound = enforce matchNoPartition

@@ -2,6 +2,7 @@ package GraphOperations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -9,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class GraphTest {
@@ -83,11 +83,23 @@ public class GraphTest {
 		assertFalse(this.graph.isNode(element));
 	}
 
-	// TODO@dgiessing re-enable after fix
-	@Disabled
 	@Test
 	void test_getIsolatedNode_empty() throws Exception {
 		assertNull(this.graph.getIsolatedNode());
+	}
+
+	@Test
+	void test_getIsolatedNode_singleEdge() throws Exception {
+		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		assertNull(this.graph.getIsolatedNode());
+	}
+
+	@Test
+	void test_getIsolatedNode_singleNode() throws Exception {
+		this.graph.addNode("n1");
+		final Node isolatedNode = this.graph.getIsolatedNode();
+		assertNotNull(isolatedNode);
+		assertEquals("n1", isolatedNode.getId());
 	}
 
 	@Test

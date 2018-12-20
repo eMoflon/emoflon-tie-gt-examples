@@ -5,6 +5,18 @@ using "Graph.gt"
 package src.Graph
 
 class Graph {
+  
+  operation addNode(nodeId : EString) : Node {
+    this: Graph
+    if (pNodeExists(nodeId = nodeId, graph = this)) {} else {
+      invoke pCreateNode(nodeId = nodeId, graph = this)
+    }
+    
+    node : Node
+    invoke pNodeExists(nodeId = nodeId, graph = this, node = node)
+    return node
+  }
+  
   operation addEdgeWithIncidentNodes(srcId : EString, trgId : EString, edgeId : EString) : Edge {
     this: Graph
     srcNode : Node
@@ -81,14 +93,14 @@ class Graph {
     return triangle
   }
   
-  //TODO@dgiessing return null produces 'return "null";' in the java code
-//  operation getIsolatedNode() : Node {
-//    this : Graph
-//    node : Node
-//    if(isolatedNode(isolatedNode = node, graph = this)) {
-//      //TODO@dgiessing return node
-//      return null
-//    } 
-//    return null
-//  }
+//  TODO@dgiessing return null produces 'return "null";' in the java code
+  operation getIsolatedNode() : Node {
+    this : Graph
+    node : Node
+    if(isolatedNode(isolatedNode = node, graph = this)) {
+      //TODO@dgiessing return node
+      return node
+    } 
+    return null
+  }
 }
