@@ -10,19 +10,19 @@ class Box {
 	operation matchAPartition(searchedBoxId:EInt):void{
 	    this:Box
 		p:Partition
-		invoke matchPartition(b = this, partition= p, boxId = searchedBoxId)
+		matchPartition(b = this, partition= p, boxId = searchedBoxId)
 	}
 	operation removeAPartition(searchedBoxId:EInt):void{
 		this:Box
 		p:Partition
-		invoke removePartition(b = this, p3 = p,boxId=searchedBoxId)
+		removePartition(b = this, p3 = p,boxId=searchedBoxId)
 	}
 
 	operation addAPartition():void{
 		this:Box
 		p:Partition
 		p2:Partition
-		invoke addPartition(b = this, p2=p)
+		addPartition(b = this, p2=p)
 	}
 
     /**
@@ -31,7 +31,7 @@ class Box {
 	operation insertPartition(predecessorPartition:Partition) : Partition {
 		this:Box
 		p2:Partition
-		invoke insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)
+		insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)
 		return p2
 		/**
 		 * Extension with if-else

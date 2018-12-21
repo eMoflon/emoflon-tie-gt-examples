@@ -9,11 +9,11 @@ class Graph {
   operation addNode(nodeId : EString) : Node {
     this: Graph
     if (pNodeExists(nodeId = nodeId, graph = this)) {} else {
-      invoke pCreateNode(nodeId = nodeId, graph = this)
+      pCreateNode(nodeId = nodeId, graph = this)
     }
     
     node : Node
-    invoke pNodeExists(nodeId = nodeId, graph = this, node = node)
+    pNodeExists(nodeId = nodeId, graph = this, node = node)
     return node
   }
   
@@ -22,19 +22,19 @@ class Graph {
     srcNode : Node
     trgNode : Node
     if (pNodeExists(nodeId = srcId, graph = this)) {} else {
-      invoke pCreateNode(nodeId = srcId, graph = this, newNode = srcNode)
+      pCreateNode(nodeId = srcId, graph = this, newNode = srcNode)
     }
 
     if (pNodeExists(nodeId = trgId, graph = this)) {} else {
-      invoke pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
-    }
+      pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
+    } 
 
     edge : Edge
     n1 : Node
     n2 : Node
-    invoke pNodeExists(nodeId = srcId, node = n1, graph = this)
-    invoke pNodeExists(nodeId = trgId, node = n2, graph = this)
-    invoke createEdge(srcNode = n1, trgNode = n2, edge = edge, edgeId = edgeId)
+    pNodeExists(nodeId = srcId, node = n1, graph = this)
+    pNodeExists(nodeId = trgId, node = n2, graph = this)
+    createEdge(srcNode = n1, trgNode = n2, edge = edge, edgeId = edgeId)
     return edge
   }
 
@@ -51,15 +51,15 @@ class Graph {
 
       edge : Edge
       for (pOutgoingEdge(node = node, edge = edge)) {
-        invoke removeEdgeRef(edge = edge)
+        removeEdgeRef(edge = edge)
       }
 
       edge2 : Edge
       while (pIncomingEdge(node = node, edge = edge2)) {
-        invoke removeEdgeRef(edge = edge2)
+        removeEdgeRef(edge = edge2)
       }
 
-      invoke removeNodeRef(node = node)
+      removeNodeRef(node = node)
     }
   }
 
@@ -67,11 +67,11 @@ class Graph {
     this : Graph
     counter : EIntContainer
     x : EInt
-    invoke initializeEIntContainer(container = counter)
+    initializeEIntContainer(container = counter)
 
     for(pNodeExistsRef(graph = this)) {
       //TODO@dgiessing fix me 
-      // counter.increment()
+      counter.increment()
     }
     
     return counter.value     
@@ -88,7 +88,7 @@ class Graph {
   operation getTriangleWithLongestEdge() : Triangle {
     this : Graph
     triangle : Triangle
-    invoke triangleWithLongestEdge(triangle = triangle, graph = this)
+    triangleWithLongestEdge(triangle = triangle, graph = this)
     return triangle
   }
   
