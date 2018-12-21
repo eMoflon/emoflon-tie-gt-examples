@@ -136,6 +136,12 @@ public class GraphTest {
 		assertEquals(0, graph.calculateNodeCount());
 	}
 
+	@Test
+	void test_calculateNodeCount_oneNode() throws Exception {
+		graph.addNode("n1");
+		assertEquals(1, graph.calculateNodeCount());
+	}
+
 	@Disabled("Requires complex attribute constraints or operation invocations")
 	@Test
 	void test_calculateNodeCount_singleNode() throws Exception {

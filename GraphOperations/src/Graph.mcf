@@ -71,7 +71,7 @@ class Graph {
 
     for(pNodeExistsRef(graph = this)) {
       //TODO@dgiessing fix me 
-//      counter.increment()
+      counter.increment() 
     }
     
     return counter.value     
