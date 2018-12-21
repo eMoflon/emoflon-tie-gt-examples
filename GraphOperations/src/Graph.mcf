@@ -70,12 +70,11 @@ class Graph {
     invoke initializeEIntContainer(container = counter)
 
     for(pNodeExistsRef(graph = this)) {
-      //TODO@dgiessing fix me
+      //TODO@dgiessing fix me 
       // counter.increment()
     }
-    //TODO@dgiessing fix me
-    // return counter.value
-    return 1
+    
+    return counter.value     
   }
   
   operation isNode(element : Element) : EBoolean {

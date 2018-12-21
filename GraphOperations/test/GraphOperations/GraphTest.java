@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class GraphTest {
@@ -128,6 +129,18 @@ public class GraphTest {
 	void test_getSomeNode_singleNode() throws Exception {
 		graph.addNode("n1");
 		assertEquals("n1", graph.getSomeNode().getId());
+	}
+
+	@Test
+	void test_calculateNodeCount_empty() throws Exception {
+		assertEquals(0, graph.calculateNodeCount());
+	}
+
+	@Disabled("Requires complex attribute constraints or operation invocations")
+	@Test
+	void test_calculateNodeCount_singleNode() throws Exception {
+		graph.addNode("n1");
+		assertEquals(1, graph.calculateNodeCount());
 	}
 
 	private Edge getEdgeById(final String edgeId) {

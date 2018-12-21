@@ -1,6 +1,20 @@
 import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
+attributeConditionLibrary {
+  equal(intValue1 : EInt, intValue2 : EInt) {
+    op[ B B ] {
+      Java : '${intValue1} == ${intValue2}'
+    }
+    op [F B] {
+      Java : '${intValue1} = ${intValue2}'
+    }
+    op[B F] {
+       Java : '${intValue2} = ${intValue1}'
+    }
+  }
+}
+
 pattern pNodeExists(nodeId: EString) {
   node: Node {
     .id == param::nodeId
@@ -118,55 +132,69 @@ when noIncidentEdges
 condition noIncidentEdges = forbid outgoingEdge && forbid incomingEdge
 
 pattern someElement {
-  graph : Graph
-  element : Element 
+  graph: Graph
+
+  element: Element
 }
 
-pattern someNode refines someElement {
-  element : Node {
-    -graph-> graph
+pattern someNode
+refines someElement {
+  element: Node {
+    -graph -> graph
   }
 }
 
-pattern someEdge refines someElement {
-  element : Node {
+pattern someEdge
+refines someElement {
+  element: Node {
+    -graph -> graph
+  }
+}
+
+pattern nodeWithIdCAC {
+  graph: Graph
+  
+  node : Node {
     -graph-> graph
   }
+  
+  
 }
 
 rule triangleWithLongestEdge() {
   graph: Graph
-  
-  n1 : Node
-  n2 : Node
-  n3 : Node
+
+  n1: Node
+
+  n2: Node
+
+  n3: Node
 
   longestEdge: Edge {
     .weight > shorterEdge1.weight
     .weight > shorterEdge2.weight
     -graph -> graph
-    -source-> n1
-    -target-> n2
+    -source -> n1
+    -target -> n2
   }
 
   shorterEdge1: Edge {
     .weight >= shorterEdge2.weight
     -graph -> graph
-    -source-> n1
-    -target-> n3
+    -source -> n1
+    -target -> n3
   }
 
   shorterEdge2: Edge {
     .weight < longestEdge.weight
     -graph -> graph
-    -source-> n3
-    -target-> n2
-  } 
+    -source -> n3
+    -target -> n2
+  }
 
   ++ triangle: Triangle {
     ++ -longEdge -> longestEdge
-    ++ -shortEdges-> shorterEdge1
-    ++ -shortEdges-> shorterEdge2
+    ++ -shortEdges -> shorterEdge1
+    ++ -shortEdges -> shorterEdge2
   }
 }
-
