@@ -1,20 +1,6 @@
 import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
-attributeConditionLibrary {
-  equal(intValue1 : EInt, intValue2 : EInt) {
-    op[ B B ] {
-      Java : '${intValue1} == ${intValue2}'
-    }
-    op [F B] {
-      Java : '${intValue1} = ${intValue2}'
-    }
-    op[B F] {
-       Java : '${intValue2} = ${intValue1}'
-    }
-  }
-}
-
 pattern pNodeExists(nodeId: EString) {
   node: Node {
     .id == param::nodeId
@@ -151,16 +137,6 @@ refines someElement {
   }
 }
 
-pattern nodeWithIdCAC {
-  graph: Graph
-  
-  node : Node {
-    -graph-> graph
-  }
-  
-  
-}
-
 rule triangleWithLongestEdge() {
   graph: Graph
 
@@ -196,5 +172,35 @@ rule triangleWithLongestEdge() {
     ++ -longEdge -> longestEdge
     ++ -shortEdges -> shorterEdge1
     ++ -shortEdges -> shorterEdge2
+  }
+}
+
+attributeConditionLibrary {
+  equal(intValue1 : EInt, intValue2 : EInt) {
+    op[ B B ] {
+      Java : '${intValue1} == ${intValue2}'
+    }
+    op [F B] {
+      Java : '${intValue1} = ${intValue2}'
+    }
+    op[B F] {
+       Java : '${intValue2} = ${intValue1}'
+    }
+  }
+}
+
+pattern nodeWithIdCAC {
+  graph: Graph
+  
+  node : Node {
+    -graph-> graph
+  }
+  
+  edge : Edge{
+    -graph-> graph
+  }
+  
+  attributeCondition {
+    x : EInt
   }
 }
