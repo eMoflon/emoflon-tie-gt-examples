@@ -2,6 +2,7 @@ package org.moflon.tutorial.sokobangamegui.view.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -16,62 +17,67 @@ import org.moflon.tutorial.sokobangamegui.view.View;
  * @author Matthias Senker (Comments by Lukas Hermanns)
  */
 public class LoadSaveAction implements ActionListener {
-	private static final String SOK = "sok";
-	private static final String MODELS = "xmi";
+	private final JFileChooser fileChooser;
+	private final View view;
 
-	private JFileChooser fileChooser;
-	private View view;
+	private final JComponent saveSource;
+	private static File recentDirectory;
 
-	private JComponent saveSource;
-
-	public LoadSaveAction(View view, JComponent saveSource, JComponent loadSource) {
-		/* Setup internal memory */
+	public LoadSaveAction(final View view, final JComponent saveSource, final JComponent loadSource) {
 		this.view = view;
 		this.saveSource = saveSource;
 
-		/* Show file selector */
-		fileChooser = new JFileChooser("boards/");
+		fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(getCurrrentDirectoryForFileChooser());
 		fileChooser.setAcceptAllFileFilterUsed(false);
-		FileFilter filterXMI = new FileNameExtensionFilter(MODELS, MODELS);
-		FileFilter filterSOK = new FileNameExtensionFilter(SOK, SOK);
-		fileChooser.addChoosableFileFilter(filterSOK);
-		fileChooser.addChoosableFileFilter(filterXMI);
+		final FileFilter filter = new FileNameExtensionFilter("models", "xmi");
+		fileChooser.addChoosableFileFilter(filter);
+	}
+
+	private File getCurrrentDirectoryForFileChooser() {
+
+		final File instancesFolder = new File("instances/");
+		final File currentFolder = new File(".");
+
+		final File startDirectory;
+		if (recentDirectory != null && recentDirectory.exists()) {
+			startDirectory = recentDirectory;
+		} else if (instancesFolder.exists()) {
+			startDirectory = instancesFolder;
+		} else {
+			startDirectory = currentFolder;
+		}
+
+		return startDirectory;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(final ActionEvent e) {
+		fileChooser.setCurrentDirectory(getCurrrentDirectoryForFileChooser());
 		if (e.getSource().equals(saveSource)) {
 			if (fileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
-				/* Get full filename from file-selector */
-				String filePath = fileChooser.getSelectedFile().getPath();
+				final File selectedFile = fileChooser.getSelectedFile();
+				String filePath = selectedFile.getPath();
 
-				if (fileChooser.getFileFilter().getDescription().contentEquals(SOK)) {
-					filePath = addExtensionIfMissing(filePath, SOK);
-					view.getController().saveSOKFile(filePath);
-				} else {
-					filePath = addExtensionIfMissing(filePath, MODELS);
-					view.getController().saveModel(filePath);
+				/* Adjust filename for XMI file-extension */
+				if (fileChooser.getFileFilter().getDescription().equals("models") && !filePath.endsWith(".xmi")) {
+					filePath += ".xmi";
 				}
+
+				view.getController().saveModel(filePath);
+
+				recentDirectory = selectedFile.getParentFile();
 			}
 		} else {
 			if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
-				/* Get full filename from file-selector */
-				String filePath = fileChooser.getSelectedFile().getPath();
+				final File selectedFile = fileChooser.getSelectedFile();
+				final String filePath = selectedFile.getPath();
 
-				/* Read the model from file */
-				if (fileChooser.getFileFilter().getDescription().equals(SOK))
-					view.getController().loadSOKFile(filePath);
-				else
-					view.getController().loadModel(filePath);
+				view.getController().loadModel(filePath);
+
+				recentDirectory = selectedFile.getParentFile();
 			}
 		}
-	}
-
-	private String addExtensionIfMissing(String filePath, String extension) {
-		if (fileChooser.getFileFilter().getDescription().equals(extension) && !filePath.endsWith("." + extension))
-			return filePath + "." + extension;
-		else
-			return filePath;
 	}
 
 }

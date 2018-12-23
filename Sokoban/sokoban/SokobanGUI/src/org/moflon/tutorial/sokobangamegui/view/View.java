@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -50,18 +51,18 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/* Board and controller references */
-	protected Board board;
-	private Controller controller;
+	private final Board board;
+	private final Controller controller;
 
 	/* JFrame main window and field buttons */
-	protected FieldButton[][] buttons;
-	protected PlayAction playAction;
+	private FieldButton[][] buttons;
+	private PlayAction playAction;
 	private JPopupMenu figureMenu;
 	private JTextArea statusBar;
 	private JScrollPane statusPanel;
 
 	/* Icon list (implemented as hash-map to quick access via string) */
-	private Map<String, ImageIcon> icons;
+	private final Map<String, ImageIcon> icons;
 
 	/**
 	 * The view constructor
@@ -69,15 +70,16 @@ public class View extends JFrame {
 	 * @param controller Specifies the controller object. This must not be null!
 	 * @param board      Specifies the board object. This must not be null!
 	 */
-	public View(Controller controller, Board board) {
-		/* Setup references */
+	public View(final Controller controller, final Board board) {
 		this.controller = controller;
 		this.board = board;
 		this.icons = new HashMap<>();
 
-		/* Initialize all components and update the view for the first time */
 		initializeComponents();
 		updateView();
+
+		this.setTitle("Sokoban");
+		this.setIconImage(this.loadIcon("Sokoban").getImage());
 	}
 
 	/**
@@ -88,19 +90,19 @@ public class View extends JFrame {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		/* Create the menu bar */
-		JMenuBar menuBar = new JMenuBar();
+		final JMenuBar menuBar = new JMenuBar();
 
-		JMenu fileMenu = new JMenu("File");
-		fileMenu.setName("File");
-		JMenuItem newBoardItem = new JMenuItem("New Board...");
-		JMenuItem clearBoardItem = new JMenuItem("Clear Board");
-		JMenuItem loadItem = new JMenuItem("Load Board...");
-		JMenuItem saveItem = new JMenuItem("Save Board...");
+		final JMenu fileMenu = new JMenu("File");
 
-		JMenuItem playToggle = new JMenuItem();
+		final JMenuItem newBoardItem = new JMenuItem("New Board...");
+		final JMenuItem clearBoardItem = new JMenuItem("Clear Board");
+		final JMenuItem loadItem = new JMenuItem("Load Model...");
+		final JMenuItem saveItem = new JMenuItem("Save Model...");
+
+		final JMenuItem playToggle = new JMenuItem();
 
 		/* Create the action listeners */
-		ActionListener loadSaveAction = new LoadSaveAction(this, saveItem, loadItem);
+		final ActionListener loadSaveAction = new LoadSaveAction(this, saveItem, loadItem);
 
 		newBoardItem.addActionListener(new NewBoardAction(this));
 		clearBoardItem.addActionListener(new ClearBoardAction(this));
@@ -123,51 +125,65 @@ public class View extends JFrame {
 		/* Create popup menu */
 		figureMenu = new JPopupMenu();
 
-		JMenuItem endPos = new JMenuItem("Toggle End");
-		endPos.addActionListener(e -> {
-			FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
-			createEndFigure(fieldButton);
+		final JMenuItem endPos = new JMenuItem("Toggle End");
+		endPos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
+				fieldButton.getField().setEndPos(!fieldButton.getField().isEndPos());
+				updateView();
+			}
 		});
 		figureMenu.add(endPos);
 
 		figureMenu.addSeparator();
 
-		JMenuItem noElementItem = new JMenuItem("None");
-		noElementItem.addActionListener(e -> {
-			FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
-			nullFigure(fieldButton);
+		final JMenuItem noElementItem = new JMenuItem("None");
+		noElementItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
+				controller.setFigure(fieldButton.getField(), null);
+			}
 		});
 		figureMenu.add(noElementItem);
 
 		figureMenu.addSeparator();
 
-		for (EClass elementClass : controller.getFigureClasses()) {
-			JMenuItem elementClassItem = new JMenuItem(elementClass.getName());
+		for (final EClass elementClass : controller.getFigureClasses()) {
+			final JMenuItem elementClassItem = new JMenuItem(elementClass.getName());
 
 			final EClass ec = elementClass;
-			elementClassItem.addActionListener(e -> {
-				FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
-				createFigure(ec, fieldButton);
+
+			elementClassItem.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent e) {
+					/* Setup new connection between field and figure */
+					final FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
+					final Figure newFigure = (Figure) SokobanLanguageFactory.eINSTANCE.create(ec);
+					controller.setFigure(fieldButton.getField(), newFigure);
+				}
 			});
+
 			figureMenu.add(elementClassItem);
 		}
 
 		/* Compute button size depending on the count of fields and window size */
-		Dimension maxBoardSize = new Dimension(1000, 500);
+		final Dimension maxBoardSize = new Dimension(1000, 500);
 
-		int width = board.getWidth();
-		int height = board.getHeight();
+		final int width = board.getWidth();
+		final int height = board.getHeight();
 
-		int buttonSize = Math.min(maxBoardSize.width / width, maxBoardSize.height / height);
+		final int buttonSize = Math.min(maxBoardSize.width / width, maxBoardSize.height / height);
 
 		/* Create field buttons */
 		buttons = new FieldButton[height][width];
-		JPanel panelBoard = new JPanel(new GridLayout(height, width));
+		final JPanel panelBoard = new JPanel(new GridLayout(height, width));
 
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				/* Create new field button */
-				FieldButton button = new FieldButton();
+				final FieldButton button = new FieldButton();
 
 				/* Initialize button with size and popup menu connection */
 				button.setPreferredSize(new Dimension(buttonSize, buttonSize));
@@ -181,7 +197,7 @@ public class View extends JFrame {
 		}
 
 		/* Connect all fields with an action listener */
-		for (Field f : board.getFields()) {
+		for (final Field f : board.getFields()) {
 			buttons[f.getRow()][f.getCol()].setField(f);
 			buttons[f.getRow()][f.getCol()].addActionListener(new FieldSelectedAction(this, f));
 		}
@@ -193,7 +209,7 @@ public class View extends JFrame {
 
 		addComponentListener(new ComponentAdapter() {
 			@Override
-			public void componentResized(ComponentEvent arg0) {
+			public void componentResized(final ComponentEvent arg0) {
 				icons.clear();
 				updateView();
 			}
@@ -212,20 +228,16 @@ public class View extends JFrame {
 		setVisible(true);
 	}
 
-	public void updateStatus(String status) {
+	public void updateStatus(final String status) {
 		statusBar.append(status);
 		statusBar.setCaretPosition(statusBar.getDocument().getLength());
-	}
-
-	public String getStatus() {
-		return statusBar.getText();
 	}
 
 	/**
 	 * Updates the view by setting up field text, icon, border, color etc.
 	 */
 	public void updateView() {
-		Figure selectedFigure = board.getSelectedFigure();
+		final Figure selectedFigure = board.getSelectedFigure();
 		Field selectedField = null;
 
 		if (selectedFigure != null) {
@@ -235,10 +247,10 @@ public class View extends JFrame {
 		for (int row = 0; row < board.getHeight(); row++) {
 			for (int col = 0; col < board.getWidth(); col++) {
 				/* Get field button at current row and column in array */
-				FieldButton button = buttons[row][col];
+				final FieldButton button = buttons[row][col];
 
 				/* Get field from field-button */
-				Field f = button.getField();
+				final Field f = button.getField();
 
 				/* Temporary memory */
 				String figureName = "";
@@ -290,7 +302,7 @@ public class View extends JFrame {
 	 * @return The new image icon object.
 	 * @see ImageIcon
 	 */
-	private ImageIcon loadIcon(String name) {
+	private ImageIcon loadIcon(final String name) {
 		if (icons.containsKey(name)) {
 			return icons.get(name);
 		}
@@ -299,15 +311,15 @@ public class View extends JFrame {
 
 		try {
 			/* Read icon from file */
-			Image img = ImageIO.read(new File(imageFolder() + name + ".png"));
+			final Image img = ImageIO.read(new File("images/" + name + ".png"));
 
 			/* Adjust icon size by scaling to button size */
-			int buttonSize = Math.min(buttons[0][0].getWidth(), buttons[0][0].getHeight());
-			Image scaled = img.getScaledInstance(buttonSize - 2, buttonSize - 2, Image.SCALE_SMOOTH);
+			final int buttonSize = Math.min(buttons[0][0].getWidth(), buttons[0][0].getHeight());
+			final Image scaled = img.getScaledInstance(buttonSize - 2, buttonSize - 2, Image.SCALE_SMOOTH);
 
 			/* Allocate new image icon */
 			icon = new ImageIcon(scaled);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			/* Ignore internal exceptions */
 		}
 
@@ -322,33 +334,13 @@ public class View extends JFrame {
 		return controller;
 	}
 
-	public void selectField(Field field) {
+	public void selectField(final Field field) {
 		if (playAction.isPlayModus()) {
 			controller.selectField(field);
 		}
 	}
 
-	public void showMessage(String message) {
+	public void showMessage(final String message) {
 		updateStatus("\n" + message);
 	}
-
-	protected String imageFolder() {
-		return "images/";
-	}
-
-	protected void createFigure(final EClass ec, FieldButton fieldButton) {
-		/* Setup new connection between field and figure */
-		Figure newFigure = (Figure) SokobanLanguageFactory.eINSTANCE.create(ec);
-		controller.setFigure(fieldButton.getField(), newFigure);
-	}
-
-	protected void createEndFigure(FieldButton fieldButton) {
-		fieldButton.getField().setEndPos(!fieldButton.getField().isEndPos());
-		updateView();
-	}
-
-	protected void nullFigure(FieldButton fieldButton) {
-		controller.setFigure(fieldButton.getField(), null);
-	}
-
 }
