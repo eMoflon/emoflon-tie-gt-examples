@@ -2,6 +2,7 @@ package GraphOperations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -19,55 +20,55 @@ public class GraphTest {
 	@BeforeEach
 	void setUp() {
 		final GraphOperationsFactory factory = GraphOperationsFactory.eINSTANCE;
-		this.graph = factory.createGraph();
+		graph = factory.createGraph();
 	}
 
 	@Test
 	void test_createEdge() throws Exception {
-		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
 		assertNodeCount(2);
 		assertEdgeCount(1);
 		assertOutdegree("n1", 1);
 		assertIndegree("n2", 1);
-		this.graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
+		graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
 		assertNodeCount(3);
 		assertEdgeCount(2);
 		assertOutdegree("n1", 2);
 		assertIndegree("n3", 1);
-		this.graph.addEdgeWithIncidentNodes("n2", "n4", "e24");
+		graph.addEdgeWithIncidentNodes("n2", "n4", "e24");
 		assertNodeCount(4);
 		assertEdgeCount(3);
 		assertOutdegree("n2", 1);
 		assertIndegree("n4", 1);
-		this.graph.addEdgeWithIncidentNodes("n3", "n4", "e34");
+		graph.addEdgeWithIncidentNodes("n3", "n4", "e34");
 		assertNodeCount(4);
 		assertEdgeCount(4);
 	}
 
 	@Test
 	void test_removeEdge() throws Exception {
-		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
-		this.graph.removeEdge("e12");
+		graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		graph.removeEdge("e12");
 		assertEdgeCount(0);
 
-		this.graph.removeEdge("e12");
+		graph.removeEdge("e12");
 	}
 
 	@Test
 	void test_clear_emptyGraph() throws Exception {
-		this.graph.clear();
+		graph.clear();
 		assertNodeCount(0);
 		assertEdgeCount(0);
 	}
 
 	@Test
 	void test_clear() throws Exception {
-		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
-		this.graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
-		this.graph.addEdgeWithIncidentNodes("n2", "n4", "e24");
-		this.graph.addEdgeWithIncidentNodes("n3", "n4", "e34");
+		graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
+		graph.addEdgeWithIncidentNodes("n2", "n4", "e24");
+		graph.addEdgeWithIncidentNodes("n3", "n4", "e34");
 
-		this.graph.clear();
+		graph.clear();
 		assertNodeCount(0);
 		assertEdgeCount(0);
 	}
@@ -78,37 +79,78 @@ public class GraphTest {
 		final Element node = GraphOperationsFactory.eINSTANCE.createNode();
 		final Element edge = GraphOperationsFactory.eINSTANCE.createEdge();
 		final Element element = GraphOperationsFactory.eINSTANCE.createElement();
-		assertTrue(this.graph.isNode(node));
-		assertFalse(this.graph.isNode(edge));
-		assertFalse(this.graph.isNode(element));
+		assertTrue(graph.isNode(node));
+		assertFalse(graph.isNode(edge));
+		assertFalse(graph.isNode(element));
 	}
 
-	// TODO@dgiessing re-enable after fix
-	@Disabled
 	@Test
 	void test_getIsolatedNode_empty() throws Exception {
-		assertNull(this.graph.getIsolatedNode());
+		assertNull(graph.getIsolatedNode());
+	}
+
+	@Test
+	void test_getIsolatedNode_singleEdge() throws Exception {
+		graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		assertNull(graph.getIsolatedNode());
+	}
+
+	@Test
+	void test_getIsolatedNode_singleNode() throws Exception {
+		graph.addNode("n1");
+		final Node isolatedNode = graph.getIsolatedNode();
+		assertNotNull(isolatedNode);
+		assertEquals("n1", isolatedNode.getId());
 	}
 
 	@Test
 	void test_getTriangleWithLongestEdge() throws Exception {
-		this.graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
-		this.graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
-		this.graph.addEdgeWithIncidentNodes("n3", "n2", "e32");
+		graph.addEdgeWithIncidentNodes("n1", "n2", "e12");
+		graph.addEdgeWithIncidentNodes("n1", "n3", "e13");
+		graph.addEdgeWithIncidentNodes("n3", "n2", "e32");
 		final Edge e12 = getEdgeById("e12");
 		e12.setWeight(10);
 		final Edge e13 = getEdgeById("e13");
 		e13.setWeight(2);
 		final Edge e32 = getEdgeById("e32");
 		e32.setWeight(1);
-		final Triangle triangle = this.graph.getTriangleWithLongestEdge();
+		final Triangle triangle = graph.getTriangleWithLongestEdge();
 		assertTrue(triangle.getLongEdge().equals(e12));
 		assertTrue(triangle.getShortEdges().contains(e13));
 		assertTrue(triangle.getShortEdges().contains(e32));
 	}
 
+	@Test
+	void test_getSomeNode_empty() throws Exception {
+		assertNull(graph.getSomeNode());
+	}
+
+	@Test
+	void test_getSomeNode_singleNode() throws Exception {
+		graph.addNode("n1");
+		assertEquals("n1", graph.getSomeNode().getId());
+	}
+
+	@Test
+	void test_calculateNodeCount_empty() throws Exception {
+		assertEquals(0, graph.calculateNodeCount());
+	}
+
+	@Test
+	void test_calculateNodeCount_oneNode() throws Exception {
+		graph.addNode("n1");
+		assertEquals(1, graph.calculateNodeCount());
+	}
+
+	@Disabled("Requires complex attribute constraints or operation invocations")
+	@Test
+	void test_calculateNodeCount_singleNode() throws Exception {
+		graph.addNode("n1");
+		assertEquals(1, graph.calculateNodeCount());
+	}
+
 	private Edge getEdgeById(final String edgeId) {
-		return this.graph.getEdges().stream().filter(edge -> edge.getId().equals(edgeId)).findAny().get();
+		return graph.getEdges().stream().filter(edge -> edge.getId().equals(edgeId)).findAny().get();
 	}
 
 	private void assertNodeCount(final int expectedNodeCount) {

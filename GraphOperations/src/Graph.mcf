@@ -5,24 +5,36 @@ using "Graph.gt"
 package src.Graph
 
 class Graph {
+  
+  operation addNode(nodeId : EString) : Node {
+    this: Graph
+    if (pNodeExists(nodeId = nodeId, graph = this)) {} else {
+      pCreateNode(nodeId = nodeId, graph = this)
+    }
+    
+    node : Node
+    pNodeExists(nodeId = nodeId, graph = this, node = node)
+    return node
+  }
+  
   operation addEdgeWithIncidentNodes(srcId : EString, trgId : EString, edgeId : EString) : Edge {
     this: Graph
     srcNode : Node
     trgNode : Node
     if (pNodeExists(nodeId = srcId, graph = this)) {} else {
-      invoke pCreateNode(nodeId = srcId, graph = this, newNode = srcNode)
+      pCreateNode(nodeId = srcId, graph = this, newNode = srcNode)
     }
 
     if (pNodeExists(nodeId = trgId, graph = this)) {} else {
-      invoke pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
-    }
+      pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
+    } 
 
     edge : Edge
     n1 : Node
     n2 : Node
-    invoke pNodeExists(nodeId = srcId, node = n1, graph = this)
-    invoke pNodeExists(nodeId = trgId, node = n2, graph = this)
-    invoke createEdge(srcNode = n1, trgNode = n2, edge = edge, edgeId = edgeId)
+    pNodeExists(nodeId = srcId, node = n1, graph = this)
+    pNodeExists(nodeId = trgId, node = n2, graph = this)
+    createEdge(srcNode = n1, trgNode = n2, edge = edge, edgeId = edgeId)
     return edge
   }
 
@@ -39,15 +51,15 @@ class Graph {
 
       edge : Edge
       for (pOutgoingEdge(node = node, edge = edge)) {
-        invoke removeEdgeRef(edge = edge)
+        removeEdgeRef(edge = edge)
       }
 
       edge2 : Edge
       while (pIncomingEdge(node = node, edge = edge2)) {
-        invoke removeEdgeRef(edge = edge2)
+        removeEdgeRef(edge = edge2)
       }
 
-      invoke removeNodeRef(node = node)
+      removeNodeRef(node = node)
     }
   }
 
@@ -55,15 +67,14 @@ class Graph {
     this : Graph
     counter : EIntContainer
     x : EInt
-    invoke initializeEIntContainer(container = counter)
+    initializeEIntContainer(container = counter)
 
     for(pNodeExistsRef(graph = this)) {
-      //TODO@dgiessing fix me
-      // counter.increment()
+      //TODO@dgiessing fix me 
+      counter.increment() 
     }
-    //TODO@dgiessing fix me
-    // return counter.value
-    return 1
+    
+    return counter.value     
   }
   
   operation isNode(element : Element) : EBoolean {
@@ -77,18 +88,25 @@ class Graph {
   operation getTriangleWithLongestEdge() : Triangle {
     this : Graph
     triangle : Triangle
-    invoke triangleWithLongestEdge(triangle = triangle, graph = this)
+    triangleWithLongestEdge(triangle = triangle, graph = this)
     return triangle
   }
   
-  //TODO@dgiessing return null produces 'return "null";' in the java code
-//  operation getIsolatedNode() : Node {
-//    this : Graph
-//    node : Node
-//    if(isolatedNode(isolatedNode = node, graph = this)) {
-//      //TODO@dgiessing return node
-//      return null
-//    } 
-//    return null
-//  }
+  operation getIsolatedNode() : Node {
+    this : Graph
+    node : Node
+    if(isolatedNode(isolatedNode = node, graph = this)) {
+      return node
+    } 
+    return null
+  }
+  
+  operation getSomeNode() : Node {
+    this : Graph
+    node : Node
+    if(someNode(element = node, graph = this)) {
+      return node
+    } 
+    return null
+  }
 }
