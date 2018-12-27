@@ -1,0 +1,107 @@
+import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
+
+abstract rule moveSokoban {
+	from: Field
+
+	to: Field
+
+	sok: Sokoban {
+		-- -field -> from
+		++ -field -> to
+	}
+}
+
+abstract rule pushBlock {
+	to: Field
+
+	next: Field
+
+	block: Block {
+		-- -field -> to
+		++ -field -> next
+	}
+}
+
+pattern occupiedField {
+	fig: Figure
+
+	to: Field {
+		-figure -> fig
+	}
+}
+
+condition freeTo = forbid occupiedField
+
+rule moveSokobanUp
+refines moveSokoban {
+	from: Field {
+		-top -> to
+	}
+}
+when freeTo
+
+pattern occupiedNext {
+	fig: Figure
+
+	next: Field {
+		-figure -> fig
+	}
+}
+
+condition freeNext = forbid occupiedNext
+
+rule pushBlockUp
+refines pushBlock, moveSokobanUp {
+	to: Field {
+		-top -> next
+	}
+}
+when freeNext
+
+rule moveSokobanDown
+refines moveSokoban {
+	from: Field {
+		-bottom -> to
+	}
+}
+when freeTo
+
+rule pushBlockDown
+refines pushBlock, moveSokobanDown {
+	to: Field {
+		-bottom -> next
+	}
+}
+when freeNext
+
+rule moveSokobanLeft
+refines moveSokoban {
+	from: Field {
+		-left -> to
+	}
+}
+when freeTo
+
+rule pushBlockLeft
+refines pushBlock, moveSokobanLeft {
+	to: Field {
+		-left -> next
+	}
+}
+when freeNext
+
+rule moveSokobanRight
+refines moveSokoban {
+	from: Field {
+		-right -> to
+	}
+}
+when freeTo
+
+rule pushBlockRight
+refines pushBlock, moveSokobanRight {
+	to: Field {
+		-right -> next
+	}
+}
+when freeNext
