@@ -10,12 +10,19 @@ pattern oneSokoban {
 }
 
 pattern oneBlock {
+	board:Board
+	field:Field{
+		-board->board
+		-figure->block
+	}
 	block: Block
 }
 
 pattern oneEndField {
+	board:Board
 	field: Field {
 		.endPos == true
+		-board->board
 	}
 }
 
@@ -29,11 +36,13 @@ pattern anOccupiedField {
 
 pattern boulderOnEndField()
 refines oneEndField, anOccupiedField {
+	
 	fig: Boulder
+	
 } when notABlock
 
 condition notABlock = forbid block
 
 pattern block {
 	fig:Block
-}
+	}

@@ -141,3 +141,14 @@ pattern hasNextPartition(){
 	}
  	nextPartition:Partition
 }
+
+pattern notAFastCard(){
+	card:Card
+} when cNotAFastCard
+
+
+condition cNotAFastCard=forbid fastCard
+
+pattern fastCard(){
+	card: FastCard
+}

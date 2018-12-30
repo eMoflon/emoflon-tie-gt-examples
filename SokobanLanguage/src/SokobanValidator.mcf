@@ -8,10 +8,8 @@
 * for imports in your current eclipse runtime use:
 * import "platform:/resource/something/ecoreFile.ecore"
 */
-import "platform:/plugin/SokobanLanguage/model/SokobanLanguage.ecore"
-import "http://www.eclipse.org/emf/2002/Ecore"
-
-/*
+import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
+import "http://www.eclipse.org/emf/2002/Ecore"/*
 * using session
 *
 * for every defined Patternfile you want to use:
@@ -23,16 +21,30 @@ using "BoardPatterns.gt"
 package src
 
 class SokobanValidator{
-	operation move(figure:Figure, field:Field):EBoolean{
+	operation move(board:Board,figure:Figure, field:Field):EBoolean{
 		
 	}
-	
+
 	operation validateBoard(board:Board):EBoolean{
 		if(oneSokoban(board=board)){
-			return true
+			
 		}else{
 			return false
 		}
+		if(oneBlock(board=board)){
+			
+		}else{
+			return false
+		}
+		if(oneEndField(board=board)){
+			
+		}else{
+			return false
+		}
+		if(boulderOnEndField(board=board)){
+			return false
+		}
+		return true
 	}
 }
 

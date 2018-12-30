@@ -23,6 +23,8 @@ class Box {
 		p:Partition
 		p2:Partition
 		addPartition(b = this, p2=p)
+		card: Card
+		notAFastCard(card=card)
 	}
 
     /**
