@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class GraphTest {
@@ -142,7 +141,6 @@ public class GraphTest {
 		assertEquals(1, graph.calculateNodeCount());
 	}
 
-	@Disabled("Requires complex attribute constraints or operation invocations")
 	@Test
 	void test_calculateNodeCount_singleNode() throws Exception {
 		graph.addNode("n1");
