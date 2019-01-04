@@ -61,6 +61,13 @@ pattern checkGuess(guess:EString){
 	}
 }
 
+rule createCard() {
+  partition :Partition
+  ++card:Card{
+    ++ -partition->partition
+  }
+}
+
 pattern isFastCard(){
 	fastCard:FastCard :=card
 	card:Card
@@ -144,9 +151,9 @@ pattern hasNextPartition(){
 
 pattern notAFastCard(){
 	card:Card
-} when cNotAFastCard
+} 
 
-
+//when cNotAFastCard
 condition cNotAFastCard=forbid fastCard
 
 pattern fastCard(){

@@ -24,6 +24,7 @@ class Box {
 		p2:Partition
 		addPartition(b = this, p2=p)
 		card: Card
+		createCard(card=card, partition=p)
 		notAFastCard(card=card)
 	}
 
