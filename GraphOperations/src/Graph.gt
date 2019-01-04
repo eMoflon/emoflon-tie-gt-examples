@@ -81,6 +81,7 @@ pattern pIncomingEdge() {
 
 rule initializeEIntContainer() {
   ++ container: EIntContainer {
+    .value := 0
   }
 }
 

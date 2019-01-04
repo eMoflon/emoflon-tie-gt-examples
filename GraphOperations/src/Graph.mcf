@@ -14,6 +14,8 @@ class Graph {
     
     node : Node
     pNodeExists(nodeId = nodeId, graph = this, node = node)
+    //TODO@rkluge: Continue here
+    //this.addGivenNode(node)
     return node
   }
   
@@ -70,11 +72,14 @@ class Graph {
     initializeEIntContainer(container = counter)
 
     for(pNodeExistsRef(graph = this)) {
-      //TODO@dgiessing fix me 
       counter.increment() 
     }
     
     return counter.value     
+  }
+  
+  operation addGivenNode(node : Node) : void {
+     
   }
   
   operation isNode(element : Element) : EBoolean {
