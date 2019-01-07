@@ -77,6 +77,19 @@ class Graph {
     return counter.value
   }
   
+  operation calculateDoubleNodeCount() : EInt {
+    this : Graph
+    counter : EIntContainer
+    x : EInt
+    initializeEIntContainer(container = counter)
+
+    for(pNodeExistsRef(graph = this)) {
+      counter.incrementBy(2)
+    }
+    
+    return counter.value
+  }
+  
   operation addGivenNode(node : Node) : void {
     this : Graph
     addNode(node=node, graph=this)

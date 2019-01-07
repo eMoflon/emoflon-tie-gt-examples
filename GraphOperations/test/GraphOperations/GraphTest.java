@@ -142,9 +142,14 @@ public class GraphTest {
 	}
 
 	@Test
-	void test_calculateNodeCount_singleNode() throws Exception {
+	void test_calculateDoubleNodeCount_empty() throws Exception {
+		assertEquals(0, graph.calculateDoubleNodeCount());
+	}
+
+	@Test
+	void test_calculateDoubleNodeCount_oneNode() throws Exception {
 		graph.addNode("n1");
-		assertEquals(1, graph.calculateNodeCount());
+		assertEquals(2, graph.calculateDoubleNodeCount());
 	}
 
 	@Test
