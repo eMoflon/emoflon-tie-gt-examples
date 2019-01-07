@@ -29,6 +29,14 @@ rule pCreateNode(nodeId: EString) {
   }
 }
 
+rule addNode() {
+  node : Node
+
+  graph: Graph {
+    ++ -nodes -> node
+  }
+}
+
 rule createEdge(edgeId: EString) {
   graph: Graph
 

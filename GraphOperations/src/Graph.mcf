@@ -14,8 +14,6 @@ class Graph {
     
     node : Node
     pNodeExists(nodeId = nodeId, graph = this, node = node)
-    //TODO@rkluge: Continue here
-    //this.addGivenNode(node)
     return node
   }
   
@@ -44,6 +42,7 @@ class Graph {
     this : Graph
     // if-condition: We do not care whether the removal succeeded
     if(removeEdge(edgeId = edgeId, graph = this)) {}
+    return
   }
 
   operation clear() : void {
@@ -75,11 +74,18 @@ class Graph {
       counter.increment() 
     }
     
-    return counter.value     
+    return counter.value
   }
   
   operation addGivenNode(node : Node) : void {
-     
+    this : Graph
+    addNode(node=node, graph=this)
+    return
+  }
+  
+  operation emptyOperation() : void {
+    // You can leave the operation empty, or you can place a lone return
+    //return
   }
   
   operation isNode(element : Element) : EBoolean {

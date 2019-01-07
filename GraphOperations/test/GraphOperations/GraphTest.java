@@ -147,6 +147,14 @@ public class GraphTest {
 		assertEquals(1, graph.calculateNodeCount());
 	}
 
+	@Test
+	public void test_addGivenNode() throws Exception {
+		final Node node = GraphOperationsFactory.eINSTANCE.createNode();
+		graph.addGivenNode(node);
+
+		assertEquals(node, graph.getNodes().get(0));
+	}
+
 	private Edge getEdgeById(final String edgeId) {
 		return graph.getEdges().stream().filter(edge -> edge.getId().equals(edgeId)).findAny().get();
 	}
