@@ -233,12 +233,9 @@ pattern nodeWithIdCAC {
     -graph -> graph
   }
 
-  edge: Edge {
-    -graph -> graph
-  }
   attributeCondition {
     x : EInt
-    eqS(edge.id, "e12")
     eqS("n1", node.id)
   }
 }
+

@@ -133,4 +133,14 @@ class Graph {
     } 
     return null
   }
+  
+  operation getNodeWithId_CAC() : Node {
+    this : Graph
+    node : Node
+    if(nodeWithIdCAC(node = node, graph = this)) {
+      return node
+    } else {
+      return null
+    }
+  }
 }
