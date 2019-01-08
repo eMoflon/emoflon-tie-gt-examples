@@ -186,13 +186,13 @@ rule triangleWithLongestEdge() {
 
 attributeConditionLibrary {
   eqI(x : EInt, y : EInt) {
-    op[B B] {
+    check [B B] {
       Java : '${x} == ${y}'
     }
-    op[F B] {
+    extend [F B] {
       Java : '${x} = ${y}'
     }
-    op[B F] {
+    extend [B F] {
        Java : '${y} = ${x}'
     }
   }
@@ -203,13 +203,13 @@ attributeConditionLibrary {
   eqByte(x : EByte, y : EShort) reuse eqI
   
   eqS(x : EString, y : EString) {
-    op[ B B ] {
+    check [ B B ] {
       Java : '${x} == null ? ${y} == null : {x}.equals(${y})'
     }
-    op [F B] {
+    extend [F B] {
       Java : '${x} = ${y}'
     }
-    op[B F] {
+    extend [B F] {
        Java : '${y} = ${x}'
     }
   }
