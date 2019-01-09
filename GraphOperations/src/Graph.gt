@@ -204,13 +204,13 @@ attributeConditionLibrary {
   
   eqS(x : EString, y : EString) {
     check [ B B ] {
-      Java : '${x} == null ? ${y} == null : {x}.equals(${y})'
+      Java : '$x$ == null ? $y$ == null : $x$.equals($y$)'
     }
     extend [F B] {
-      Java : '${x} = ${y}'
+      Java : '$x$ = $y$'
     }
     extend [B F] {
-       Java : '${y} = ${x}'
+       Java : '$y$ = $x$'
     }
   }
   
@@ -222,19 +222,21 @@ attributeConditionLibrary {
  * * validation: parameter (count, type)
  * 
  * Library:
+ * * parameters must be valid Java identifiers (OK: $a123$, NOT: $-abc$, NOT: $a b$)
  * * adornment matches parameter specification (length)
- * * only use parameters '${..}' that were declared
- * * for 'reuse': same parameter list, else warning
+ * * only use parameters $x$ that were declared
+ * * for 'reuse': same parameter list, else error
+ * * ensure that parameters are properly enclosed with $..$ (even number of $'s, NOT '$x = $y' -> ensure that content of $ pairs is a parameter)
  */
 pattern nodeWithIdCAC {
   graph: Graph
 
   node: Node {
     -graph -> graph
-  }
+  } 
 
   attributeCondition {
-    x : EInt
+    //x : EInt
     eqS("n1", node.id)
   }
 }

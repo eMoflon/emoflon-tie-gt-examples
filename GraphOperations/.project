@@ -21,7 +21,7 @@
       </arguments>
     </buildCommand>
     <buildCommand>
-      <name>org.moflon.tie.gt.ide.core.runtime.builders.TieGTBuilder</name>
+      <name>org.moflon.tie.gt.ide.core.runtime.builders.TieGtBuilder</name>
       <arguments>
       </arguments>
     </buildCommand>
@@ -43,7 +43,7 @@
   </buildSpec>
   <natures>
     <nature>org.emoflon.ibex.gt.editor.ui.nature</nature>
-    <nature>org.moflon.tie.gt.ide.core.runtime.natures.TieGTNature</nature>
+    <nature>org.moflon.tie.gt.ide.core.runtime.natures.TieGtNature</nature>
     <nature>org.eclipse.jdt.core.javanature</nature>
     <nature>org.eclipse.pde.PluginNature</nature>
     <nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
