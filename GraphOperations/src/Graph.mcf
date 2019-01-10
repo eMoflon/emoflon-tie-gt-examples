@@ -137,12 +137,10 @@ class Graph {
   operation getNodeWithId_CAC() : Node {
     this : Graph
     node : Node
-    return null
-//TODO@rkluge: continue here
-//    if(nodeWithIdCAC(node = node, graph = this)) {
-//      return node
-//    } else {
-//      return null
-//    }
+    if(nodeWithIdCAC(node = node, graph = this)) {
+      return node
+    } else {
+      return null
+    }
   }
 }

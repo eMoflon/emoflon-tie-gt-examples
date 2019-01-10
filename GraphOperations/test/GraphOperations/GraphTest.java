@@ -160,6 +160,17 @@ public class GraphTest {
 		assertEquals(node, graph.getNodes().get(0));
 	}
 
+	@Test
+	void test_getNodeWithIdCAC_empty() throws Exception {
+		assertNull(graph.getNodeWithId_CAC());
+	}
+
+	@Test
+	void test_getNodeWithIdCAC_exists() throws Exception {
+		final Node node = graph.addNode("n1");
+		assertEquals(node, graph.getNodeWithId_CAC());
+	}
+
 	private Edge getEdgeById(final String edgeId) {
 		return graph.getEdges().stream().filter(edge -> edge.getId().equals(edgeId)).findAny().get();
 	}
