@@ -101,13 +101,15 @@ class Graph {
     //return
   }
   
+  //TODO@dgiessing: Pattern isNode cannot be translated currently. See test GraphOperations.GraphTest.test_isNode()
+  /*
   operation isNode(element : Element) : EBoolean {
     if(isNodePattern(element = element)) {
       return true
     } else {
       return false
     }
-  }
+  } */
   
   operation getTriangleWithLongestEdge() : Triangle {
     this : Graph

@@ -200,7 +200,7 @@ attributeConditionLibrary {
   eqF(x : EFloat, y : EFloat) reuse eqI
   eqD(x : EDouble, y : EDouble) reuse eqI
   eqShort(x : EShort, y : EShort) reuse eqI
-  eqByte(x : EByte, y : EShort) reuse eqI
+  eqByte(x : EByte, y : EByte) reuse eqI
   
   eqS(x : EString, y : EString) {
     check [ B B ] {
