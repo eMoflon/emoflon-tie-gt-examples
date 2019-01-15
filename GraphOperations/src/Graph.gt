@@ -187,13 +187,13 @@ rule triangleWithLongestEdge() {
 attributeConditionLibrary {
   eqI(x : EInt, y : EInt) {
     check [B B] {
-      Java : '${x} == ${y}'
+      Java : '$x$ == $y$'
     }
     extend [F B] {
-      Java : '${x} = ${y}'
+      Java : '$x$ = $y$'
     }
     extend [B F] {
-       Java : '${y} = ${x}'
+       Java : '$y$ = $x$'
     }
   }
   eqL(x : ELong, y : ELong) reuse eqI
