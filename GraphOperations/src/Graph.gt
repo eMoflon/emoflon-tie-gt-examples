@@ -218,7 +218,6 @@ attributeConditionLibrary {
 
 /*
  * Task list for CACs
- * * enum expressions
  * * validation: parameter (count, type)
  * 
  * Library:
@@ -238,6 +237,7 @@ pattern nodeWithIdCAC {
   attributeCondition {
     //x : EInt
     eqS("n1", node.id)
+    eqD(0.0, node.degree)
   }
 }
 

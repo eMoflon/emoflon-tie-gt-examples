@@ -170,6 +170,7 @@ public class GraphTest {
 	@Test
 	void test_getNodeWithIdCAC_exists() throws Exception {
 		final Node node = graph.addNode("n1");
+		node.setDegree(0.0);
 		assertEquals(node, graph.getNodeWithId_CAC());
 	}
 
