@@ -6,9 +6,7 @@ Export-Package: GraphOperations,
 Bundle-Name: GraphOperations
 Bundle-Version: 0.0.1.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi,
- org.eclipse.e4.core.di,
- org.gervarro.democles.common
+ org.eclipse.emf.ecore.xmi
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
