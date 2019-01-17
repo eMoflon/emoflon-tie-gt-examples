@@ -214,6 +214,28 @@ attributeConditionLibrary {
     }
   }
   
+  timesI(result : EInt, x : EInt, y : EInt) {
+    check [B B B] {
+      Java : '$result$ == $x$ * $y$'
+    }
+    extend [F B B] {
+      Java : '$result$ = $x$ * $y$'
+    }
+    extend [B F B] {
+      Java : '$x$ = $result$ / $y$'
+    }
+    extend [B B F] {
+      Java : '$y$ = $result$ / $x$'
+    }
+  }
+  timesL(result : ELong, x : ELong, y : ELong) reuse timesI
+  timesF(result : EFloat, x : EFloat, y : EFloat) reuse timesI
+  timesD(result : EDouble, x : EDouble, y : EDouble) reuse timesI
+  timesShort(result : EShort, x : EShort, y : EShort) reuse timesI
+  timesByte(result : EByte, x : EByte, y : EByte) reuse timesI
+  
+  //TODO@rkluge: add, sub, div, mod, sqrt, max, min, toD, toI, toL, concat
+  
 }
 
 pattern nodeWithIdCAC {
@@ -224,9 +246,11 @@ pattern nodeWithIdCAC {
   } 
 
   attributeCondition {
-    //x : EInt
+    tmp1 : EDouble
     eqS("n1", node.id)
-    eqD(0.0, node.degree)
+    timesD(10.0, tmp1, 5.0) // Just for fun abc should be 10/5, but is not used further
+    tmp2 : EDouble
+    timesD(tmp2, tmp1, tmp1) // Ensure that calculations can be chained
 //    eqS(node.id *, "n1'")
   }
 }
