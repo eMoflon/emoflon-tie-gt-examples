@@ -21,12 +21,14 @@ using "BoardPatterns.gt"
 package src
 
 class SokobanValidator{
-	operation move(board:Board,figure:Figure, field:Field):EBoolean{
-		
-	}
+	operation move(figure:Figure, field:Field):EBoolean{
+	 this : SokobanValidator
+	 return false
+  }
+
 
 	operation validateBoard(board:Board):EBoolean{
-		if(oneSokoban(board=board)){
+    this : SokobanValidator if ( oneSokoban(board=board)){
 			
 		}else{
 			return false
@@ -46,6 +48,7 @@ class SokobanValidator{
 		}
 		return true
 	}
+
 }
 
 // EClass declaration
