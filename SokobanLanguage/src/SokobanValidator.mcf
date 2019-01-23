@@ -1,20 +1,5 @@
-/*
-* import section
-*
-* for imports from plugins use:
-* import "platform:/plugin/something/ecoreFile.ecore"
-*
-*
-* for imports in your current eclipse runtime use:
-* import "platform:/resource/something/ecoreFile.ecore"
-*/
 import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
-import "http://www.eclipse.org/emf/2002/Ecore"/*
-* using session
-*
-* for every defined Patternfile you want to use:
-* using "platform:/.../patternFile.gt"
-*/
+import "http://www.eclipse.org/emf/2002/Ecore"
 
 using "BoardPatterns.gt"
 
@@ -50,5 +35,3 @@ class SokobanValidator{
 	}
 
 }
-
-// EClass declaration
