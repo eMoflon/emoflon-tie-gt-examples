@@ -8,7 +8,7 @@ package src.test
 class Box {
 
 	operation matchAPartition(searchedBoxId:EInt):void{
-	    this:Box
+	  this:Box
 		p:Partition
 		matchPartition(b = this, partition= p, boxId = searchedBoxId)
 	}

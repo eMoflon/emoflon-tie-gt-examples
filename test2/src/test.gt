@@ -152,10 +152,9 @@ pattern hasNextPartition(){
 pattern notAFastCard(){
 	card:Card
 } 
-
-//when cNotAFastCard
+when cNotAFastCard
 condition cNotAFastCard=forbid fastCard
-
+  
 pattern fastCard(){
 	card: FastCard
 }

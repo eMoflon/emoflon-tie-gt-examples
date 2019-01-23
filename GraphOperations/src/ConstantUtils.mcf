@@ -6,22 +6,28 @@ package src.ConstantUtils
 
 class ConstantUtils {
   operation getLong(): ELong {
+    this : ConstantUtils
     return -42
   }
 
   operation getInt() : EInt {
+    this : ConstantUtils 
     return -42
   }
 
+
   operation getFloat() : EFloat {
+    this : ConstantUtils
     return -42.0
   }
 
   operation getDouble() : EDouble {
+    this : ConstantUtils
     return -42.0
   }
 
   operation getString() : EString {
+    this : ConstantUtils
     return "-42"
   }
   

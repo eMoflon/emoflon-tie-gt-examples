@@ -99,17 +99,19 @@ class Graph {
   operation emptyOperation() : void {
     // You can leave the operation empty, or you can place a lone return
     //return
+    this : Graph
   }
+
   
-  //TODO@dgiessing: Pattern isNode cannot be translated currently. See test GraphOperations.GraphTest.test_isNode()
-  /*
   operation isNode(element : Element) : EBoolean {
-    if(isNodePattern(element = element)) {
+    this : Graph 
+    if (isNodePattern(element = element)) {
       return true
     } else {
       return false
     }
-  } */
+  }
+
   
   operation getTriangleWithLongestEdge() : Triangle {
     this : Graph
