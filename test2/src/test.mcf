@@ -45,5 +45,11 @@ class Box {
 		 * }
 		 */
 	}
+	
+	operation setBigBox() : void {
+	  this : Box
+	  patternSetBigBox(box = this)
+  }
+
 
 }

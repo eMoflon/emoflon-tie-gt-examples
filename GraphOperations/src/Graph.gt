@@ -251,7 +251,5 @@ pattern nodeWithIdCAC {
     timesD(10.0, tmp1, 5.0) // Just for fun abc should be 10/5, but is not used further
     tmp2 : EDouble
     timesD(tmp2, tmp1, tmp1) // Ensure that calculations can be chained
-//    eqS(node.id *, "n1'")
   }
 }
-

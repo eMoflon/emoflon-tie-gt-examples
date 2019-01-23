@@ -158,3 +158,18 @@ condition cNotAFastCard=forbid fastCard
 pattern fastCard(){
 	card: FastCard
 }
+
+pattern patternSetBigBox() {
+  box : Box
+  attributeCondition {
+    eqBoxType(box.type*, enum::BIG_BOX)
+  }
+}
+
+attributeConditionLibrary{
+  eqBoxType(x : BoxType, y : BoxType) {
+    extend [F B] {
+      Java : "$x$ = $y$"
+    }
+  }
+}

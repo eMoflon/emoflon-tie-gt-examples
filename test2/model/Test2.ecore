@@ -24,6 +24,7 @@
     <eOperations name="removeAllCardsFor">
       <eParameters name="partition" eType="#//Partition"/>
     </eOperations>
+    <eOperations name="setBigBox"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
         eType="#//Partition" containment="true" eOpposite="#//Partition/box"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="boxSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
