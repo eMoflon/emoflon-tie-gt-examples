@@ -47,7 +47,7 @@
     </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EIntContainer">
-    <eOperations name="increment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eOperations name="increment"/>
     <eOperations name="incrementBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eOperations>

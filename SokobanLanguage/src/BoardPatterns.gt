@@ -1,7 +1,6 @@
 import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
 
 pattern anotherSokoban refines oneSokoban{
-	board:Board
 	otherField:Field{
 		-board->board
 		-figure->otherSokoban
@@ -60,3 +59,16 @@ condition notABlock = forbid block
 pattern block {
 	fig:Block
 	}
+	
+pattern countersMatch{
+	counter1:EIntContainer
+	counter2:EIntContainer{
+		.value==counter1.value
+	}
+}
+	
+rule initializeEIntContainer() {
+	++counter:EIntContainer {
+		.value:=0
+	}
+}
