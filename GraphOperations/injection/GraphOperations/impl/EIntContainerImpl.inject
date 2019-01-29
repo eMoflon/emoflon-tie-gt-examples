@@ -10,7 +10,7 @@ partial class EIntContainerImpl {
 
 @model incrementBy (int value)<--
 
-		this.setValue(this.getValue() + 2);
+		this.setValue(this.getValue() + value);
 		return this.getValue();-->
 
 }
