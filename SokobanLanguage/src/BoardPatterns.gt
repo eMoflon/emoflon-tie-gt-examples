@@ -1,6 +1,16 @@
 import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
 
-pattern oneSokoban {
+pattern anotherSokoban refines oneSokoban{
+	board:Board
+	otherField:Field{
+		-board->board
+		-figure->otherSokoban
+	}
+	otherSokoban: Sokoban
+}
+condition notAnotherSokoban = forbid anotherSokoban
+
+pattern oneSokoban{
 	board:Board
 	field:Field{
 		-board->board
@@ -8,6 +18,10 @@ pattern oneSokoban {
 	}
 	sokoban: Sokoban
 }
+
+pattern exactlyOneSokoban refines oneSokoban{
+	
+} when notAnotherSokoban
 
 pattern oneBlock {
 	board:Board
