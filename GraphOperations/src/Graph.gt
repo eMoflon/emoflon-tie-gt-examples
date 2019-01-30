@@ -30,7 +30,7 @@ rule pCreateNode(nodeId: EString) {
 }
 
 rule addNode() {
-  node : Node
+  node: Node
 
   graph: Graph {
     ++ -nodes -> node
@@ -233,9 +233,6 @@ attributeConditionLibrary {
   timesD(result : EDouble, x : EDouble, y : EDouble) reuse timesI
   timesShort(result : EShort, x : EShort, y : EShort) reuse timesI
   timesByte(result : EByte, x : EByte, y : EByte) reuse timesI
-  
-  //TODO@rkluge: add, sub, div, mod, sqrt, max, min, toD, toI, toL, concat
-  
 }
 
 pattern nodeWithIdCAC {
@@ -243,8 +240,7 @@ pattern nodeWithIdCAC {
 
   node: Node {
     -graph -> graph
-  } 
-
+  }
   attributeCondition {
     tmp1 : EDouble
     eqS("n1", node.id)

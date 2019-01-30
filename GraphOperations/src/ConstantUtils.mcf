@@ -2,44 +2,44 @@ import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
 
 using "ConstantUtils.gt"
+
 package src.ConstantUtils
 
 class ConstantUtils {
-  operation getLong(): ELong {
+  operation getLong():ELong {
     this : ConstantUtils
     return -42
   }
 
-  operation getInt() : EInt {
-    this : ConstantUtils 
+  operation getInt():EInt {
+    this : ConstantUtils
     return -42
   }
 
-
-  operation getFloat() : EFloat {
+  operation getFloat():EFloat {
     this : ConstantUtils
     return -42.0
   }
 
-  operation getDouble() : EDouble {
+  operation getDouble():EDouble {
     this : ConstantUtils
     return -42.0
   }
 
-  operation getString() : EString {
+  operation getString():EString {
     this : ConstantUtils
     return "-42"
   }
-  
-  operation getEdgeState() : EdgeState {
+
+  operation getEdgeState():EdgeState {
     this : ConstantUtils
-    if (truePattern(constantsUtils = this)) {
-      if (truePattern(constantsUtils = this)) {
+    if (truePattern(constantsUtils=this)) {
+      if (truePattern(constantsUtils=this)) {
       } else {
         return enum::ACTIVE
       }
     }
-    
     return enum::INACTIVE
   }
 }
+

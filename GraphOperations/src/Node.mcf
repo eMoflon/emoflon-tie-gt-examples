@@ -4,9 +4,9 @@ import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 using "Node.gt"
 
 class Node {
-  operation assignIdCAC() : void {
+  operation assignIdCAC():void {
     this : Node
-    patternAssignNodeIdCAC(node = this)
+    patternAssignNodeIdCAC(node=this)
   }
-
 }
+

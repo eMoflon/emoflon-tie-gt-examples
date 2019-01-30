@@ -2,149 +2,141 @@ import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
 import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
 
 using "Graph.gt"
-package src.Graph
 
+package src.Graph
 class Graph {
-  
-  operation addNode(nodeId : EString) : Node {
-    this: Graph
-    if (pNodeExists(nodeId = nodeId, graph = this)) {} else {
-      pCreateNode(nodeId = nodeId, graph = this)
+  operation addNode(nodeId:EString):Node {
+    this : Graph
+    if (pNodeExists(nodeId=nodeId, graph=this)) {
+    } else {
+      pCreateNode(nodeId=nodeId, graph=this)
     }
-    
     node : Node
-    pNodeExists(nodeId = nodeId, graph = this, node = node)
+    pNodeExists(nodeId=nodeId, graph=this, node=node)
     return node
   }
-  
-  operation addEdgeWithIncidentNodes(srcId : EString, trgId : EString, edgeId : EString) : Edge {
-    this: Graph
+
+  operation addEdgeWithIncidentNodes(srcId:EString, trgId:EString, edgeId:EString):Edge {
+    this : Graph
     srcNode : Node
     trgNode : Node
-    if (pNodeExists(nodeId = srcId, graph = this)) {} else {
-      pCreateNode(nodeId = srcId, graph = this, newNode = srcNode)
+    if (pNodeExists(nodeId=srcId, graph=this)) {
+    } else {
+      pCreateNode(nodeId=srcId, graph=this, newNode=srcNode)
     }
-
-    if (pNodeExists(nodeId = trgId, graph = this)) {} else {
-      pCreateNode(nodeId = trgId, graph = this, newNode = trgNode)
-    } 
-
+    if (pNodeExists(nodeId=trgId, graph=this)) {
+    } else {
+      pCreateNode(nodeId=trgId, graph=this, newNode=trgNode)
+    }
     edge : Edge
     n1 : Node
     n2 : Node
-    pNodeExists(nodeId = srcId, node = n1, graph = this)
-    pNodeExists(nodeId = trgId, node = n2, graph = this)
-    createEdge(srcNode = n1, trgNode = n2, edge = edge, edgeId = edgeId)
+    pNodeExists(nodeId=srcId, node=n1, graph=this)
+    pNodeExists(nodeId=trgId, node=n2, graph=this)
+    createEdge(srcNode=n1, trgNode=n2, edge=edge, edgeId=edgeId)
     return edge
   }
 
-  operation removeEdge(edgeId : EString) : void {
+  operation removeEdge(edgeId:EString):void {
     this : Graph
     // if-condition: We do not care whether the removal succeeded
-    if(removeEdge(edgeId = edgeId, graph = this)) {}
+    if (removeEdge(edgeId=edgeId, graph=this)) {
+    }
     return
   }
 
-  operation clear() : void {
+  operation clear():void {
     node : Node
     this : Graph
     for (pNodeExistsRef(node = node, graph = this)) {
-
       edge : Edge
       for (pOutgoingEdge(node = node, edge = edge)) {
-        removeEdgeRef(edge = edge)
+        removeEdgeRef(edge=edge)
       }
-
       edge2 : Edge
       while (pIncomingEdge(node = node, edge = edge2)) {
-        removeEdgeRef(edge = edge2)
+        removeEdgeRef(edge=edge2)
       }
-
-      removeNodeRef(node = node)
+      removeNodeRef(node=node)
     }
   }
 
-  operation calculateNodeCount() : EInt {
+  operation calculateNodeCount():EInt {
     this : Graph
     counter : EIntContainer
     x : EInt
-    initializeEIntContainer(container = counter)
-
-    for(pNodeExistsRef(graph = this)) {
-      counter.increment() 
+    initializeEIntContainer(container=counter)
+    for (pNodeExistsRef(graph = this)) {
+      counter.increment()
     }
-    
     return counter.value
   }
-  
-  operation calculateDoubleNodeCount() : EInt {
+
+  operation calculateDoubleNodeCount():EInt {
     this : Graph
     counter : EIntContainer
     x : EInt
-    initializeEIntContainer(container = counter)
-
-    for(pNodeExistsRef(graph = this)) {
+    initializeEIntContainer(container=counter)
+    for (pNodeExistsRef(graph = this)) {
       counter.incrementBy(2)
     }
-    
     return counter.value
   }
-  
-  operation addGivenNode(node : Node) : void {
+
+  operation addGivenNode(node:Node):void {
     this : Graph
     addNode(node=node, graph=this)
     return
   }
-  
-  operation emptyOperation() : void {
+
+  operation emptyOperation():void {
     // You can leave the operation empty, or you can place a lone return
-    //return
+    // return
     this : Graph
   }
 
-  
-  operation isNode(element : Element) : EBoolean {
-    this : Graph 
-    if (isNodePattern(element = element)) {
+  operation isNode(element:Element):EBoolean {
+    this : Graph
+    if (isNodePattern(element=element)) {
       return true
     } else {
       return false
     }
   }
 
-  
-  operation getTriangleWithLongestEdge() : Triangle {
+  operation getTriangleWithLongestEdge():Triangle {
     this : Graph
     triangle : Triangle
-    triangleWithLongestEdge(triangle = triangle, graph = this)
+    triangleWithLongestEdge(triangle=triangle, graph=this)
     return triangle
   }
-  
-  operation getIsolatedNode() : Node {
+
+  operation getIsolatedNode():Node {
     this : Graph
     node : Node
-    if(isolatedNode(isolatedNode = node, graph = this)) {
+    if (isolatedNode(isolatedNode=node, graph=this)) {
       return node
-    } 
+    }
     return null
   }
-  
-  operation getSomeNode() : Node {
+
+  operation getSomeNode():Node {
     this : Graph
     node : Node
-    if(someNode(element = node, graph = this)) {
+    if (someNode(element=node, graph=this)) {
       return node
-    } 
+    }
     return null
   }
-  
-  operation getNodeWithId_CAC() : Node {
+
+  operation getNodeWithId_CAC():Node {
     this : Graph
     node : Node
-    if(nodeWithIdCAC(node = node, graph = this)) {
+    if (nodeWithIdCAC(node=node, graph=this)) {
       return node
     } else {
       return null
     }
   }
 }
+
