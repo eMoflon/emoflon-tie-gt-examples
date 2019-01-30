@@ -1,0 +1,32 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/dyve-model/model/Dyve-model.ecore"
+
+using "rootModel.gt"
+
+class Root {
+  operation createNetwork(name:EString, status:Status, topology:Topology, isVirtual:EBoolean):Network {
+    this : Root
+    booleanContainer : EBooleanContainer
+    createContainer(object=booleanContainer, value=isVirtual)
+    if (isTrue(booleanContainer=booleanContainer)) {
+      network : VirtualNetwork
+      createVirtualNetwork(root=this, status=status, topology=topology, network=network, name=name)
+      return network
+    } else{
+      network2 : SubstrateNetwork
+      createSubstrateNetwork(root=this, status=status, topology=topology, network=network2, name=name)
+      return network2
+    }
+  }
+
+  operation createOrganization(name:EString, status:Status):Organization {
+    this : Root
+    organization : Organization
+    if (createOrganization(root=this, name=name, status=status)) {
+      return organization
+    } else {
+      return null
+    }
+  }
+}
+

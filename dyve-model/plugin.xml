@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package class="de.tud.es.dyve.model.ModelPackage" genModel="model/Dyve-model.genmodel" uri="platform:/resource/dyve-model/model/Dyve-model.ecore"/>
+  </extension>
+</plugin>

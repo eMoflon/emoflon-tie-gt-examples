@@ -184,57 +184,6 @@ rule triangleWithLongestEdge() {
   }
 }
 
-attributeConditionLibrary {
-  eqI(x : EInt, y : EInt) {
-    check [B B] {
-      Java : '$x$ == $y$'
-    }
-    extend [F B] {
-      Java : '$x$ = $y$'
-    }
-    extend [B F] {
-       Java : '$y$ = $x$'
-    }
-  }
-  eqL(x : ELong, y : ELong) reuse eqI
-  eqF(x : EFloat, y : EFloat) reuse eqI
-  eqD(x : EDouble, y : EDouble) reuse eqI
-  eqShort(x : EShort, y : EShort) reuse eqI
-  eqByte(x : EByte, y : EByte) reuse eqI
-  
-  eqS(x : EString, y : EString) {
-    check [ B B ] {
-      Java : '$x$ == null ? $y$ == null : $x$.equals($y$)'
-    }
-    extend [F B] {
-      Java : '$x$ = $y$'
-    }
-    extend [B F] {
-       Java : '$y$ = $x$'
-    }
-  }
-  
-  timesI(result : EInt, x : EInt, y : EInt) {
-    check [B B B] {
-      Java : '$result$ == $x$ * $y$'
-    }
-    extend [F B B] {
-      Java : '$result$ = $x$ * $y$'
-    }
-    extend [B F B] {
-      Java : '$x$ = $result$ / $y$'
-    }
-    extend [B B F] {
-      Java : '$y$ = $result$ / $x$'
-    }
-  }
-  timesL(result : ELong, x : ELong, y : ELong) reuse timesI
-  timesF(result : EFloat, x : EFloat, y : EFloat) reuse timesI
-  timesD(result : EDouble, x : EDouble, y : EDouble) reuse timesI
-  timesShort(result : EShort, x : EShort, y : EShort) reuse timesI
-  timesByte(result : EByte, x : EByte, y : EByte) reuse timesI
-}
-
 pattern nodeWithIdCAC {
   graph: Graph
 
@@ -247,5 +196,6 @@ pattern nodeWithIdCAC {
     timesD(10.0, tmp1, 5.0) // Just for fun abc should be 10/5, but is not used further
     tmp2 : EDouble
     timesD(tmp2, tmp1, tmp1) // Ensure that calculations can be chained
+    
   }
 }

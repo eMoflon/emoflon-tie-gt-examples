@@ -1,0 +1,84 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+attributeConditionLibrary {
+
+  // Semantics: x equals y
+  eqI(x : EInt, y : EInt) {
+    check [B B] {
+      Java : '$x$ == $y$'
+    }
+    extend [F B] {
+      Java : '$x$ = $y$'
+    }
+    extend [B F] {
+       Java : '$y$ = $x$'
+    }
+  }
+  eqL(x : ELong, y : ELong) reuse eqI
+  eqF(x : EFloat, y : EFloat) reuse eqI
+  eqD(x : EDouble, y : EDouble) reuse eqI
+  eqShort(x : EShort, y : EShort) reuse eqI
+  eqByte(x : EByte, y : EByte) reuse eqI
+  
+  eqS(x : EString, y : EString) {
+    check [ B B ] {
+      Java : '$x$ == null ? $y$ == null : $x$.equals($y$)'
+    }
+    extend [F B] {
+      Java : '$x$ = $y$'
+    }
+    extend [B F] {
+       Java : '$y$ = $x$'
+    }
+  }
+  
+  // Semantics: result = x * y
+  timesI(result : EInt, x : EInt, y : EInt) {
+    check [B B B] {
+      Java : '$result$ == $x$ * $y$'
+    }
+    extend [F B B] {
+      Java : '$result$ = $x$ * $y$'
+    }
+    extend [B F B] {
+      Java : '$x$ = $result$ / $y$'
+    }
+    extend [B B F] {
+      Java : '$y$ = $result$ / $x$'
+    }
+  }
+  timesL(result : ELong, x : ELong, y : ELong) reuse timesI
+  timesF(result : EFloat, x : EFloat, y : EFloat) reuse timesI
+  timesD(result : EDouble, x : EDouble, y : EDouble) reuse timesI
+  timesShort(result : EShort, x : EShort, y : EShort) reuse timesI
+  timesByte(result : EByte, x : EByte, y : EByte) reuse timesI
+  
+  // Semantics: result = x + y
+  addI(result : EInt, x : EInt, y : EInt) {
+    check [B B B] {
+      Java : '$result$ == $x$ + $y$'
+    }
+    extend [F B B] {
+      Java : '$result$ = $x$ + $y$'
+    }
+    extend [B F B] {
+      Java : '$x$ = $result$ - $y$'
+    }
+    extend [B B F] {
+      Java : '$y$ = $result$ - $x$'
+    }
+  }
+  addL(result : ELong, x : ELong, y : ELong) reuse addI
+  addF(result : EFloat, x : EFloat, y : EFloat) reuse addI
+  addD(result : EDouble, x : EDouble, y : EDouble) reuse addI
+  addShort(result : EShort, x : EShort, y : EShort) reuse addI
+  addByte(result : EByte, x : EByte, y : EByte) reuse addI
+  addString(result : EString, x : EString, y : EString) {
+    check [B B B] {
+      Java : '$result$.equals($x$ + $y$)'
+    }
+    extend [F B B] {
+      Java : '$result$ = $x$ + $y$'
+    }
+  }
+}

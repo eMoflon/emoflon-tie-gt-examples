@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMoflonTieGtTestSuite
-Bundle-SymbolicName: EMoflonTieGtTestSuite
+Bundle-SymbolicName: _EMoflonTieGtTestSuite
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.moflon.tie.gt.testsuite
 Require-Bundle: GraphOperations,
- test2
+ test2,
+ dyve-model;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: EMoflonTieGtTestSuite
