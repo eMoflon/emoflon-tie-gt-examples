@@ -41,7 +41,6 @@ pattern oneEndField {
 
 pattern anOccupiedField {
 	fig: Figure
-
 	field: Field {
 		-figure -> fig
 	}
@@ -49,16 +48,8 @@ pattern anOccupiedField {
 
 pattern boulderOnEndField()
 refines oneEndField, anOccupiedField {
-	
 	fig: Boulder
-	
-} when notABlock
-
-condition notABlock = forbid block
-
-pattern block {
-	fig:Block
-	}
+}
 	
 pattern countersMatch{
 	counter1:EIntContainer

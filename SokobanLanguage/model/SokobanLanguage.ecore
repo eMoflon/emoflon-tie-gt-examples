@@ -48,9 +48,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EIntContainer">
     <eOperations name="increment"/>
-    <eOperations name="incrementBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -15,9 +15,12 @@ public class SokobanRules {
 	}
 
 	public Result move(Figure figure, Field field) {
-		// FIXME: Only move if it makes sense
-		field.setFigure(figure);
-		return new Result(true, allsWell);
+			if(validator.move(figure, field)) {
+				return new Result(true, allsWell);
+			}
+			else {
+				return new Result(false,"Move is not allowed");
+			}
 	}
 
 	public Result validateBoard(Board board) {

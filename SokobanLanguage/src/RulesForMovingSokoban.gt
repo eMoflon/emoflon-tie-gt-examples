@@ -1,5 +1,10 @@
 import "platform:/resource/SokobanLanguage/model/SokobanLanguage.ecore"
 
+pattern isSokoban{
+	figure:Figure
+	sokoban:Sokoban:=figure
+}
+
 abstract rule moveSokoban {
 	from: Field
 

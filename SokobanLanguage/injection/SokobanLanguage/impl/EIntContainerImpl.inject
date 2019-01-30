@@ -1,16 +1,7 @@
 
 partial class EIntContainerImpl {
 
-
-
 @model increment ()<--
-
 		this.setValue(this.getValue() + 1);
 		-->
-
-@model incrementBy (int value)<--
-
-		this.setValue(this.getValue() + value);
-		return this.getValue();-->
-
 }
