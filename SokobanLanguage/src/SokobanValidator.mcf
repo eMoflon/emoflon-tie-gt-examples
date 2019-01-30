@@ -6,28 +6,35 @@ using "BoardPatterns.gt"
 package src
 
 class SokobanValidator{
-	operation move(figure:Figure, field:Field):EBoolean{
-	 this : SokobanValidator
-	 return false
-  }
+//	operation move(figure:Figure, field:Field):EBoolean{
+//	 this : SokobanValidator
+//	 return false
+//  }
 
 
 	operation validateBoard(board:Board):EBoolean{
-    this : SokobanValidator if ( oneSokoban(board=board)){
+    	this : SokobanValidator
+    	if ( exactlyOneSokoban(board=board)){
 			
 		}else{
 			return false
 		}
-		if(oneBlock(board=board)){
-			
-		}else{
-			return false
-		}
-		if(oneEndField(board=board)){
-			
-		}else{
-			return false
-		}
+		blocksCounter:EIntContainer
+		initializeEIntContainer(counter=blocksCounter)
+		blocksCounter.increment()
+		//endFieldsCounter:EIntContainer
+		//for(oneBlock(board=board)){
+		//	blocksCounter.increment()
+		//}
+		//for(oneEndField(board=board)){
+		//	endFieldsCounter.increment()
+		//}
+		//if(countersMatch(counter1=blocksCounter,counter2=endFieldsCounter)){
+		//	
+		//}
+		//else{
+		//	return false
+		//}
 		if(boulderOnEndField(board=board)){
 			return false
 		}
