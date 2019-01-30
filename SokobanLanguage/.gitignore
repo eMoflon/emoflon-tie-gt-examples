@@ -2,3 +2,4 @@
 /bin
 /gen
 /model/*.genmodel
+/model/*.green
