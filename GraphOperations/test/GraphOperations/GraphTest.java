@@ -161,6 +161,12 @@ public class GraphTest {
 	}
 
 	@Test
+	void test_addNodeWithFixedId() throws Exception {
+		final Node node = graph.addNodeWithFixedId();
+		assertEquals("abc", node.getId());
+	}
+
+	@Test
 	void test_getNodeWithIdCAC_empty() throws Exception {
 		assertNull(graph.getNodeWithId_CAC());
 	}
