@@ -20,14 +20,14 @@ class Graph {
     this : Graph
     srcNode : Node
     trgNode : Node
-    if (pNodeExists(nodeId=srcId, graph=this)) {
-    } else {
+    if (!pNodeExists(nodeId=srcId, graph=this)) {
       pCreateNode(nodeId=srcId, graph=this, newNode=srcNode)
     }
-    if (pNodeExists(nodeId=trgId, graph=this)) {
-    } else {
+    
+    if (!pNodeExists(nodeId=trgId, graph=this)) {
       pCreateNode(nodeId=trgId, graph=this, newNode=trgNode)
     }
+    
     edge : Edge
     n1 : Node
     n2 : Node
@@ -39,10 +39,9 @@ class Graph {
 
   operation removeEdge(edgeId:EString):void {
     this : Graph
-    // if-condition: We do not care whether the removal succeeded
+    // We do not care whether the removal succeeded
     if (removeEdge(edgeId=edgeId, graph=this)) {
     }
-    return
   }
 
   operation clear():void {
@@ -86,7 +85,6 @@ class Graph {
   operation addGivenNode(node:Node):void {
     this : Graph
     addNode(node=node, graph=this)
-    return
   }
 
   operation emptyOperation():void {

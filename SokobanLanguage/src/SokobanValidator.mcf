@@ -7,7 +7,7 @@ using "RulesForMovingSokoban.gt"
 package src
 
 class SokobanValidator {
-  operation move (figure:Figure, field:Field):EBoolean {
+  operation move(figure:Figure, field:Field):EBoolean {
     this : SokobanValidator
     if (isSokoban(figure=figure)) {
       if (moveSokobanUp(to=field)) {
@@ -38,15 +38,12 @@ class SokobanValidator {
     return false
   }
 
-  operation validateBoard (board:Board):EBoolean {
+  operation validateBoard(board:Board):EBoolean {
     this : SokobanValidator
-    if ( exactlyOneSokoban(board=board)) {
-    }else{
+    if (!exactlyOneSokoban(board=board)) {
       return false
     }
-    if (oneEndField(board=board)) {
-    }
-		else{
+    if (!oneEndField(board=board)) {
       return false
     }
     blocksCounter : EIntContainer
@@ -60,8 +57,6 @@ class SokobanValidator {
       endFieldsCounter.increment()
     }
     if (countersMatch(counter1=blocksCounter, counter2=endFieldsCounter)) {
-    }
-		else{
       return false
     }
     if (boulderOnEndField(board=board)) {
