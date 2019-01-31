@@ -1,27 +1,197 @@
 import "http://www.eclipse.org/emf/2002/Ecore"
 import "platform:/resource/test2/model/Test2.ecore"
 
+pattern matchPartition(boxId: EInt) {
+  partition: Partition
 
-pattern matchBox(){
-	partition : Partition{
-		-box->b
-	}
-	b : Box{
-		-partition->partition
-	}
+  b: Box {
+    .boxSize >= partition.size
+    .thisBoxId == param::boxId
+    .boxSize != 0
+    .boxWidthcm == 1.1
+    // .isAssignable==true
+    .type == enum::BIG_BOX
+    .name == "testbox"
+    -partitions -> partition
+  }
 }
 
-rule addPartition{
-	++b2: Box{
-		++ -partition->p2
-	}
-	p2:Partition
+rule addPartition {
+  b: Box {
+    ++ -partitions -> p2
+  }
+
+  ++p2: Partition
+}
+when noPartitionBound
+
+rule insertPartition {
+  b: Box {
+    ++ -partitions -> newPartition
+    -partitions -> predecessorPartition
+  }
+
+  predecessorPartition: Partition {
+    ++ -next -> newPartition
+  }
+
+  ++newPartition: Partition
 }
 
-rule removePartition{
-	p3:Partition
-	b:Box{
-		-- -partition->p3
-	}
+rule removePartition(boxId: EInt) {
+  --p3: Partition
+
+  b: Box {
+    .thisBoxId == param::boxId
+    -- -partitions -> p3
+  }
 }
 
+condition noPartitionBound = forbid matchNoPartition
+
+//Use the following fragment to test problem marker
+//condition noPartitionBound = forbid matchNoPartition && forbid matchNoPartition
+condition partitionBound = enforce matchNoPartition
+
+pattern matchNoPartition {
+  b: Box {
+    -partitions -> p
+  }
+
+  p: Partition
+}
+
+pattern checkGuess(guess: EString) {
+  card: Card {
+    .face == param::guess
+  }
+}
+
+rule createCard() {
+  partition: Partition
+
+  ++card: Card {
+    ++ -partition -> partition
+  }
+}
+
+pattern isFastCard() {
+  fastCard: FastCard :=card
+
+  card: Card
+}
+
+rule promoteCard() {
+  nextPartition: Partition
+
+  currentPartition: Partition {
+    -next -> nextPartition
+  }
+
+  card: Card {
+    -- -partition -> currentPartition
+    ++ -partition -> nextPartition
+  }
+}
+
+rule penalizeCard() {
+  previousPartition: Partition
+
+  currentPartition: Partition {
+    -previous -> previousPartition
+  }
+
+  card: Card {
+    -- -partition -> currentPartition
+    ++ -partition -> previousPartition
+  }
+}
+
+rule removeCardFromPartition() {
+  box: Box {
+    -partitions -> partition
+  }
+
+  partition: Partition
+
+  card: Card {
+    -- -partition -> partition
+  }
+}
+
+pattern matchCardInPartition() {
+  partition: Partition
+
+  box: Box {
+    -partitions -> partition
+  }
+
+  card: Card {
+    -partition -> partition
+  }
+}
+
+rule clearCard() {
+  partition: Partition
+
+  card: Card {
+    .back := ""
+    .face := ""
+    -partition -> partition
+  }
+}
+
+pattern findCardFace(guess: EString) {
+  partition: Partition
+
+  card: Card {
+    .face == param::guess
+    -partition -> partition
+  }
+}
+
+rule promoteFastCard() {
+  currentPartition: Partition
+
+  card: FastCard {
+    ++ -partition -> lastPartition
+  }
+
+  lastPartition: Partition
+}
+when hasNoNext
+
+condition hasNoNext = forbid hasNextPartition
+
+pattern hasNextPartition() {
+  lastPartition: Partition {
+    -next -> nextPartition
+  }
+
+  nextPartition: Partition
+}
+
+pattern notAFastCard() {
+  card: Card
+}
+when cNotAFastCard
+
+condition cNotAFastCard = forbid fastCard
+
+pattern fastCard() {
+  card: FastCard
+}
+
+rule patternSetBigBox() {
+  box: Box
+  attributeCondition {
+    eqBoxType(box.type*, enum::BIG_BOX)
+  }
+}
+attributeConditionLibrary{
+  eqBoxType(x : BoxType, y : BoxType) {
+    extend [F B] {
+      Java : "$x$ = $y$"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+pattern truePattern {
+  constantsUtils : ConstantUtils
+} 
+
+attributeConditionLibrary{
+  abc(x:EInt) {
+    
+  }
+}

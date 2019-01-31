@@ -1,17 +1,71 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="test2" nsURI="platform:/resource/test2/model/Test2.ecore" nsPrefix="test2">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="test2" nsURI="platform:/resource/test2/model/Test2.ecore" nsPrefix="test2">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="TODO: Add documentation for test2. Hint: You may copy this element in the Ecore editor to add documentation to EClasses, EOperations, ..."/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Box">
-    <eOperations name="matchABox"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="partition" eType="//Partition" containment="true" eOpposite="//Partition/box"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="boxSize">
-      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    </eStructuralFeatures>
+    <eOperations name="matchAPartition">
+      <eParameters name="searchedBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="removeAPartition">
+      <eParameters name="searchedBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="addAPartition"/>
+    <eOperations name="insertPartition" eType="#//Partition">
+      <eParameters name="predecessorPartition" eType="#//Partition"/>
+    </eOperations>
+    <eOperations name="removeAllCards">
+      <eParameters name="partition" eType="#//Partition"/>
+    </eOperations>
+    <eOperations name="removeAllCardsTail">
+      <eParameters name="partition" eType="#//Partition"/>
+    </eOperations>
+    <eOperations name="removeAllCardsFor">
+      <eParameters name="partition" eType="#//Partition"/>
+    </eOperations>
+    <eOperations name="setBigBox"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+        eType="#//Partition" containment="true" eOpposite="#//Partition/box"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="boxSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAssignable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="boxWidthcm" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="thisBoxId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BoxType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Partition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="box" eType="//Box" eOpposite="//Box/partition"/>
+    <eOperations name="checkCard">
+      <eParameters name="guess" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="card" eType="#//Card"/>
+    </eOperations>
+    <eOperations name="clearAllCards"/>
+    <eOperations name="findCard" eType="#//Card">
+      <eParameters name="s" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="isFastCard" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="card" eType="#//Card"/>
+    </eOperations>
+    <eOperations name="helloWorld" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="box" eType="#//Box" eOpposite="#//Box/partitions"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//Partition"
+        eOpposite="#//Partition/previous"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="previous" eType="#//Partition"
+        eOpposite="#//Partition/next"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containedCards" upperBound="-1"
+        eType="#//Card" eOpposite="#//Card/partition"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Card"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Card">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="face" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="back" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partition" eType="#//Partition"
+        eOpposite="#//Partition/containedCards"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BoxType">
+    <eLiterals name="BIG_BOX" value="2"/>
+    <eLiterals name="MEDIUM_BOX" value="1" literal="MEDIUM_BOX"/>
+    <eLiterals name="SMALL_BOX"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FastCard" eSuperTypes="#//Card"/>
 </ecore:EPackage>

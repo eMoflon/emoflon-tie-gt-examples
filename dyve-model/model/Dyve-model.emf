@@ -1,0 +1,206 @@
+@GenModel(documentation="Model for DyVE", basePackage ="de.tud.es.dyve")
+@namespace(uri="platform:/resource/dyve-model/model/Dyve-model.ecore", prefix="de.tud.es.dyve")
+package model;
+
+class Root {
+    op Network createNetwork(EString name, Status status, Topology topology, EBoolean isVirtual);
+    op Organization createOrganization(EString name, Status status);
+    op EBoolean idExists(EString name);
+    
+	val Network[*]#root networks;
+	val NetworkToNetwork[*]#root networkEmbeddings;
+	val Organization[*]#root organizations;
+	
+}
+
+abstract class Element {
+	ref Organization[0..1]#elements organization;
+	attr EString[1] name;
+	attr Status[1] status;
+}
+
+abstract class Network extends Element {
+	op Server createServer(EString name, EInt cpu, EInt memory, EInt storage, EInt depth, Status status);
+	op Switch createSwitch(EString name, EInt depth, Status status);
+	op Link createLink(EString name, EString sourceName, EString targetName, EInt bandwidth, Status status);
+	op EBoolean createFailoverNode(EString masterId, EString failoverId);
+	op Path createPath(EString name, EString sourceName, EString targetName, EInt bandwidth, Status status);
+	op Process createProcess(EString name, EBoolean hasDatabase, EString serverName, Status status);
+	
+	ref Root[1]#networks root;
+	val Node[*]#network nodes;
+	val Link[*]#network links;
+	val Path[*]#network paths;
+	val Process[*]#network processes;
+	
+	attr Topology[1] topology;
+}
+
+abstract class Node extends Element {
+	ref Network[1]#nodes network;
+	ref Link[*]#source outgoingLinks;
+	ref Link[*]#target incomingLinks;
+	ref Path[*]#nodes paths;
+	ref Path[*]#sourceNode outgoingPaths;
+	ref Path[*]#targetNode incomingPaths;
+	
+	attr EInt[1] depth = 0;
+}
+
+abstract class Server extends Node {	
+	ref Server[0..1]#master failover;
+	ref Server[0..1]#failover master;
+	ref Process[*]#server processes;
+	
+	attr EInt[1] cpu = 0;
+	attr EInt[1] memory = 0;
+	attr EInt[1] storage = 0;
+}
+
+abstract class Switch extends Node {
+
+}
+
+abstract class Link extends Element {
+	ref Network[1]#links network;
+	ref Path[*]#links paths;
+	ref Node[1]#outgoingLinks source;
+	ref Node[1]#incomingLinks target;
+	
+	attr EInt[1] bandwidth = 0;
+}
+
+
+abstract class Path extends Element {
+	ref Network[1]#paths network;	
+	ref Link[*]#paths links;
+	ref Node[*]#paths nodes;
+	ref Node[1]#outgoingPaths sourceNode;
+	ref Node[1]#incomingPaths targetNode;
+	
+	attr EInt[1] bandwidth;
+	attr EInt[1] hops;
+}
+
+abstract class Process extends Element {
+	ref Network[1]#processes network;
+	ref Server[1]#processes server;
+	
+	attr EBoolean[1] hasDatabase = false;
+}
+
+class Organization extends Element {
+	ref Root[1]#organizations root;
+	ref Element[*]#organization elements;
+	ref Organization[*] mistrusts;
+}
+
+abstract class SubstrateElement extends Element {
+
+}
+
+class SubstrateNetwork extends SubstrateElement, Network {
+	op SubstrateLink createLink (EString name, EString sourceName, EString targetName, EInt bandwidth, Status status);
+	op SubstrateServer createServer(EString name, EInt cpu, EInt memory, EInt storage, EInt depth, Status status);
+	op SubstrateSwitch createSwitch(EString name, EInt depth, Status status);
+	op SubstrateNetwork createSubstrateNetwork(EString name, Status status, Topology topology);
+	op SubstratePath createPath(EString name, EString sourceName, EString targetName, EInt bandwidth, Status status);
+	op EBoolean createFailoverNode(EString masterId, EString failoverId);
+}
+
+abstract class SubstrateNode extends SubstrateElement, Node {}
+
+class SubstrateServer extends SubstrateNode, Server {}
+
+class SubstrateSwitch extends SubstrateNode, Switch {}
+
+class SubstrateLink extends SubstrateElement, Link {}
+
+class SubstratePath extends SubstrateElement, Path {}
+
+abstract class VirtualElement extends Element {
+
+}
+
+class VirtualNetwork extends VirtualElement, Network {
+	op VirtualLink createLink (EString name, EString sourceName, EString targetName, EInt bandwidth, Status status);
+	op VirtualNetwork createVirtualNetwork(EString name, Status status, Topology topology);
+	op VirtualServer createServer(EString name, EInt cpu, EInt memory, EInt storage, EInt depth, Status status);
+	op VirtualSwitch createSwitch(EString name, EInt depth, Status status);
+	op VirtualProcess createProcess(EString name, EBoolean hasDatabase, EString serverName, Status status);
+}
+
+class VirtualProcess extends VirtualElement, Process {}
+
+abstract class VirtualNode extends VirtualElement, Node {
+}
+
+class VirtualServer extends VirtualNode, Server {
+}
+
+class VirtualSwitch extends VirtualNode, Switch {
+}
+
+class VirtualLink extends VirtualElement, Link {
+}
+
+abstract class Embedding {	
+	attr EString[1] name;
+}
+
+class NetworkToNetwork extends Embedding {
+	ref Root[1]#networkEmbeddings root;
+	val ServerToServer[*]#networkEmbedding serverEmbeddings;
+	val SwitchToNode[*]#networkEmbedding switchEmbeddings;
+	val LinkToLink[*]#networkEmbedding linkToLinkEmbeddings;
+	val LinkToPath[*]#networkEmbedding linkToPathEmbeddings;
+
+	
+	ref SubstrateNetwork[1] substrate;
+	ref VirtualNetwork[1] virtual;
+}
+
+class ServerToServer extends Embedding {
+	ref NetworkToNetwork[1]#serverEmbeddings networkEmbedding;
+	ref SubstrateServer[1] substrate;
+	ref VirtualServer[1] virtual;
+}
+
+class SwitchToNode extends Embedding {
+ref NetworkToNetwork[1]#switchEmbeddings networkEmbedding;
+	ref SubstrateNode[1] substrate;
+	ref VirtualSwitch[1] virtual;
+}
+
+class LinkToLink extends Embedding {
+	ref NetworkToNetwork[1]#linkToLinkEmbeddings networkEmbedding;
+	ref SubstrateLink[1] substrate;
+	ref VirtualLink[1] virtual;
+}
+
+class LinkToPath extends Embedding {
+	ref NetworkToNetwork[1]#linkToPathEmbeddings networkEmbedding;
+	ref SubstratePath[1] substrate;
+	ref VirtualLink[1] virtual;
+}
+
+enum Topology {
+	ONE_TIER = 1;
+	TWO_TIER = 2;
+	THREE_TIER = 3;
+	GOOGLE_FAT_TREE = 4;
+	CUSTOM = 99;
+	FACEBOOK_FAT_TREE = 5;
+	DCELL = 11;
+	BCUBE = 10;
+}
+
+enum Status {
+	ACTIVE = 1;
+	INACTIVE = 2;
+	ERROR = 3;
+}
+
+class EBooleanContainer {
+    attr EBoolean [1] value = false;	
+}

@@ -1,0 +1,178 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/dyve-model/model/Dyve-model.ecore"
+
+abstract rule createServer(name: EString, cpu: EInt, memory: EInt, storage: EInt, depth: EInt, status: Status) {
+	network : Network {
+		++ -nodes->server
+	}
+	
+	++ server : Server{
+		.name := param::name
+		.status := param::status
+		.cpu := param::cpu
+		.memory := param::memory
+		.storage := param::storage
+		.depth := param::depth
+	}
+	
+	attributeCondition {
+    serverNameValid(param::name)
+  }
+	
+}
+
+rule createSubstrateServer(name: EString, cpu: EInt, memory: EInt, storage: EInt, depth: EInt, status: Status) refines createServer {
+	network: SubstrateNetwork
+	++ server: SubstrateServer
+}
+
+rule createVirtualServer(name: EString, cpu: EInt, memory: EInt, storage: EInt, depth: EInt, status: Status) refines createServer {
+	network: VirtualNetwork
+	++ server: VirtualServer
+}
+
+abstract rule createSwitch(name: EString, depth: EInt, status: Status) {
+	network : Network {
+		++ -nodes->sw
+	}
+	
+	++ sw : Switch {
+		.name := param::name
+		.depth := param::depth
+		.status := param::status
+	}
+}
+
+rule createSubstrateSwitch(name: EString, depth: EInt, status: Status) refines createSwitch {
+	network : SubstrateNetwork
+	++ sw : SubstrateSwitch
+}
+
+rule createVirtualSwitch(name: EString, depth: EInt, status: Status) refines createSwitch {
+	network : VirtualNetwork
+	++ sw : VirtualSwitch
+}
+
+abstract rule createLink(name: EString, sourceName: EString, targetName: EString, bandwidth: EInt, status: Status) {
+
+	network : Network {
+		-nodes->source
+		-nodes->target
+	}
+	
+	source: Node {
+		.name == param::sourceName
+	}
+	
+	target : Node {
+		.name == param::targetName	
+	}
+	
+	++ link : Link {
+		.name := param::name
+		.status := param::status
+		.bandwidth := param::bandwidth
+		++ -network->network
+		++ -source->source
+		++ -target->target
+	}
+}
+
+rule createVirtualLink(name: EString, sourceName: EString, targetName: EString, bandwidth: EInt, status: Status) refines createLink {
+	source : VirtualNode
+	target : VirtualNode
+	++ link: VirtualLink
+} 
+
+rule createSubstrateLink(name: EString, sourceName: EString, targetName: EString, bandwidth: EInt, status: Status) refines createLink {
+	source : SubstrateNode
+	target : SubstrateNode
+	++ link: SubstrateLink
+} 
+
+abstract rule createPath(name: EString, sourceName: EString, targetName: EString, bandwidth: EInt, status: Status) {
+	network : Network {
+		-nodes->source
+		-nodes->target
+		++ -paths->path
+	}
+	
+	source : Node {
+		.name == param::sourceName
+	}
+	
+	target : Node {
+		.name == param::targetName
+	}
+	
+	
+	++ path : Path {	
+		.name := param::name
+		.status := param::status
+		.bandwidth := param::bandwidth
+		++ -sourceNode-> source
+		++ -targetNode->target
+	}
+}
+
+rule createSubstratePath(name: EString, sourceName: EString, targetName: EString, bandwidth: EInt, status: Status) refines createPath {
+	network : SubstrateNetwork
+	source : SubstrateNode
+	target : SubstrateNode
+	++ path : SubstratePath
+}
+
+abstract rule createProcess(name: EString, hasDatabase: EBoolean, serverName: EString, status: Status) {
+	network : Network {
+		-nodes->server
+		++ -processes->process
+	}
+
+	server : Server {
+		.name == param::serverName
+		++ -processes->process
+	}
+	
+	++ process : Process {
+		.name := param::name
+		.status := param::status
+		.hasDatabase := param::hasDatabase
+	}
+}
+
+rule createVirtualProcess(name: EString, hasDatabase: EBoolean, serverName: EString, status: Status) refines createProcess {
+	network : VirtualNetwork
+	server : VirtualServer
+	++ process : VirtualProcess
+}
+
+abstract rule createFailoverNode(masterId: EString, failoverId: EString) {
+  
+  network : Network {
+    -nodes-> master
+    -nodes-> failover
+  }
+  
+  master : Server {
+    .name == param::masterId
+    ++ -failover-> failover
+  }
+  
+  failover : Server {
+    .name == param::failoverId
+  }
+}
+
+rule createSubstrateFailoverNode(masterId: EString, failoverId: EString) refines createFailoverNode {
+	network : SubstrateNetwork
+	master : SubstrateServer
+	failover : SubstrateServer
+}
+
+attributeConditionLibrary {
+  serverNameValid(x : EString) {
+    check [ B ] {
+      Java : '$x$ != null && !$x$.equals("")'
+    }
+  }
+}

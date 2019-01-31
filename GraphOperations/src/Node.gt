@@ -1,0 +1,12 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
+
+
+rule patternAssignNodeIdCAC() {
+  node : Node 
+
+  attributeCondition {
+    eqS(node.id*, "newId")    
+  }
+}
+

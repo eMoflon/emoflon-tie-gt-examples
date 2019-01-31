@@ -1,0 +1,107 @@
+import "platform:/resource/dyve-model/model/Dyve-model.ecore"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+using "networkModel.gt"
+
+class SubstrateNetwork {
+  operation createServer (name:EString, cpu:EInt, memory:EInt, storage:EInt, depth:EInt, status:Status):SubstrateServer {
+    this : SubstrateNetwork
+    server : SubstrateServer
+    if (createSubstrateServer(network=this, name=name, cpu=cpu, memory=memory, storage=storage, depth=depth, status=status)) {
+      return server
+    } else {
+      return null
+    }
+  }
+
+  operation createSwitch (name:EString, depth:EInt, status:Status):SubstrateSwitch {
+    this : SubstrateNetwork
+    sw : SubstrateSwitch
+    if (createSubstrateSwitch(network=this , name=name, depth=depth, status=status)) {
+      return sw
+    } else {
+      return null
+    }
+  }
+
+  operation createLink (name:EString, sourceName:EString, targetName:EString, bandwidth:EInt, status:Status):SubstrateLink {
+    this : SubstrateNetwork
+    target : SubstrateNode
+    source : SubstrateNode
+    link : SubstrateLink
+    if (createSubstrateLink(network=this, name=name, sourceName=sourceName, targetName=targetName, bandwidth=bandwidth, status=status)) {
+      return link
+    } else {
+      return null
+    }
+  }
+
+  operation createPath (name:EString, sourceName:EString, targetName:EString, bandwidth:EInt, status:Status):SubstratePath {
+    this : SubstrateNetwork
+    source : SubstrateNode
+    target : SubstrateNode
+    path : SubstratePath
+    if (createSubstratePath(network=this, name=name, sourceName=sourceName, targetName=targetName, bandwidth=bandwidth, status=status)) {
+      return path
+    } else {
+      return null
+    }
+  }
+
+  operation createFailoverNode (masterId:EString, failoverId:EString):EBoolean {
+    this : SubstrateNetwork
+    master : SubstrateServer
+    failover : SubstrateServer
+    if (createFailoverNode(network=this, masterId=masterId, failoverId=failoverId)) {
+      return true
+    } else {
+      return false
+    }
+  }
+}
+
+class VirtualNetwork {
+  operation createServer (name:EString, cpu:EInt, memory:EInt, storage:EInt, depth:EInt, status:Status):VirtualServer {
+    this : VirtualNetwork
+    server : VirtualServer
+    if (createVirtualServer(network=this, name=name, cpu=cpu, memory=memory, storage=storage, depth=depth, status=status)) {
+      return server
+    } else {
+      return null
+    }
+  }
+
+  operation createSwitch (name:EString, depth:EInt, status:Status):VirtualSwitch {
+    this : VirtualNetwork
+    sw : VirtualSwitch
+    if (createVirtualSwitch(network=this, name=name, depth=depth, status=status)) {
+      return sw
+    } else {
+      return null
+    }
+  }
+
+  operation createLink (name:EString, sourceName:EString, targetName:EString, bandwidth:EInt, status:Status):VirtualLink {
+    this : VirtualNetwork
+    target : VirtualNode
+    source : VirtualNode
+    link : VirtualLink
+    if (createVirtualLink(network=this, name=name, sourceName=sourceName, targetName=targetName, bandwidth=bandwidth, status=status)) {
+      return link
+    } else {
+      return null
+    }
+  }
+
+  operation createProcess (name:EString, hasDatabase:EBoolean, serverName:EString, status:Status):VirtualProcess {
+    this : VirtualNetwork
+    server : VirtualServer
+    process : VirtualProcess
+    if (createVirtualProcess(network=this, name=name, hasDatabase=hasDatabase, serverName=serverName, status=status)) {
+      return process
+    } else {
+      return null
+    }
+  }
+}
+

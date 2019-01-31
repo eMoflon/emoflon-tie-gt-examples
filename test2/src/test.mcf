@@ -1,33 +1,54 @@
-/*
-* import section
-*
-* for imports from plugins use:
-* import "platform:/plugin/something/ecoreFile.ecore"
-*
-*
-* for imports in your current eclipse runtime use:
-* import "platform:/resource/something/ecoreFile.ecore"
-*/
 import "platform:/plugin/test2/model/Test2.ecore"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
 using "test.gt"
-/*
-* using session
-*
-* for every defined Patternfile you want to use:
-* using "platform:/.../patternFile.mpt"
-*/
 
 package src.test
 
 class Box {
-	operation matchABox():void{
-		p:Partition
-		invoke matchBox(matchBox.partition = p)
-		invoke addPartition()
-		invoke removePartition()
-	}
-	
+  operation matchAPartition(searchedBoxId:EInt):void {
+    this : Box
+    p : Partition
+    matchPartition(b=this, partition=p, boxId=searchedBoxId)
+  }
+
+  operation removeAPartition(searchedBoxId:EInt):void {
+    this : Box
+    p : Partition
+    removePartition(b=this, p3=p, boxId=searchedBoxId)
+  }
+
+  operation addAPartition():void {
+    this : Box
+    p : Partition
+    p2 : Partition
+    addPartition(b=this, p2=p)
+    card : Card
+    createCard(card=card, partition=p)
+    notAFastCard(card=card)
+  }
+
+  /**
+   * Set return type in metamodel to test return behavior
+   */
+  operation insertPartition(predecessorPartition:Partition):Partition {
+    this : Box
+    p2 : Partition
+    insertPartition(b=this, predecessorPartition=predecessorPartition, newPartition=p2)
+    return p2
+  /**
+   * Extension with if-else
+   * if(insertPartition(b = this, predecessorPartition=predecessorPartition,newPartition=p2)) {
+   *   return p2
+   * } else {
+   *   return null
+   * }
+   */
+  }
+
+  operation setBigBox():void {
+    this : Box
+    patternSetBigBox(box=this)
+  }
 }
-// EClass declaration
+

@@ -1,0 +1,44 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/dyve-model/model/Dyve-model.ecore"
+
+rule createOrganization(name: EString, status: Status) {
+	root : Root {
+		++ -organizations->organization
+	}
+	++ organization : Organization {
+		.name := param::name
+		.status := param::status	
+	}
+}
+
+abstract rule createNetwork(name: EString, status: Status, topology: Topology) {
+	root : Root {
+		++ -networks->network
+	}
+	
+	++ network : Network{
+		.name := param::name
+		.status := param::status
+		.topology := param::topology
+	}
+}
+
+rule createVirtualNetwork(name: EString, status: Status, topology: Topology) refines createNetwork {
+	++ network : VirtualNetwork
+} 
+
+rule createSubstrateNetwork(name: EString, status: Status, topology: Topology) refines createNetwork {
+	++ network : SubstrateNetwork
+} 
+
+rule createContainer(value : EBoolean) {
+  ++ object : EBooleanContainer {
+    .value := param::value
+  }
+}
+
+pattern isTrue() {
+  booleanContainer : EBooleanContainer {
+    .value == true
+  }
+}

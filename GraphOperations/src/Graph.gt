@@ -1,0 +1,201 @@
+import "platform:/resource/GraphOperations/model/GraphOperations.ecore"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+pattern pNodeExists(nodeId: EString) {
+  node: Node {
+    .id == param::nodeId
+  }
+
+  graph: Graph {
+    -nodes -> node
+  }
+}
+
+pattern pNodeExistsRef() {
+  node: Node
+
+  graph: Graph {
+    -nodes -> node
+  }
+}
+
+rule pCreateNode(nodeId: EString) {
+  ++ newNode: Node {
+    .id := param::nodeId
+  }
+
+  graph: Graph {
+    ++ -nodes -> newNode
+  }
+}
+
+rule addNode() {
+  node: Node
+
+  graph: Graph {
+    ++ -nodes -> node
+  }
+}
+
+rule createEdge(edgeId: EString) {
+  graph: Graph
+
+  srcNode: Node {
+    -graph -> graph
+  }
+
+  trgNode: Node
+
+  ++edge: Edge {
+    .id := param::edgeId
+    ++ -source -> srcNode
+    ++ -target -> trgNode
+    ++ -graph -> graph
+  }
+}
+
+rule removeEdge(edgeId: EString) {
+  graph: Graph
+
+  -- edge: Edge {
+    .id == param::edgeId
+    -- -graph -> graph
+  }
+}
+
+rule removeEdgeRef() {
+  -- edge: Edge
+}
+
+rule removeNodeRef() {
+  -- node: Node
+}
+
+pattern pOutgoingEdge() {
+  edge: Edge
+
+  node: Node {
+    -outgoingEdges -> edge
+  }
+}
+
+pattern pIncomingEdge() {
+  edge: Edge
+
+  node: Node {
+    -incomingEdges -> edge
+  }
+}
+
+rule initializeEIntContainer() {
+  ++ container: EIntContainer {
+    .value := 0
+  }
+}
+
+pattern isNodePattern() {
+  element: Element
+
+  node: Node := element
+}
+
+pattern outgoingEdge() {
+  outgoingEdge: Edge
+
+  node: Node {
+    -outgoingEdges -> outgoingEdge
+  }
+}
+
+pattern incomingEdge() {
+  incomingEdge: Edge
+
+  node: Node {
+    -incomingEdges -> incomingEdge
+  }
+}
+
+pattern isolatedNode() {
+  graph: Graph
+
+  node: Node {
+    -graph -> graph
+  }
+}
+when noIncidentEdges
+
+condition noIncidentEdges = forbid outgoingEdge && forbid incomingEdge
+
+pattern someElement {
+  graph: Graph
+
+  element: Element
+}
+
+pattern someNode
+refines someElement {
+  element: Node {
+    -graph -> graph
+  }
+}
+
+pattern someEdge
+refines someElement {
+  element: Node {
+    -graph -> graph
+  }
+}
+
+rule triangleWithLongestEdge() {
+  graph: Graph
+
+  n1: Node
+
+  n2: Node
+
+  n3: Node
+
+  longestEdge: Edge {
+    .weight > shorterEdge1.weight
+    .weight > shorterEdge2.weight
+    -graph -> graph
+    -source -> n1
+    -target -> n2
+  }
+
+  shorterEdge1: Edge {
+    .weight >= shorterEdge2.weight
+    -graph -> graph
+    -source -> n1
+    -target -> n3
+  }
+
+  shorterEdge2: Edge {
+    .weight < longestEdge.weight
+    -graph -> graph
+    -source -> n3
+    -target -> n2
+  }
+
+  ++ triangle: Triangle {
+    ++ -longEdge -> longestEdge
+    ++ -shortEdges -> shorterEdge1
+    ++ -shortEdges -> shorterEdge2
+  }
+}
+
+pattern nodeWithIdCAC {
+  graph: Graph
+
+  node: Node {
+    -graph -> graph
+  }
+  attributeCondition {
+    tmp1 : EDouble
+    eqS("n1", node.id)
+    timesD(10.0, tmp1, 5.0) // Just for fun abc should be 10/5, but is not used further
+    tmp2 : EDouble
+    timesD(tmp2, tmp1, tmp1) // Ensure that calculations can be chained
+    
+  }
+}
