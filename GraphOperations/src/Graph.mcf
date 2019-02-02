@@ -7,8 +7,7 @@ package src.Graph
 class Graph {
   operation addNode(nodeId:EString):Node {
     this : Graph
-    if (pNodeExists(nodeId=nodeId, graph=this)) {
-    } else {
+    if (!pNodeExists(nodeId=nodeId, graph=this)) {
       pCreateNode(nodeId=nodeId, graph=this)
     }
     node : Node
@@ -16,16 +15,26 @@ class Graph {
     return node
   }
 
+  operation addNodeWithFixedId():Node {
+    this : Graph
+    node : Node
+    if (pNodeExists(nodeId="abc", node=node, graph=this)) {
+      return node
+    } else {
+      node2 : Node
+      pCreateNode(nodeId="abc", newNode=node2, graph=this)
+      return node2
+    }
+  }
+
   operation addEdgeWithIncidentNodes(srcId:EString, trgId:EString, edgeId:EString):Edge {
     this : Graph
     srcNode : Node
     trgNode : Node
-    if (pNodeExists(nodeId=srcId, graph=this)) {
-    } else {
+    if (!pNodeExists(nodeId=srcId, graph=this)) {
       pCreateNode(nodeId=srcId, graph=this, newNode=srcNode)
     }
-    if (pNodeExists(nodeId=trgId, graph=this)) {
-    } else {
+    if (!pNodeExists(nodeId=trgId, graph=this)) {
       pCreateNode(nodeId=trgId, graph=this, newNode=trgNode)
     }
     edge : Edge
@@ -39,10 +48,9 @@ class Graph {
 
   operation removeEdge(edgeId:EString):void {
     this : Graph
-    // if-condition: We do not care whether the removal succeeded
+    // We do not care whether the removal succeeded
     if (removeEdge(edgeId=edgeId, graph=this)) {
     }
-    return
   }
 
   operation clear():void {
@@ -86,7 +94,6 @@ class Graph {
   operation addGivenNode(node:Node):void {
     this : Graph
     addNode(node=node, graph=this)
-    return
   }
 
   operation emptyOperation():void {
