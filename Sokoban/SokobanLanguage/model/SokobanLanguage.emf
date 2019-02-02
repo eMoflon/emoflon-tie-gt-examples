@@ -1,0 +1,59 @@
+
+@GenModel(documentation="Meta-model for Sokoban")
+@namespace(uri="platform:/plugin/SokobanLanguage/model/SokobanLanguage.ecore", 
+           prefix="SokobanLanguage")
+package SokobanLanguage;
+
+@GenModel(documentation="A board stores a grid of fields.")
+class Board {
+    @GenModel(documentation="Refers to all contained fields.")    
+    val Field [*]#board fields;
+
+    @GenModel(documentation="Refers to currently selected figure.")
+    ref Figure [0..1] selectedFigure;
+    
+    @GenModel(documentation="Number of fields per row.")
+    attr EInt [1] width;
+    
+    @GenModel(documentation="Number of fields per column.")
+    attr EInt [1] height; 
+}
+
+class Field {
+    val Figure [0..1]#field figure;
+
+    ref Field [0..1]#right left;
+    ref Field [0..1]#left right;        
+    ref Field [0..1]#bottom top;
+    ref Field [0..1]#top bottom;
+
+    ref Board [1]#fields board;
+  
+    attr EInt [1] col;
+    attr EInt [1] row;
+    attr EBoolean [1] endPos = false;
+}
+
+abstract class Figure {
+    ref Field [1]#figure field;   
+}
+
+class Sokoban extends Figure {  
+}
+
+class Boulder extends Figure  {  
+}
+
+class Block extends Boulder {   
+}
+
+class SokobanValidator {
+    op EBoolean validateBoard(Board board);	
+    op EBoolean move(Figure figure, Field field);	
+}
+
+class EIntContainer {
+    op void increment();
+    
+    attr EInt [1] value;	
+}
