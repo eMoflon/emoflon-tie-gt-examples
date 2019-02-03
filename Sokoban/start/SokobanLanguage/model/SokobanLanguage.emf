@@ -46,14 +46,3 @@ class Boulder extends Figure  {
 
 class Block extends Boulder {   
 }
-
-class SokobanValidator {
-    op EBoolean validateBoard(Board board);	
-    op EBoolean move(Figure figure, Field field);	
-}
-
-class EIntContainer {
-    op void increment();
-    
-    attr EInt [1] value;	
-}
