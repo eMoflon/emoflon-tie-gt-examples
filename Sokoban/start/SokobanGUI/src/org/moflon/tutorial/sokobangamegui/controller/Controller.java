@@ -65,7 +65,8 @@ public class Controller {
 			board.getFields().forEach(f -> f.setFigure(null));
 			view.updateView();
 		} catch (UnsupportedOperationException e) {
-			/* Ignore internal exceptions */
+			// Only print the stack trace
+			e.printStackTrace();
 		}
 	}
 	
@@ -102,7 +103,8 @@ public class Controller {
 			
 			view.updateView();
 		} catch (UnsupportedOperationException e) {
-			/* Ignore internal exceptions */
+			// Only print the stack trace
+			e.printStackTrace();
 		}
 	}
 	
