@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import SokobanRules.Block;
 import SokobanRules.Board;
+import SokobanRules.Boulder;
 import SokobanRules.Field;
 import SokobanRules.Sokoban;
 import SokobanRules.SokobanRulesFactory;
@@ -82,5 +83,53 @@ public class SokobanValidatorTest {
 			sokoban.setField(field);
 		}
 		assertFalse(validator.validateBoard(board));
+	}
+
+	@Test
+	void test_forbiddenMovementOfBlockAndBoulder() throws Exception {
+		final Field emptyField = FACTORY.createField();
+		board.getFields().add(emptyField);
+
+		final Field fieldWithBlock = FACTORY.createField();
+		board.getFields().add(fieldWithBlock);
+
+		final Block block = FACTORY.createBlock();
+		fieldWithBlock.setFigure(block);
+
+		final Field fieldWithBoulder = FACTORY.createField();
+		board.getFields().add(fieldWithBlock);
+
+		final Boulder boulder = FACTORY.createBoulder();
+		fieldWithBoulder.setFigure(boulder);
+
+		final Field fieldWithSokoban = FACTORY.createField();
+		fieldWithSokoban.setEndPos(true);
+		board.getFields().add(fieldWithSokoban);
+
+		final Sokoban sokoban = FACTORY.createSokoban();
+		sokoban.setField(fieldWithSokoban);
+		assertFalse(validator.move(block, emptyField));
+		assertFalse(validator.move(boulder, emptyField));
+	}
+
+	@Test
+	void test_moveSokoban() throws Exception {
+		final Field field11 = FACTORY.createField();
+		board.getFields().add(field11);
+		final Field field12 = FACTORY.createField();
+		board.getFields().add(field12);
+		final Field field21 = FACTORY.createField();
+		board.getFields().add(field21);
+		final Field field22 = FACTORY.createField();
+		board.getFields().add(field22);
+
+		field11.setBottom(field21);
+		field11.setRight(field12);
+		field12.setBottom(field22);
+
+		final Sokoban sokoban = FACTORY.createSokoban();
+		sokoban.setField(field21);
+
+		assertTrue(validator.move(sokoban, field11));
 	}
 }

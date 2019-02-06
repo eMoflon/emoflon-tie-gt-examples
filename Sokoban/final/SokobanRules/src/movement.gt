@@ -1,0 +1,26 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
+
+abstract rule moveSokoban {
+  from: Field
+
+  to: Field
+
+  sokokban: Sokoban {
+    -- -field -> from
+    ++ -field -> to
+  }
+}
+
+rule moveSokobanUp
+refines moveSokoban {
+  from: Field {
+    -top -> to
+  }
+}
+
+pattern isSokoban {
+  figure: Figure
+
+  sokoban: Sokoban:=figure
+}

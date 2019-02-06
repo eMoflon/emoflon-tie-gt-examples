@@ -3,6 +3,7 @@ import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
 
 using "sokoban.gt"
 using "counter.gt"
+using "movement.gt"
 
 class SokobanValidator {
   operation validateBoard(board:Board):EBoolean {
@@ -15,24 +16,29 @@ class SokobanValidator {
     }
     fieldCounter : Counter
     initializeCounter(counter=fieldCounter)
-    for(oneEndField(board=board)){
+    for (oneEndField(board=board)){
       fieldCounter.increment()
     }
     blockCounter : Counter
     initializeCounter(counter=blockCounter)
-    for(oneBlock(board=board)){
+    for (oneBlock(board=board)){
       blockCounter.increment()
     }
-    if(!countersMatch(counter1=fieldCounter, counter2=blockCounter)) {
+    if (!countersMatch(counter1=fieldCounter, counter2=blockCounter)) {
       return false
     }
-    
     return true
   }
 
   operation move(figure:Figure, field:Field):EBoolean {
     this : SokobanValidator
-    return true
+    if (!isSokoban(figure=figure)) {
+      return false
+    }
+    if (moveSokobanUp(to=field)) {
+      return true
+    } else {
+      return false
+    }
   }
 }
-
