@@ -6,7 +6,7 @@ abstract rule moveSokoban {
 
   to: Field
 
-  sokokban: Sokoban {
+  sokoban: Sokoban {
     -- -field -> from
     ++ -field -> to
   }
