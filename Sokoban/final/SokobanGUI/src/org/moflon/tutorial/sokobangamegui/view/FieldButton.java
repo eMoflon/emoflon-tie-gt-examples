@@ -2,7 +2,7 @@ package org.moflon.tutorial.sokobangamegui.view;
 
 import javax.swing.JButton;
 
-import SokobanLanguage.Field;
+import SokobanRules.Field;
 
 /**
  * Custom button class (inherited from JButton).

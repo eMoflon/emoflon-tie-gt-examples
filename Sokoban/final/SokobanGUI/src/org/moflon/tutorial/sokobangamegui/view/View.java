@@ -36,10 +36,10 @@ import org.moflon.tutorial.sokobangamegui.view.actions.LoadSaveAction;
 import org.moflon.tutorial.sokobangamegui.view.actions.NewBoardAction;
 import org.moflon.tutorial.sokobangamegui.view.actions.PlayAction;
 
-import SokobanLanguage.Board;
-import SokobanLanguage.Field;
-import SokobanLanguage.Figure;
-import SokobanLanguage.SokobanLanguageFactory;
+import SokobanRules.Board;
+import SokobanRules.Field;
+import SokobanRules.Figure;
+import SokobanRules.SokobanRulesFactory;
 
 /**
  * Custom view class (inherited from JFrame). This represents the whole window
@@ -160,7 +160,7 @@ public class View extends JFrame {
 				public void actionPerformed(final ActionEvent e) {
 					/* Setup new connection between field and figure */
 					final FieldButton fieldButton = (FieldButton) figureMenu.getInvoker();
-					final Figure newFigure = (Figure) SokobanLanguageFactory.eINSTANCE.create(ec);
+					final Figure newFigure = (Figure) SokobanRulesFactory.eINSTANCE.create(ec);
 					controller.setFigure(fieldButton.getField(), newFigure);
 				}
 			});

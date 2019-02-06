@@ -1,8 +1,8 @@
 package org.moflon.tutorial.sokobangamegui.controller;
 
-import SokobanLanguage.Board;
-import SokobanLanguage.Field;
-import SokobanLanguage.SokobanLanguageFactory;
+import SokobanRules.Board;
+import SokobanRules.Field;
+import SokobanRules.SokobanRulesFactory;
 
 /**
  * The BoardCreator class has only a single, static function to create an
@@ -27,7 +27,7 @@ public class BoardCreator {
 	 */
 	public static Board createEmptyBoard(int width, int height) {
 		/* Setup tutorial factory and create board with given size */
-		SokobanLanguageFactory factory = SokobanLanguageFactory.eINSTANCE;
+		SokobanRulesFactory factory = SokobanRulesFactory.eINSTANCE;
 		Board board = factory.createBoard();
 		board.setWidth(width);
 		board.setHeight(height);

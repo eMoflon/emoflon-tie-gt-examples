@@ -11,10 +11,10 @@ import org.moflon.tutorial.sokobangamegui.rules.Result;
 import org.moflon.tutorial.sokobangamegui.rules.SokobanRules;
 import org.moflon.tutorial.sokobangamegui.view.View;
 
-import SokobanLanguage.Board;
-import SokobanLanguage.Field;
-import SokobanLanguage.Figure;
-import SokobanLanguage.SokobanLanguagePackage;
+import SokobanRules.Board;
+import SokobanRules.Field;
+import SokobanRules.Figure;
+import SokobanRules.SokobanRulesPackage;
 
 /**
  * This is the controller class which controls the board and view.
@@ -128,10 +128,10 @@ public class Controller {
 		List<EClass> result = new ArrayList<EClass>();
 		
 		/* Get template class type to compare with */
-		EClass elementClass = SokobanLanguagePackage.eINSTANCE.getFigure();
+		EClass elementClass = SokobanRulesPackage.eINSTANCE.getFigure();
 		
 		/* Iterate over all eMoflon classifiers to find the figure class types */
-		for (EClassifier c : SokobanLanguagePackage.eINSTANCE.getEClassifiers()) {
+		for (EClassifier c : SokobanRulesPackage.eINSTANCE.getEClassifiers()) {
 			/* Check if the current classifier matches the template class type */
 			if (c instanceof EClass) {
 				EClass figure = (EClass) c;

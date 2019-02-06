@@ -3,5 +3,6 @@
 <provider id="org.eclipse.egit.core.GitProvider">
 <project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,sokoban/final/SokobanGUI"/>
 <project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,sokoban/final/SokobanRules"/>
+<project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,sokoban/final/SokobanTests"/>
 </provider>
 </psf>

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import org.moflon.tutorial.sokobangamegui.view.View;
 
-import SokobanLanguage.Field;
+import SokobanRules.Field;
 
 /**
  * Custom action listener for field-selected action.
