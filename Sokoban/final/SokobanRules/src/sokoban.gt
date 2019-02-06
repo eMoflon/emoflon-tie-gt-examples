@@ -1,0 +1,57 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
+
+pattern oneSokoban {
+  board: Board
+
+  field: Field {
+    -board -> board
+    -figure -> sokoban
+  }
+
+  sokoban: Sokoban
+}
+
+pattern twoSokobans
+refines oneSokoban {
+  /* Reused from 'oneSokoban'
+   *  board: Board
+   *  field: Field {
+   *    -board -> board
+   *    -figure -> sokoban
+   *  }
+   *  sokoban: Sokoban
+   */
+  otherField: Field {
+    -board -> board
+    -figure -> otherSokoban
+  }
+
+  otherSokoban: Sokoban
+}
+
+pattern exactlyOneSokoban
+refines oneSokoban {
+    }
+when notAnotherSokoban
+
+condition notAnotherSokoban = forbid twoSokobans
+
+pattern oneBlock {
+  board: Board
+
+  field: Field {
+    -board -> board
+    -figure -> block
+  }
+
+  block: Block
+}
+
+pattern oneEndField {
+  board : Board
+  field : Field {
+    .endPos == true
+    -board-> board
+  }
+}

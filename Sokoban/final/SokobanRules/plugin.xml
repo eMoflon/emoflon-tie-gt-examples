@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?eclipse version="3.0"?><plugin>
   <extension point="org.eclipse.emf.ecore.generated_package">
-    <package class="SokobanLanguage.SokobanLanguagePackage" genModel="model/SokobanRules.genmodel" uri="platform:/plugin/SokobanLanguage/model/SokobanLanguage.ecore"/>
+    <package class="SokobanRules.SokobanRulesPackage" genModel="model/SokobanRules.genmodel" uri="platform:/plugin/SokobanRules/model/SokobanRules.ecore"/>
   </extension>
 </plugin>

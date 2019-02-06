@@ -1,0 +1,24 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
+
+using "sokoban.gt"
+
+class SokobanValidator {
+  operation validateBoard(board:Board):EBoolean {
+    this : SokobanValidator
+    if (!exactlyOneSokoban(board=board)) {
+      return false
+    }
+    if (!oneEndField(board=board)) {
+      return false
+    }
+    
+    return true
+  }
+
+  operation move(figure:Figure, field:Field):EBoolean {
+    this : SokobanValidator
+    return true
+  }
+}
+

@@ -1,8 +1,6 @@
-
-@GenModel(documentation="Meta-model for Sokoban")
-@namespace(uri="platform:/plugin/SokobanLanguage/model/SokobanLanguage.ecore", 
-           prefix="SokobanLanguage")
-package SokobanLanguage;
+@GenModel(documentation="TODO: Add documentation for Blup")
+@namespace(uri="platform:/plugin/SokobanRules/model/SokobanRules.ecore", prefix="SokobanRules")
+package SokobanRules;
 
 @GenModel(documentation="A board stores a grid of fields.")
 class Board {
@@ -47,13 +45,17 @@ class Boulder extends Figure  {
 class Block extends Boulder {   
 }
 
+@GenModel(documentation="Validates board states and moves")
 class SokobanValidator {
-    op EBoolean validateBoard(Board board);	
-    op EBoolean move(Figure figure, Field field);	
+    @GenModel(documentation="Returns true if the given Board is valid")
+    op EBoolean validateBoard(Board board);
+    @GenModel(documentation="Moves the figure to the field if
+                             possible and returns true iff the move was possible")        
+    op EBoolean move(Figure figure, Field field);        
 }
 
-class EIntContainer {
-    op void increment();
-    
-    attr EInt [1] value;	
+class Counter {
+	attr EInt[1] value;
+	op void increment();
+	op EBoolean equals(Counter other);
 }

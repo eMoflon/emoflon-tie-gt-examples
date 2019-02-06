@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="SokobanLanguage" nsURI="platform:/plugin/SokobanLanguage/model/SokobanLanguage.ecore"
-    nsPrefix="SokobanLanguage">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="SokobanRules" nsURI="platform:/plugin/SokobanRules/model/SokobanRules.ecore"
+    nsPrefix="SokobanRules">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-    <details key="documentation" value="Meta-model for Sokoban"/>
+    <details key="documentation" value="TODO: Add documentation for Blup"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Board">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -57,16 +57,28 @@
   <eClassifiers xsi:type="ecore:EClass" name="Boulder" eSuperTypes="#//Figure"/>
   <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//Boulder"/>
   <eClassifiers xsi:type="ecore:EClass" name="SokobanValidator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Validates board states and moves"/>
+    </eAnnotations>
     <eOperations name="validateBoard" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Returns true if the given Board is valid"/>
+      </eAnnotations>
       <eParameters name="board" eType="#//Board"/>
     </eOperations>
     <eOperations name="move" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Moves the figure to the field if&#xD;&#xA;                             possible and returns true iff the move was possible"/>
+      </eAnnotations>
       <eParameters name="figure" eType="#//Figure"/>
       <eParameters name="field" eType="#//Field"/>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EIntContainer">
+  <eClassifiers xsi:type="ecore:EClass" name="Counter">
     <eOperations name="increment"/>
+    <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="other" eType="#//Counter"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>
