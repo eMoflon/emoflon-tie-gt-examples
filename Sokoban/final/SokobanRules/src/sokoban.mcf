@@ -2,6 +2,7 @@ import "http://www.eclipse.org/emf/2002/Ecore"
 import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
 
 using "sokoban.gt"
+using "counter.gt"
 
 class SokobanValidator {
   operation validateBoard(board:Board):EBoolean {
@@ -10,6 +11,19 @@ class SokobanValidator {
       return false
     }
     if (!oneEndField(board=board)) {
+      return false
+    }
+    fieldCounter : Counter
+    initializeCounter(counter=fieldCounter)
+    for(oneEndField(board=board)){
+      fieldCounter.increment()
+    }
+    blockCounter : Counter
+    initializeCounter(counter=blockCounter)
+    for(oneBlock(board=board)){
+      blockCounter.increment()
+    }
+    if(!countersMatch(counter1=fieldCounter, counter2=blockCounter)) {
       return false
     }
     

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import SokobanRules.Block;
 import SokobanRules.Board;
 import SokobanRules.Field;
 import SokobanRules.Sokoban;
@@ -39,12 +40,30 @@ public class SokobanValidatorTest {
 	}
 
 	@Test
-	public void test_boardWithSokobanAndEndFieldValid() throws Exception {
-		final Field field = FACTORY.createField();
-		field.setEndPos(true);
-		board.getFields().add(field);
+	public void test_boardWithSokobanAndNoBlockAndEndFieldInValid() throws Exception {
+		final Field fieldWithSokoban = FACTORY.createField();
+		fieldWithSokoban.setEndPos(true);
+		board.getFields().add(fieldWithSokoban);
+
 		final Sokoban sokoban = FACTORY.createSokoban();
-		sokoban.setField(field);
+		sokoban.setField(fieldWithSokoban);
+		assertFalse(validator.validateBoard(board));
+	}
+
+	@Test
+	public void test_boardWithSokobanAndBlockAndEndFieldValid() throws Exception {
+		final Field fieldWithBlock = FACTORY.createField();
+		board.getFields().add(fieldWithBlock);
+
+		final Block block = FACTORY.createBlock();
+		fieldWithBlock.setFigure(block);
+
+		final Field fieldWithSokoban = FACTORY.createField();
+		fieldWithSokoban.setEndPos(true);
+		board.getFields().add(fieldWithSokoban);
+
+		final Sokoban sokoban = FACTORY.createSokoban();
+		sokoban.setField(fieldWithSokoban);
 		assertTrue(validator.validateBoard(board));
 	}
 
@@ -64,13 +83,4 @@ public class SokobanValidatorTest {
 		}
 		assertFalse(validator.validateBoard(board));
 	}
-
-//	@Test
-//	public void test_boardWithSokobanButNoEndFieldIsInvalid() throws Exception {
-//		final Field field = FACTORY.createField();
-//		board.getFields().add(field);
-//		final Sokoban sokoban = FACTORY.createSokoban();
-//		sokoban.setField(field);
-//		assertTrue(validator.validateBoard(board));
-//	}
 }

@@ -1,0 +1,31 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
+
+
+rule initializeCounter {
+  ++ counter : Counter {
+    .value := 0
+  }
+}
+
+pattern countersMatch {
+  counter1 : Counter
+  counter2 : Counter {
+    .value == counter1.value
+  }
+}
+
+rule incrementCounter {
+  counter : Counter
+  attributeCondition {
+    eqI(counter.value*, 1)
+  }
+}
+
+attributeConditionLibrary {
+  eqI (x : EInt, y :EInt) {
+    extend [F B] {
+      Java : '$x$ = $y$' 
+    }
+  }
+}

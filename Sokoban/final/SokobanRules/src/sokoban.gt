@@ -49,9 +49,23 @@ pattern oneBlock {
 }
 
 pattern oneEndField {
-  board : Board
-  field : Field {
+  board: Board
+
+  field: Field {
     .endPos == true
-    -board-> board
+    -board -> board
   }
+}
+
+pattern anOccupiedField {
+  figure: Figure
+
+  field: Field {
+    -figure -> figure
+  }
+}
+
+pattern boulderOnEndField
+refines oneEndField, anOccupiedField {
+  figure: Boulder
 }

@@ -54,8 +54,9 @@ class SokobanValidator {
     op EBoolean move(Figure figure, Field field);        
 }
 
+@GenModel(documentation="Holds an integer value ")
 class Counter {
 	attr EInt[1] value;
+    @GenModel(documentation="Increases the 'value' by one")	
 	op void increment();
-	op EBoolean equals(Counter other);
 }
