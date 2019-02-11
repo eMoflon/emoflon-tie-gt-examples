@@ -4,8 +4,10 @@
 <project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,EMoflonTieGtTestSuite"/>
 <project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,dyve-model"/>
 <project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,GraphOperations"/>
-<project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,Sokoban/SokobanGUI"/>
-<project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,Sokoban/SokobanLanguage"/>
+<project reference="1.0,https://github.com/eMoflon/emoflon-core-examples,master,org.moflon.example.basicemf"/>
+<project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,Sokoban/final/SokobanGUI"/>
+<project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,Sokoban/final/SokobanRules"/>
+<project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,Sokoban/final/SokobanTests"/>
 <project reference="1.0,https://github.com/eMoflon/emoflon-tie-gt-examples.git,master,test2"/>
 </provider>
 </psf>
