@@ -37,8 +37,17 @@ class SokobanValidator {
     }
     if (moveSokobanUp(to=field)) {
       return true
-    } else {
-      return false
     }
+    if (moveSokobanDown(to=field)) {
+      return true
+    }
+    if (moveSokobanRight(to=field)) {
+      return true
+    }
+    if (moveSokobanLeft(to=field)) {
+      return true
+    }
+    return false
   }
 }
+

@@ -1,6 +1,12 @@
 import "http://www.eclipse.org/emf/2002/Ecore"
 import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
 
+pattern isSokoban {
+  figure: Figure
+
+  sokoban: Sokoban:=figure
+}
+
 abstract rule moveSokoban {
   from: Field
 
@@ -19,8 +25,23 @@ refines moveSokoban {
   }
 }
 
-pattern isSokoban {
-  figure: Figure
+rule moveSokobanDown
+refines moveSokoban {
+  from: Field {
+    -bottom-> to
+  }
+}
 
-  sokoban: Sokoban:=figure
+rule moveSokobanRight
+refines moveSokoban {
+  from: Field {
+    -right-> to
+  }
+}
+
+rule moveSokobanLeft
+refines moveSokoban {
+  from: Field {
+    -left -> to
+  }
 }

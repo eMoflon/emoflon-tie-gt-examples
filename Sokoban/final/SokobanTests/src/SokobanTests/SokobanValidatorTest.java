@@ -1,5 +1,6 @@
 package SokobanTests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -126,10 +127,18 @@ public class SokobanValidatorTest {
 		field11.setBottom(field21);
 		field11.setRight(field12);
 		field12.setBottom(field22);
+		field21.setRight(field22);
 
 		final Sokoban sokoban = FACTORY.createSokoban();
 		sokoban.setField(field21);
 
 		assertTrue(validator.move(sokoban, field11));
+		assertEquals(field11, sokoban.getField());
+		assertTrue(validator.move(sokoban, field12));
+		assertEquals(field12, sokoban.getField());
+		assertTrue(validator.move(sokoban, field22));
+		assertEquals(field22, sokoban.getField());
+		assertTrue(validator.move(sokoban, field21));
+		assertEquals(field21, sokoban.getField());
 	}
 }
