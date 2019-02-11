@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: org.moflon.tie.gt.testsuite
 Require-Bundle: GraphOperations,
  test2,
- dyve-model;bundle-version="0.0.1"
+ dyve-model;bundle-version="0.0.1",
+ SokobanTests;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: EMoflonTieGtTestSuite
