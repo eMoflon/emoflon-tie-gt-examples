@@ -141,4 +141,33 @@ public class SokobanValidatorTest {
 		assertTrue(validator.move(sokoban, field21));
 		assertEquals(field21, sokoban.getField());
 	}
+
+	@Test
+	void test_moveSokobanWithNacs() throws Exception {
+		final Field field11 = FACTORY.createField();
+		board.getFields().add(field11);
+		final Field field12 = FACTORY.createField();
+		board.getFields().add(field12);
+		final Field field21 = FACTORY.createField();
+		board.getFields().add(field21);
+		final Field field22 = FACTORY.createField();
+		board.getFields().add(field22);
+
+		field11.setBottom(field21);
+		field11.setRight(field12);
+		field12.setBottom(field22);
+		field21.setRight(field22);
+
+		final Sokoban sokoban = FACTORY.createSokoban();
+		sokoban.setField(field21);
+		final Block block = FACTORY.createBlock();
+		block.setField(field22);
+		final Boulder boulder = FACTORY.createBoulder();
+		boulder.setField(field12);
+
+		assertTrue(validator.move(sokoban, field11));
+		assertEquals(field11, sokoban.getField());
+		assertFalse(validator.move(sokoban, field12));
+		assertEquals(field11, sokoban.getField());
+	}
 }

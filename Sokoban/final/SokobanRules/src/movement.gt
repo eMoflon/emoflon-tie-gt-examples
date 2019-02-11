@@ -24,20 +24,23 @@ refines moveSokoban {
     -top -> to
   }
 }
+when freeTo
 
 rule moveSokobanDown
 refines moveSokoban {
   from: Field {
-    -bottom-> to
+    -bottom -> to
   }
 }
+when freeTo
 
 rule moveSokobanRight
 refines moveSokoban {
   from: Field {
-    -right-> to
+    -right -> to
   }
 }
+when freeTo
 
 rule moveSokobanLeft
 refines moveSokoban {
@@ -45,3 +48,14 @@ refines moveSokoban {
     -left -> to
   }
 }
+when freeTo
+
+pattern occupiedField {
+  figure: Figure
+
+  to: Field {
+    -figure -> figure
+  }
+}
+
+condition freeTo = forbid occupiedField
