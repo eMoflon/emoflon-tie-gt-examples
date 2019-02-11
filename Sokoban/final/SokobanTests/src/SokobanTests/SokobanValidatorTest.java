@@ -115,6 +115,7 @@ public class SokobanValidatorTest {
 
 	@Test
 	void test_moveSokoban() throws Exception {
+		// Create a square
 		final Field field11 = FACTORY.createField();
 		board.getFields().add(field11);
 		final Field field12 = FACTORY.createField();
@@ -144,6 +145,7 @@ public class SokobanValidatorTest {
 
 	@Test
 	void test_moveSokobanWithNacs() throws Exception {
+		// Create a square
 		final Field field11 = FACTORY.createField();
 		board.getFields().add(field11);
 		final Field field12 = FACTORY.createField();

@@ -59,3 +59,56 @@ pattern occupiedField {
 }
 
 condition freeTo = forbid occupiedField
+
+pattern occupiedNext {
+  figure: Figure
+
+  next: Field {
+    -figure -> figure
+  }
+}
+
+condition freeNext = forbid occupiedNext
+
+abstract rule pushBlock {
+  to: Field
+
+  next: Field
+
+  block: Block {
+    -- -field -> to
+    ++ -field -> next
+  }
+}
+
+rule pushBlockUp
+refines pushBlock, moveSokobanUp {
+  to: Field {
+    -top -> next
+  }
+}
+when freeNext
+
+rule pushBlockDown
+refines pushBlock, moveSokobanDown {
+  to: Field {
+    -bottom -> next
+  }
+}
+when freeNext
+
+rule pushBlockLeft
+refines pushBlock, moveSokobanLeft {
+  to: Field {
+    -left -> next
+  }
+}
+when freeNext
+
+rule pushBlockRight
+refines pushBlock, moveSokobanRight {
+  to: Field {
+    -right -> next
+  }
+}
+when freeNext

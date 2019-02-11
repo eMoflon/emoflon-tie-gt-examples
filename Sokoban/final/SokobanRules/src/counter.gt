@@ -18,14 +18,55 @@ pattern countersMatch {
 rule incrementCounter {
   counter : Counter
   attributeCondition {
-    eqI(counter.value*, 1)
+    addI(counter.value*, counter.value, 1)
   }
 }
 
 attributeConditionLibrary {
-  eqI (x : EInt, y :EInt) {
-    extend [F B] {
-      Java : '$x$ = $y$' 
+  addI (result : EInt, x : EInt, y :EInt) {
+    extend [F B B] {
+      Java : '$result$ = $x$ + $y$' 
     }
+    extend [B F B] {
+      Java : '$x$ = $result$ - $y$' 
+    }
+  }
+  mulI (result : EInt, x : EInt, y :EInt) {
+    extend [F B B] {
+      Java : '$result$ = $x$ * $y$' 
+    }
+  }
+  subI(result : EInt, x : EInt, y :EInt) { 
+    extend [F B B] {
+      Java : '$result$ = $x$ - $y$' 
+    }
+  }
+}
+
+rule setCounter(value : EInt) {
+  counter : Counter {
+    .value := param::value
+  }
+}
+
+rule decrementCounter {
+  counter : Counter
+  attributeCondition {
+    //addI(counter.value, counter.value*, 1)
+    subI(counter.value*, counter.value, 1)
+  }
+}
+
+rule multiplyCounter() {
+  counter : Counter
+  n : Counter
+  attributeCondition {
+    mulI(counter.value*, counter.value, n.value)
+  }
+}
+
+pattern isPositive {
+  counter : Counter {
+    .value > 0
   }
 }

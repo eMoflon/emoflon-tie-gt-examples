@@ -60,3 +60,8 @@ class Counter {
     @GenModel(documentation="Increases the 'value' by one")	
 	op void increment();
 }
+
+class SokobanTutorialAppendix {
+    op void removeEndFieldsWithBlock(Board board);	
+    op EInt factorial(EInt n);
+}

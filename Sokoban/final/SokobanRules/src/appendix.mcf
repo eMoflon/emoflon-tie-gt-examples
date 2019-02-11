@@ -1,0 +1,33 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
+
+using "appendix.gt"
+using "counter.gt"
+
+class SokobanTutorialAppendix {
+  operation removeEndFieldsWithBlock(board:Board):void {
+    this : SokobanTutorialAppendix
+    block : Block
+    field : Field
+    while (hasEndFieldWithBlock(board=board, block=block, endField=field)) {
+      removeBlock(block=block)
+      makeRegularField(field=field)
+    }
+  }
+
+  operation factorial(n:EInt):EInt {
+    this : SokobanTutorialAppendix
+    counter : Counter
+    initializeCounter(counter=counter)
+    setCounter(counter=counter, value=n)
+    factorial : Counter
+    initializeCounter(counter=factorial)
+    setCounter(counter=factorial, value=1)
+    do {
+      multiplyCounter(counter=factorial, n=counter)
+      //decrementCounter(counter=counter) 
+    } while(isPositive(counter=counter))
+    return factorial.value
+  }
+}
+

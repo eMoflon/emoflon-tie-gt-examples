@@ -47,6 +47,18 @@ class SokobanValidator {
     if (moveSokobanLeft(to=field)) {
       return true
     }
+    if (pushBlockUp(to=field)) {
+      return true
+    }
+    if (pushBlockDown(to=field)) {
+      return true
+    }
+    if (pushBlockRight(to=field)) {
+      return true
+    }
+    if (pushBlockLeft(to=field)) {
+      return true
+    }
     return false
   }
 }

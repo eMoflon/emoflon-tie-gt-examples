@@ -1,0 +1,25 @@
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SokobanRules/model/SokobanRules.ecore"
+
+
+pattern hasEndFieldWithBlock {
+  field : Field {
+    .endPos == true
+  }
+  board : Board {
+    -fields-> field
+  }
+  block : Block {
+    -field-> field
+  }
+}
+
+rule removeBlock {
+  -- block : Block
+}
+
+rule makeRegularField {
+  field : Field {
+    .endPos := false
+  }
+}
