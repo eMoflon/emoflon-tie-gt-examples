@@ -25,9 +25,9 @@ class SokobanTutorialAppendix {
     setCounter(counter=factorial, value=1)
     do {
       multiplyCounter(counter=factorial, n=counter)
-      //decrementCounter(counter=counter) 
+      decrementCounter(counter=counter)  
     } while(isPositive(counter=counter))
-    return factorial.value
-  }
+    return factorial.value 
+  } 
 }
 
